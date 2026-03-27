@@ -2,6 +2,9 @@
 
 namespace SkywalkerLabs\LaravelLivewireTables\View\Traits\Helpers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\View\Factory;
+use Illuminate\View\View;
 use SkywalkerLabs\LaravelLivewireTables\View\Filter;
 
 trait FilterHelpers
@@ -158,7 +161,7 @@ trait FilterHelpers
         return array_merge($this->getGenericDisplayData(), ['filter' => $this]);
     }
 
-    public function render(): string|\Illuminate\Contracts\Foundation\Application|\Illuminate\View\View|\Illuminate\View\Factory
+    public function render(): string|Application|View|Factory
     {
         return view($this->getViewPath(), $this->getFilterDisplayData());
     }

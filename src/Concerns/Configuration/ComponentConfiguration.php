@@ -2,6 +2,8 @@
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration;
 
+use Illuminate\Contracts\View\View;
+
 trait ComponentConfiguration
 {
     public function setPrimaryKey(?string $key): self
@@ -24,7 +26,7 @@ trait ComponentConfiguration
     /**
      * Set a custom empty state view
      */
-    public function emptyState(string|\Illuminate\Contracts\View\View $view, array $data = []): self
+    public function emptyState(string|View $view, array $data = []): self
     {
         $this->customEmptyStateView = $view;
         $this->customEmptyStateData = $data;
@@ -221,7 +223,7 @@ trait ComponentConfiguration
     /**
      * Set a custom header view
      */
-    public function header(string|\Illuminate\Contracts\View\View $view, array $data = []): self
+    public function header(string|View $view, array $data = []): self
     {
         $this->customHeaderView = $view;
         $this->customHeaderData = $data;

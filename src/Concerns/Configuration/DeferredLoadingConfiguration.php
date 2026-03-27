@@ -24,6 +24,3 @@ trait DeferredLoadingConfiguration
         return $this;
     }
 }
-
-
-

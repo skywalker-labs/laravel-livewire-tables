@@ -2,7 +2,9 @@
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests;
 
+use Illuminate\View\ViewException;
 use Livewire\Livewire;
+use SkywalkerLabs\LaravelLivewireTables\Exceptions\NoColumnsException;
 use SkywalkerLabs\LaravelLivewireTables\Tests\Http\Livewire\FailingTables\NoColumnsTable;
 use SkywalkerLabs\LaravelLivewireTables\Tests\Http\Livewire\FailingTables\NoPrimaryKeyTable;
 use SkywalkerLabs\LaravelLivewireTables\Tests\Http\Livewire\PetsTable;
@@ -29,7 +31,7 @@ class DataTableComponentTest extends TestCase
 
     public function test_primary_key_has_to_be_set(): void
     {
-        $this->expectException(\Illuminate\View\ViewException::class);
+        $this->expectException(ViewException::class);
         Livewire::test(NoPrimaryKeyTable::class)
             ->call('setSearch', 'abcd');
     }
@@ -73,7 +75,7 @@ class DataTableComponentTest extends TestCase
 
     public function test_minimum_one_column_expected(): void
     {
-        $this->expectException(\SkywalkerLabs\LaravelLivewireTables\Exceptions\NoColumnsException::class);
+        $this->expectException(NoColumnsException::class);
         $table = new NoColumnsTable;
         $table->boot();
         $table->bootedComponentUtilities();

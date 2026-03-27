@@ -50,4 +50,3 @@ enum SortDirection: string
         };
     }
 }
-

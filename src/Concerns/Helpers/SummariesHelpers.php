@@ -26,9 +26,6 @@ trait SummariesHelpers
         return $this->summariesAreEnabled() && ! empty($this->summaryColumns);
     }
 
-    /**
-     * @return Collection
-     */
     public function getSummaryColumns(): Collection
     {
         return collect($this->summaryColumns);
@@ -47,4 +44,3 @@ trait SummariesHelpers
         return $column->calculateSummary($rows);
     }
 }
-

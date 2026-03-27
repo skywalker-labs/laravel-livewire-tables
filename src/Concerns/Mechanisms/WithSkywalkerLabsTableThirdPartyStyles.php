@@ -2,6 +2,8 @@
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Mechanisms;
 
+use Symfony\Component\HttpFoundation\Response;
+
 trait WithSkywalkerLabsTableThirdPartyStyles
 {
     /** SkywalkerLabs Third Party Styles */
@@ -21,7 +23,7 @@ trait WithSkywalkerLabsTableThirdPartyStyles
         $this->SkywalkerLabsTableThirdPartyStyleRoute = $route;
     }
 
-    public function returnSkywalkerLabsTableThirdPartyStylesAsFile(): \Symfony\Component\HttpFoundation\Response
+    public function returnSkywalkerLabsTableThirdPartyStylesAsFile(): Response
     {
         return $this->pretendResponseIsCSS(__DIR__.'/../../../resources/css/laravel-livewire-tables-thirdparty.min.css');
     }

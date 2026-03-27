@@ -4,7 +4,7 @@ namespace SkywalkerLabs\LaravelLivewireTables\View\Filters;
 
 use SkywalkerLabs\LaravelLivewireTables\View\Filter;
 use SkywalkerLabs\LaravelLivewireTables\View\Traits\Core\HasWireables;
-use SkywalkerLabs\LaravelLivewireTables\View\Traits\Filters\{HasOptions};
+use SkywalkerLabs\LaravelLivewireTables\View\Traits\Filters\HasOptions;
 
 class NumberRangeFilter extends Filter
 {

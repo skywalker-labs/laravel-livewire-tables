@@ -4,6 +4,9 @@ namespace SkywalkerLabs\LaravelLivewireTables\View\Columns;
 
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use SkywalkerLabs\LaravelLivewireTables\Exceptions\DataTableConfigurationException;
@@ -26,7 +29,7 @@ class DateColumn extends Column
 
     protected string $view = 'livewire-tables::includes.columns.date';
 
-    public function getContents(Model $row): null|string|\BackedEnum|HtmlString|DataTableConfigurationException|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function getContents(Model $row): null|string|\BackedEnum|HtmlString|DataTableConfigurationException|Application|Factory|View
     {
         try {
             $dateTime = $this->getValue($row);

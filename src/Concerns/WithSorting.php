@@ -20,6 +20,7 @@ trait WithSorting
 
     /**
      * Active sorts (column => direction)
+     *
      * @var array<string, string>
      */
     public array $sorts = [];

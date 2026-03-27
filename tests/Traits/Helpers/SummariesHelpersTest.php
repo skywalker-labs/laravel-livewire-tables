@@ -37,8 +37,8 @@ final class SummariesHelpersTest extends TestCase
     public function test_can_calculate_summary_for_column(): void
     {
         // Get rows first before adding column and convert to Collection
-        $rows = collect($this->basicTable->rows->all());
-        
+        $rows = collect($this->basicTable->getRows()->all());
+
         $column = Column::make('Age', 'age')->summary('sum');
         $this->basicTable->getColumns()->push($column);
 
@@ -51,8 +51,8 @@ final class SummariesHelpersTest extends TestCase
     public function test_can_calculate_average_summary(): void
     {
         // Get rows first before adding column and convert to Collection
-        $rows = collect($this->basicTable->rows->all());
-        
+        $rows = collect($this->basicTable->getRows()->all());
+
         $column = Column::make('Age', 'age')->summary('avg');
         $this->basicTable->getColumns()->push($column);
 
@@ -65,8 +65,8 @@ final class SummariesHelpersTest extends TestCase
     public function test_can_calculate_count_summary(): void
     {
         // Get rows first before adding column and convert to Collection
-        $rows = collect($this->basicTable->rows->all());
-        
+        $rows = collect($this->basicTable->getRows()->all());
+
         $column = Column::make('Name', 'name')->summary('count');
         $this->basicTable->getColumns()->push($column);
 
@@ -79,8 +79,8 @@ final class SummariesHelpersTest extends TestCase
     public function test_can_calculate_min_summary(): void
     {
         // Get rows first before adding column and convert to Collection
-        $rows = collect($this->basicTable->rows->all());
-        
+        $rows = collect($this->basicTable->getRows()->all());
+
         $column = Column::make('Age', 'age')->summary('min');
         $this->basicTable->getColumns()->push($column);
 
@@ -93,8 +93,8 @@ final class SummariesHelpersTest extends TestCase
     public function test_can_calculate_max_summary(): void
     {
         // Get rows first before adding column and convert to Collection
-        $rows = collect($this->basicTable->rows->all());
-        
+        $rows = collect($this->basicTable->getRows()->all());
+
         $column = Column::make('Age', 'age')->summary('max');
         $this->basicTable->getColumns()->push($column);
 
@@ -107,8 +107,8 @@ final class SummariesHelpersTest extends TestCase
     public function test_returns_null_for_column_without_summary(): void
     {
         // Get rows first before adding column and convert to Collection
-        $rows = collect($this->basicTable->rows->all());
-        
+        $rows = collect($this->basicTable->getRows()->all());
+
         $column = Column::make('Name', 'name'); // No summary
         $this->basicTable->getColumns()->push($column);
 
@@ -117,5 +117,3 @@ final class SummariesHelpersTest extends TestCase
         $this->assertNull($summary);
     }
 }
-
-

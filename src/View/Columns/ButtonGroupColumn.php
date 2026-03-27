@@ -2,7 +2,12 @@
 
 namespace SkywalkerLabs\LaravelLivewireTables\View\Columns;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\HtmlString;
+use SkywalkerLabs\LaravelLivewireTables\Exceptions\DataTableConfigurationException;
 use SkywalkerLabs\LaravelLivewireTables\View\Column;
 use SkywalkerLabs\LaravelLivewireTables\View\Traits\Configuration\ButtonGroupColumnConfiguration;
 use SkywalkerLabs\LaravelLivewireTables\View\Traits\Helpers\ButtonGroupColumnHelpers;
@@ -23,7 +28,7 @@ class ButtonGroupColumn extends Column
         $this->label(fn () => null);
     }
 
-    public function getContents(Model $row): null|string|\Illuminate\Support\HtmlString|\SkywalkerLabs\LaravelLivewireTables\Exceptions\DataTableConfigurationException|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function getContents(Model $row): null|string|HtmlString|DataTableConfigurationException|Application|Factory|View
     {
         return view($this->getView())
             ->withColumn($this)

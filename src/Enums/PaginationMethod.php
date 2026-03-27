@@ -37,4 +37,3 @@ enum PaginationMethod: string
         return $this === self::Cursor;
     }
 }
-

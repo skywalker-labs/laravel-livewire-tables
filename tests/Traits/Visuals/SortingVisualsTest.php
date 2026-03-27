@@ -196,14 +196,14 @@ final class SortingVisualsTest extends TestCase
     {
         // Test that sorting works without a custom callback (uses default field sorting)
         $nameColumn = Column::make('Name', 'name')->sortable();
-        
+
         Livewire::test(PetsTable::class)
             ->assertSeeInOrder($this->default10)
             ->call('setSort', 'name', 'desc')
             ->assertSeeInOrder($this->rsortNames);
-        
+
         // Verify the column doesn't have a custom sort callback
-        $table = new PetsTable();
+        $table = new PetsTable;
         $table->boot();
         $table->bootedComponentUtilities();
         $table->bootedWithData();

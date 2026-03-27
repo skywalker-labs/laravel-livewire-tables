@@ -33,5 +33,3 @@ final class DeferredLoadingConfigurationTest extends TestCase
         $this->assertTrue($this->basicTable->deferredLoadingIsDisabled());
     }
 }
-
-

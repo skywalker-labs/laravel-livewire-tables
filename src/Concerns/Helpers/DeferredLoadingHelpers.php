@@ -19,6 +19,3 @@ trait DeferredLoadingHelpers
         return ! $this->isDeferredLoading();
     }
 }
-
-
-

@@ -2,55 +2,58 @@
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Mechanisms;
 
+use Carbon\Carbon;
 use PHPUnit\Framework\Attributes\Depends;
 use SkywalkerLabs\LaravelLivewireTables\Assets\SkywalkerLabsFrontendAssets;
 use SkywalkerLabs\LaravelLivewireTables\Tests\TestCase;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class SkywalkerLabsFrontendAssetsTest extends TestCase
 {
-    public function test_JsResponseSetupCacheEnabled(): array
+    public function test_js_response_setup_cache_enabled(): array
     {
         config()->set('livewire-tables.cache_assets', true);
-        $lastModified = \Carbon\Carbon::now()->timestamp;
+        $lastModified = Carbon::now()->timestamp;
         $assets = app(SkywalkerLabsFrontendAssets::class);
         $response = $assets->returnSkywalkerLabsTableJavaScriptAsFile();
         $this->assertIsObject($response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\BinaryFileResponse::class, $response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\ResponseHeaderBag::class, $response->headers);
+        $this->assertInstanceOf(BinaryFileResponse::class, $response);
+        $this->assertInstanceOf(ResponseHeaderBag::class, $response->headers);
         $this->assertIsIterable($response->headers->all());
 
         return ['lastModified' => $lastModified, 'responseHeaders' => $response->headers->all()];
     }
 
-    public function test_JsResponseSetupCacheDisabled(): array
+    public function test_js_response_setup_cache_disabled(): array
     {
         config()->set('livewire-tables.cache_assets', false);
         $date = date_create();
         $assets = app(SkywalkerLabsFrontendAssets::class);
         $response = $assets->returnSkywalkerLabsTableJavaScriptAsFile();
         $this->assertIsObject($response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\BinaryFileResponse::class, $response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\ResponseHeaderBag::class, $response->headers);
+        $this->assertInstanceOf(BinaryFileResponse::class, $response);
+        $this->assertInstanceOf(ResponseHeaderBag::class, $response->headers);
         $this->assertIsIterable($response->headers->all());
 
         return ['lastModified' => date_timestamp_get($date), 'responseHeaders' => $response->headers->all()];
     }
 
-    public function test_CssResponseSetupCacheEnabled(): array
+    public function test_css_response_setup_cache_enabled(): array
     {
         config()->set('livewire-tables.cache_assets', true);
         $date = date_create();
         $assets = app(SkywalkerLabsFrontendAssets::class);
         $response = $assets->returnSkywalkerLabsTableStylesAsFile();
         $this->assertIsObject($response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\BinaryFileResponse::class, $response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\ResponseHeaderBag::class, $response->headers);
+        $this->assertInstanceOf(BinaryFileResponse::class, $response);
+        $this->assertInstanceOf(ResponseHeaderBag::class, $response->headers);
         $this->assertIsIterable($response->headers->all());
 
         return ['lastModified' => date_timestamp_get($date), 'responseHeaders' => $response->headers->all()];
     }
 
-    public function test_CssResponseSetupCacheDisabled(): array
+    public function test_css_response_setup_cache_disabled(): array
     {
         config()->set('livewire-tables.cache_assets', false);
 
@@ -59,14 +62,14 @@ class SkywalkerLabsFrontendAssetsTest extends TestCase
         $assets = app(SkywalkerLabsFrontendAssets::class);
         $response = $assets->returnSkywalkerLabsTableStylesAsFile();
         $this->assertIsObject($response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\BinaryFileResponse::class, $response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\ResponseHeaderBag::class, $response->headers);
+        $this->assertInstanceOf(BinaryFileResponse::class, $response);
+        $this->assertInstanceOf(ResponseHeaderBag::class, $response->headers);
         $this->assertIsIterable($response->headers->all());
 
         return ['lastModified' => date_timestamp_get($date), 'responseHeaders' => $response->headers->all()];
     }
 
-    public function test_ThirdPartyCssResponseSetupCacheEnabled(): array
+    public function test_third_party_css_response_setup_cache_enabled(): array
     {
         config()->set('livewire-tables.cache_assets', true);
 
@@ -75,14 +78,14 @@ class SkywalkerLabsFrontendAssetsTest extends TestCase
         $assets = app(SkywalkerLabsFrontendAssets::class);
         $response = $assets->returnSkywalkerLabsTableThirdPartyStylesAsFile();
         $this->assertIsObject($response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\BinaryFileResponse::class, $response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\ResponseHeaderBag::class, $response->headers);
+        $this->assertInstanceOf(BinaryFileResponse::class, $response);
+        $this->assertInstanceOf(ResponseHeaderBag::class, $response->headers);
         $this->assertIsIterable($response->headers->all());
 
         return ['lastModified' => date_timestamp_get($date), 'responseHeaders' => $response->headers->all()];
     }
 
-    public function test_ThirdPartyCssResponseSetupCacheDisabled(): array
+    public function test_third_party_css_response_setup_cache_disabled(): array
     {
         config()->set('livewire-tables.cache_assets', false);
 
@@ -91,36 +94,36 @@ class SkywalkerLabsFrontendAssetsTest extends TestCase
         $assets = app(SkywalkerLabsFrontendAssets::class);
         $response = $assets->returnSkywalkerLabsTableThirdPartyStylesAsFile();
         $this->assertIsObject($response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\BinaryFileResponse::class, $response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\ResponseHeaderBag::class, $response->headers);
+        $this->assertInstanceOf(BinaryFileResponse::class, $response);
+        $this->assertInstanceOf(ResponseHeaderBag::class, $response->headers);
         $this->assertIsIterable($response->headers->all());
 
         return ['lastModified' => date_timestamp_get($date), 'responseHeaders' => $response->headers->all()];
     }
 
-    public function test_ThirdPartyJsResponseSetupCacheEnabled(): array
+    public function test_third_party_js_response_setup_cache_enabled(): array
     {
         config()->set('livewire-tables.cache_assets', true);
-        $lastModified = \Carbon\Carbon::now()->timestamp;
+        $lastModified = Carbon::now()->timestamp;
         $assets = app(SkywalkerLabsFrontendAssets::class);
         $response = $assets->returnSkywalkerLabsTableThirdPartyJavaScriptAsFile();
         $this->assertIsObject($response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\BinaryFileResponse::class, $response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\ResponseHeaderBag::class, $response->headers);
+        $this->assertInstanceOf(BinaryFileResponse::class, $response);
+        $this->assertInstanceOf(ResponseHeaderBag::class, $response->headers);
         $this->assertIsIterable($response->headers->all());
 
         return ['lastModified' => $lastModified, 'responseHeaders' => $response->headers->all()];
     }
 
-    public function test_ThirdPartyJsResponseSetupCacheDisabled(): array
+    public function test_third_party_js_response_setup_cache_disabled(): array
     {
         config()->set('livewire-tables.cache_assets', false);
         $date = date_create();
         $assets = app(SkywalkerLabsFrontendAssets::class);
         $response = $assets->returnSkywalkerLabsTableThirdPartyJavaScriptAsFile();
         $this->assertIsObject($response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\BinaryFileResponse::class, $response);
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\ResponseHeaderBag::class, $response->headers);
+        $this->assertInstanceOf(BinaryFileResponse::class, $response);
+        $this->assertInstanceOf(ResponseHeaderBag::class, $response->headers);
         $this->assertIsIterable($response->headers->all());
 
         return ['lastModified' => date_timestamp_get($date), 'responseHeaders' => $response->headers->all()];
@@ -148,7 +151,7 @@ class SkywalkerLabsFrontendAssetsTest extends TestCase
         $this->assertTrue($assets->hasRenderedRappsoftTableScripts);
     }
 
-    public function test_thirdPartystyles()
+    public function test_third_partystyles()
     {
         $assets = app(SkywalkerLabsFrontendAssets::class);
 
@@ -159,7 +162,7 @@ class SkywalkerLabsFrontendAssetsTest extends TestCase
         $this->assertTrue($assets->hasRenderedRappsoftTableThirdPartyStyles);
     }
 
-    public function test_thirdPartyscripts()
+    public function test_third_partyscripts()
     {
         $assets = app(SkywalkerLabsFrontendAssets::class);
 

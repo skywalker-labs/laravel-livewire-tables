@@ -2,9 +2,12 @@
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Traits;
 
+use Illuminate\Pagination\CursorPaginator;
+use Illuminate\Pagination\Paginator;
 use SkywalkerLabs\LaravelLivewireTables\Exceptions\DataTableConfigurationException;
-use SkywalkerLabs\LaravelLivewireTables\Tests\TestCase;
 use SkywalkerLabs\LaravelLivewireTables\Tests\Http\Livewire\PetsTable;
+use SkywalkerLabs\LaravelLivewireTables\Tests\TestCase;
+use SkywalkerLabs\LaravelLivewireTables\View\Column;
 
 final class EdgeCasesTest extends TestCase
 {
@@ -12,8 +15,8 @@ final class EdgeCasesTest extends TestCase
     {
         $this->basicTable->setSearch('nonexistent_pet_name_xyz');
         $this->basicTable->applySearch();
-        
-        $rows = $this->basicTable->rows;
+
+        $rows = $this->basicTable->getRows();
         $this->assertSame(0, $rows->count());
         $this->assertSame([], $this->basicTable->paginationCurrentItems);
         $this->assertSame(0, $this->basicTable->paginationCurrentCount);
@@ -26,7 +29,7 @@ final class EdgeCasesTest extends TestCase
         $this->basicTable->setPerPage(-1);
         $rows = $this->basicTable->rows;
         $this->assertGreaterThan(0, $rows->count());
-        
+
         // Test with invalid per page value
         $this->basicTable->setPerPageAccepted([10, 25, 50]);
         $this->basicTable->updatedPerPage(99); // Invalid value
@@ -38,7 +41,7 @@ final class EdgeCasesTest extends TestCase
     {
         $this->basicTable->setBulkActions(['activate' => 'Activate']);
         $this->basicTable->setSelected([]);
-        
+
         $this->assertSame([], $this->basicTable->getSelected());
         $this->assertFalse($this->basicTable->getSelectAllStatus());
     }
@@ -48,9 +51,9 @@ final class EdgeCasesTest extends TestCase
         $this->basicTable->setBulkActions(['activate' => 'Activate']);
         $this->basicTable->setSelected([1, 2, 3]);
         $this->basicTable->setSelectAllEnabled();
-        
+
         $this->basicTable->updatedSearch('test');
-        
+
         $this->assertSame([], $this->basicTable->getSelected());
         $this->assertFalse($this->basicTable->getSelectAllStatus());
     }
@@ -60,9 +63,9 @@ final class EdgeCasesTest extends TestCase
         $this->basicTable->setBulkActions(['activate' => 'Activate']);
         $this->basicTable->setSelected([1, 2, 3]);
         $this->basicTable->setSelectAllEnabled();
-        
+
         $this->basicTable->updatedFilterComponents([1], 'breed');
-        
+
         $this->assertSame([], $this->basicTable->getSelected());
         $this->assertFalse($this->basicTable->getSelectAllStatus());
     }
@@ -70,7 +73,7 @@ final class EdgeCasesTest extends TestCase
     public function test_filters_with_empty_values(): void
     {
         $this->basicTable->updatedFilterComponents(null, 'breed');
-        
+
         // Should not throw exception
         $this->assertTrue(true);
     }
@@ -79,7 +82,7 @@ final class EdgeCasesTest extends TestCase
     {
         $this->basicTable->updatedFilterComponents(['invalid_id'], 'breed');
         $this->basicTable->applyFilters();
-        
+
         // Should handle gracefully
         $rows = $this->basicTable->rows;
         $this->assertIsIterable($rows);
@@ -90,7 +93,7 @@ final class EdgeCasesTest extends TestCase
         // Test that filter validation returning false is handled
         $this->basicTable->updatedFilterComponents('invalid', 'pet_name_filter');
         $this->basicTable->applyFilters();
-        
+
         // Should not throw exception
         $this->assertTrue(true);
     }
@@ -99,8 +102,8 @@ final class EdgeCasesTest extends TestCase
     {
         $this->basicTable->setSearch('nonexistent_pet_name_xyz');
         $this->basicTable->applySearch();
-        
-        $rows = $this->basicTable->rows;
+
+        $rows = $this->basicTable->getRows();
         // Should not throw exception when plucking from empty collection
         $this->assertSame([], $this->basicTable->paginationCurrentItems);
     }
@@ -108,20 +111,21 @@ final class EdgeCasesTest extends TestCase
     public function test_columns_with_missing_relationships(): void
     {
         // Create a table with a column that has invalid relationship
-        $table = new class extends PetsTable {
+        $table = new class extends PetsTable
+        {
             public function columns(): array
             {
                 return [
-                    \SkywalkerLabs\LaravelLivewireTables\View\Column::make('Invalid', 'nonexistent.field')
+                    Column::make('Invalid', 'nonexistent.field')
                         ->sortable(),
                 ];
             }
         };
-        
+
         $table->boot();
         $table->bootedComponentUtilities();
         $table->bootedWithData();
-        
+
         // Should handle gracefully or throw appropriate exception
         try {
             $table->bootedWithColumns();
@@ -136,37 +140,37 @@ final class EdgeCasesTest extends TestCase
     public function test_pagination_method_validation(): void
     {
         $this->expectException(DataTableConfigurationException::class);
-        
+
         $reflection = new \ReflectionClass($this->basicTable);
         $method = $reflection->getMethod('setPaginationMethod');
         $method->setAccessible(true);
         $method->invoke($this->basicTable, 'invalid_method');
-        
-        $this->basicTable->rows;
+
+        $this->basicTable->getRows();
     }
 
     public function test_simple_pagination_without_total_count(): void
     {
         $this->basicTable->setPaginationMethod('simple');
         $this->basicTable->setShouldRetrieveTotalItemCountDisabled();
-        
-        $rows = $this->basicTable->rows;
-        $this->assertInstanceOf(\Illuminate\Pagination\Paginator::class, $rows);
+
+        $rows = $this->basicTable->getRows();
+        $this->assertInstanceOf(Paginator::class, $rows);
         $this->assertSame(-1, $this->basicTable->paginationTotalItemCount);
     }
 
     public function test_cursor_pagination(): void
     {
         $this->basicTable->setPaginationMethod('cursor');
-        
-        $rows = $this->basicTable->rows;
-        $this->assertInstanceOf(\Illuminate\Pagination\CursorPaginator::class, $rows);
+
+        $rows = $this->basicTable->getRows();
+        $this->assertInstanceOf(CursorPaginator::class, $rows);
     }
 
     public function test_reordering_disables_other_features(): void
     {
         $this->basicTable->enableReordering();
-        
+
         $this->assertFalse($this->basicTable->sortingIsEnabled());
         $this->assertFalse($this->basicTable->paginationIsEnabled());
         $this->assertFalse($this->basicTable->searchIsEnabled());
@@ -180,13 +184,13 @@ final class EdgeCasesTest extends TestCase
         $this->basicTable->setSearch('test');
         $this->basicTable->setSort('id', 'asc');
         $this->basicTable->setSelected([1, 2]);
-        
+
         // Enable reordering (should backup state)
         $this->basicTable->enableReordering();
-        
+
         // Disable reordering (should restore state)
         $this->basicTable->disableReordering();
-        
+
         // State should be restored
         $this->assertSame('test', $this->basicTable->getSearch());
         $this->assertSame(['id' => 'asc'], $this->basicTable->getSorts());
@@ -195,24 +199,25 @@ final class EdgeCasesTest extends TestCase
 
     public function test_search_with_no_searchable_columns(): void
     {
-        $table = new class extends PetsTable {
+        $table = new class extends PetsTable
+        {
             public function columns(): array
             {
                 return [
-                    \SkywalkerLabs\LaravelLivewireTables\View\Column::make('ID', 'id'),
-                    \SkywalkerLabs\LaravelLivewireTables\View\Column::make('Name'),
+                    Column::make('ID', 'id'),
+                    Column::make('Name'),
                 ];
             }
         };
-        
+
         $table->boot();
         $table->bootedComponentUtilities();
         $table->bootedWithData();
         $table->bootedWithColumns();
-        
+
         $table->setSearch('test');
         $table->applySearch();
-        
+
         // Should not throw exception
         $rows = $table->rows;
         $this->assertIsIterable($rows);
@@ -220,24 +225,25 @@ final class EdgeCasesTest extends TestCase
 
     public function test_sorting_with_no_sortable_columns(): void
     {
-        $table = new class extends PetsTable {
+        $table = new class extends PetsTable
+        {
             public function columns(): array
             {
                 return [
-                    \SkywalkerLabs\LaravelLivewireTables\View\Column::make('ID', 'id'),
-                    \SkywalkerLabs\LaravelLivewireTables\View\Column::make('Name'),
+                    Column::make('ID', 'id'),
+                    Column::make('Name'),
                 ];
             }
         };
-        
+
         $table->boot();
         $table->bootedComponentUtilities();
         $table->bootedWithData();
         $table->bootedWithColumns();
-        
+
         $table->setSort('id', 'asc');
         $table->applySorting();
-        
+
         // Should not throw exception
         $rows = $table->rows;
         $this->assertIsIterable($rows);
@@ -246,8 +252,8 @@ final class EdgeCasesTest extends TestCase
     public function test_pagination_current_items_with_different_primary_key_types(): void
     {
         // Test that pluck works with different primary key types
-        $rows = $this->basicTable->rows;
-        
+        $rows = $this->basicTable->getRows();
+
         // Should have array of primary keys
         $this->assertIsArray($this->basicTable->paginationCurrentItems);
         $this->assertSame(count($rows), count($this->basicTable->paginationCurrentItems));
@@ -259,7 +265,7 @@ final class EdgeCasesTest extends TestCase
         $method = $reflection->getMethod('setExtraWiths');
         $method->setAccessible(true);
         $method->invoke($this->basicTable, ['nonexistent_relation']);
-        
+
         // Should handle gracefully
         try {
             $this->basicTable->rows;
@@ -274,7 +280,7 @@ final class EdgeCasesTest extends TestCase
     {
         $this->basicTable->setSearch("test' OR '1'='1");
         $this->basicTable->setQueryStringEnabled();
-        
+
         // Should handle special characters in search
         $this->basicTable->applySearch();
         $rows = $this->basicTable->rows;
@@ -286,9 +292,9 @@ final class EdgeCasesTest extends TestCase
         $this->basicTable->setExcludeDeselectedColumnsFromQueryEnabled();
         // Use the actual selectedColumns property
         $this->basicTable->selectedColumns = ['id', 'name'];
-        
-        $rows = $this->basicTable->rows;
-        
+
+        $rows = $this->basicTable->getRows();
+
         // Should only select specified columns
         $this->assertIsIterable($rows);
     }
@@ -297,11 +303,11 @@ final class EdgeCasesTest extends TestCase
     {
         $this->basicTable->setSearch('nonexistent_pet_name_xyz');
         $this->basicTable->applySearch();
-        
+
         $view = view('livewire-tables::datatable');
         $this->basicTable->renderingWithPagination($view, []);
         $this->basicTable->renderingWithData($view, []);
-        
+
         // Should render without errors
         $this->assertTrue(true);
     }
@@ -313,7 +319,7 @@ final class EdgeCasesTest extends TestCase
         // Verify filter was set
         $this->assertArrayHasKey('breed', $this->basicTable->filterComponents);
         $this->assertSame([1], $this->basicTable->filterComponents['breed']);
-        
+
         // Set empty value - should reset filter to default value
         $this->basicTable->updatedFilterComponents([], 'breed');
         // resetFilter sets filter to default value (empty array for MultiSelectFilter)
@@ -326,7 +332,7 @@ final class EdgeCasesTest extends TestCase
     {
         $this->basicTable->setTrimSearchStringEnabled();
         $this->basicTable->updatedSearch('   ');
-        
+
         $this->assertSame('', $this->basicTable->getSearch());
     }
 }

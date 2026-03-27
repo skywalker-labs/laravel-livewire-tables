@@ -18,4 +18,3 @@ trait WithGrouping
 
     protected array $expandedGroups = [];
 }
-

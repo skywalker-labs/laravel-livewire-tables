@@ -6,7 +6,7 @@ use SkywalkerLabs\LaravelLivewireTables\Tests\TestCase;
 
 final class WithSortingTest extends TestCase
 {
-    public function test_cannot_call_sortBy_if_sorting_is_disabled(): void
+    public function test_cannot_call_sort_by_if_sorting_is_disabled(): void
     {
         $this->assertSame($this->basicTable->sortBy('id'), 'asc');
 
@@ -73,7 +73,7 @@ final class WithSortingTest extends TestCase
         $this->basicTable->clearSorts();
         $this->basicTable->sortBy('breed.name');
         $this->assertSame($this->basicTable->getSorts(), ['breed.name' => 'asc']);
-        
+
         $this->basicTable->applySorting();
         $sql = $this->basicTable->getBuilder()->toSql();
         // Should use the callback which orders by pets.id
@@ -84,7 +84,7 @@ final class WithSortingTest extends TestCase
     {
         $this->basicTable->setSort('id', 'invalid');
         $this->basicTable->applySorting();
-        
+
         // Should default to asc without throwing exception
         $sql = $this->basicTable->getBuilder()->toSql();
         $this->assertStringContainsStringIgnoringCase('order by', $sql);
@@ -94,7 +94,7 @@ final class WithSortingTest extends TestCase
     {
         $this->basicTable->setSort('nonexistent_column', 'asc');
         $this->basicTable->applySorting();
-        
+
         // Should handle gracefully without throwing exception
         $this->assertTrue(true);
     }
@@ -104,7 +104,7 @@ final class WithSortingTest extends TestCase
         $this->basicTable->clearSorts();
         $this->basicTable->setDefaultSort('id', 'desc');
         $this->basicTable->applySorting();
-        
+
         $sql = $this->basicTable->getBuilder()->toSql();
         $this->assertStringContainsStringIgnoringCase('order by', $sql);
         $this->assertStringContainsStringIgnoringCase('"id"', $sql);
@@ -115,7 +115,7 @@ final class WithSortingTest extends TestCase
         $this->basicTable->setSort('name', 'asc');
         $this->basicTable->setDefaultSort('id', 'desc');
         $this->basicTable->applySorting();
-        
+
         $sql = $this->basicTable->getBuilder()->toSql();
         // Should use 'name' not 'id'
         $this->assertStringContainsStringIgnoringCase('"name"', $sql);

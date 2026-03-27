@@ -2,6 +2,7 @@
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Traits\Configuration;
 
+use Livewire\Exceptions\PropertyNotFoundException;
 use PHPUnit\Framework\Attributes\Depends;
 use SkywalkerLabs\LaravelLivewireTables\Tests\TestCase;
 
@@ -12,9 +13,9 @@ final class ColumnSelectConfigurationTest extends TestCase
         $this->assertIsArray($this->basicTable->selectedColumns);
     }
 
-    public function test_check_protected_fields_columnSelectStatus(): void
+    public function test_check_protected_fields_column_select_status(): void
     {
-        $this->expectException(\Livewire\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
         $this->assertIsBool($this->basicTable->columnSelectStatus);
     }
 

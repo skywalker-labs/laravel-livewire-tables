@@ -27,7 +27,7 @@ final class DataTableComponentGlobalSettingsTest extends TestCase
             $this->assertInstanceOf(DataTableComponent::class, $table);
         });
 
-        $table = new PetsTable();
+        $table = new PetsTable;
         $table->boot();
         $table->bootedComponentUtilities();
 
@@ -40,11 +40,11 @@ final class DataTableComponentGlobalSettingsTest extends TestCase
             $table->poll('30s');
         });
 
-        $table1 = new PetsTable();
+        $table1 = new PetsTable;
         $table1->boot();
         $table1->bootedComponentUtilities();
 
-        $table2 = new PetsTable();
+        $table2 = new PetsTable;
         $table2->boot();
         $table2->bootedComponentUtilities();
 
@@ -59,7 +59,7 @@ final class DataTableComponentGlobalSettingsTest extends TestCase
             $table->poll('30s');
         });
 
-        $table = new PetsTable();
+        $table = new PetsTable;
         $table->boot();
         $table->bootedComponentUtilities();
 
@@ -81,7 +81,8 @@ final class DataTableComponentGlobalSettingsTest extends TestCase
         });
 
         // Create a table that sets poll in configure
-        $table = new class extends PetsTable {
+        $table = new class extends PetsTable
+        {
             public function configure(): void
             {
                 parent::configure();
@@ -96,5 +97,3 @@ final class DataTableComponentGlobalSettingsTest extends TestCase
         $this->assertSame('10000', $table->refreshStatus());
     }
 }
-
-

@@ -2,6 +2,7 @@
 
 namespace SkywalkerLabs\LaravelLivewireTables\Events;
 
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Event;
 use SkywalkerLabs\LaravelLivewireTables\Events\FilterApplied;
 use SkywalkerLabs\LaravelLivewireTables\Tests\TestCase;
@@ -49,7 +50,7 @@ final class FilterAppliedTest extends TestCase
     {
         Event::fake();
 
-        $user = new \Illuminate\Foundation\Auth\User;
+        $user = new User;
         $user->id = '1234';
         $user->name = 'Bob';
         $this->actingAs($user);

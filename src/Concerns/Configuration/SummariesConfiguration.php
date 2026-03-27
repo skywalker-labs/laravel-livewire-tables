@@ -25,6 +25,3 @@ trait SummariesConfiguration
         return $this;
     }
 }
-
-
-

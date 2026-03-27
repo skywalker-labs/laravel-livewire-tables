@@ -6,9 +6,9 @@ namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Locked;
-use SkywalkerLabs\LaravelLivewireTables\Events\SearchApplied;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration\SearchConfiguration;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers\SearchHelpers;
+use SkywalkerLabs\LaravelLivewireTables\Events\SearchApplied;
 
 /**
  * Search functionality for DataTableComponent
@@ -43,14 +43,20 @@ trait WithSearch
      * Search filter input configurations
      */
     protected ?bool $searchFilterBlur = null;
+
     protected ?int $searchFilterDebounce = null;
+
     protected ?bool $searchFilterDefer = null;
+
     protected ?bool $searchFilterLazy = null;
+
     protected ?bool $searchFilterLive = null;
+
     protected ?int $searchFilterThrottle = null;
 
     /**
      * Custom attributes for search field
+     *
      * @var array<string, mixed>
      */
     protected array $searchFieldAttributes = [];

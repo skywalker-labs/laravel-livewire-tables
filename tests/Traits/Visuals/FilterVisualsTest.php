@@ -2,10 +2,16 @@
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Traits\Visuals;
 
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Livewire;
 use SkywalkerLabs\LaravelLivewireTables\Tests\Http\Livewire\PetsTable;
 use SkywalkerLabs\LaravelLivewireTables\Tests\Http\Livewire\PetsTableNoFilters;
+use SkywalkerLabs\LaravelLivewireTables\Tests\Models\Breed;
+use SkywalkerLabs\LaravelLivewireTables\Tests\Models\Species;
 use SkywalkerLabs\LaravelLivewireTables\Tests\TestCase;
+use SkywalkerLabs\LaravelLivewireTables\View\Filters\MultiSelectDropdownFilter;
+use SkywalkerLabs\LaravelLivewireTables\View\Filters\MultiSelectFilter;
+use SkywalkerLabs\LaravelLivewireTables\View\Filters\TextFilter;
 
 final class FilterVisualsTest extends TestCase
 {
@@ -49,14 +55,14 @@ final class FilterVisualsTest extends TestCase
             ->assertSee('Applied Filters');
     }
 
-    public function test_event_dispatched_when_filterComponents_set(): void
+    public function test_event_dispatched_when_filter_components_set(): void
     {
         Livewire::test(PetsTable::class)
             ->set('filterComponents.breed', [1])
             ->assertDispatched('filter-was-set');
     }
 
-    public function test_event_dispatched_when_setFilter_dispatched(): void
+    public function test_event_dispatched_when_set_filter_dispatched(): void
     {
         Livewire::test(PetsTable::class)
             ->dispatch('setFilter', filterKey: 'breed', value: [1])
@@ -113,34 +119,34 @@ final class FilterVisualsTest extends TestCase
             public function filters(): array
             {
                 return [
-                    \SkywalkerLabs\LaravelLivewireTables\View\Filters\MultiSelectFilter::make('Breed')
+                    MultiSelectFilter::make('Breed')
                         ->options(
-                            \SkywalkerLabs\LaravelLivewireTables\Tests\Models\Breed::query()
+                            Breed::query()
                                 ->orderBy('name')
                                 ->get()
                                 ->keyBy('id')
                                 ->map(fn ($breed) => $breed->name)
                                 ->toArray()
                         )
-                        ->filter(function (\Illuminate\Database\Eloquent\Builder $builder, array $values) {
+                        ->filter(function (Builder $builder, array $values) {
                             return $builder->whereIn('pets.breed_id', $values);
                         }),
-                    \SkywalkerLabs\LaravelLivewireTables\View\Filters\MultiSelectDropdownFilter::make('Species')
+                    MultiSelectDropdownFilter::make('Species')
                         ->options(
-                            \SkywalkerLabs\LaravelLivewireTables\Tests\Models\Species::query()
+                            Species::query()
                                 ->orderBy('name')
                                 ->get()
                                 ->keyBy('id')
                                 ->map(fn ($species) => $species->name)
                                 ->toArray()
                         )
-                        ->filter(function (\Illuminate\Database\Eloquent\Builder $builder, array $values) {
+                        ->filter(function (Builder $builder, array $values) {
                             return $builder->whereIn('pets.species_id', $values);
                         })
                         ->setPillsSeparator('<br />'),
 
-                    \SkywalkerLabs\LaravelLivewireTables\View\Filters\TextFilter::make('Pet Name', 'pet_name_filter')
-                        ->filter(function (\Illuminate\Database\Eloquent\Builder $builder, string $value) {
+                    TextFilter::make('Pet Name', 'pet_name_filter')
+                        ->filter(function (Builder $builder, string $value) {
                             return $builder->where('pets.name', '=', $value);
                         }),
                 ];

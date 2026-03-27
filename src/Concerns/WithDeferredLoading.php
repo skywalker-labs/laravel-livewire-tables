@@ -12,6 +12,3 @@ trait WithDeferredLoading
 
     protected bool $deferLoading = false;
 }
-
-
-

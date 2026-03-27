@@ -2,28 +2,23 @@
 
 namespace SkywalkerLabs\LaravelLivewireTables;
 
+use Composer\InstalledVersions;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\ServiceProvider;
 use Livewire\ComponentHookRegistry;
-use SkywalkerLabs\LaravelLivewireTables\Console\MakeTableCommand;
 use SkywalkerLabs\LaravelLivewireTables\Assets\AutoInjectSkywalkerLabsAssets;
 use SkywalkerLabs\LaravelLivewireTables\Assets\SkywalkerLabsFrontendAssets;
+use SkywalkerLabs\LaravelLivewireTables\Console\MakeTableCommand;
 
 class LaravelLivewireTablesServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
 
-        if (class_exists(AboutCommand::class) && class_exists(\Composer\InstalledVersions::class)) {
-            try {
-                AboutCommand::add('SkywalkerLabs Laravel Livewire Tables', [
-                    'Version' => \Composer\InstalledVersions::getPrettyVersion('SkywalkerLabs/laravel-livewire-tables'),
-                ]);
-            } catch (\OutOfBoundsException $e) {
-                AboutCommand::add('SkywalkerLabs Laravel Livewire Tables', [
-                    'Version' => 'Development',
-                ]);
-            }
+        if (class_exists(AboutCommand::class) && class_exists(InstalledVersions::class)) {
+            AboutCommand::add('SkywalkerLabs Laravel Livewire Tables', [
+                'Version' => InstalledVersions::getPrettyVersion('SkywalkerLabs/laravel-livewire-tables'),
+            ]);
         }
 
         $this->mergeConfigFrom(

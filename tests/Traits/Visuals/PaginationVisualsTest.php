@@ -4,7 +4,7 @@ namespace SkywalkerLabs\LaravelLivewireTables\Tests\Traits\Visuals;
 
 use Livewire\Livewire;
 use SkywalkerLabs\LaravelLivewireTables\Exceptions\DataTableConfigurationException;
-use SkywalkerLabs\LaravelLivewireTables\Tests\Http\Livewire\{PetsTable};
+use SkywalkerLabs\LaravelLivewireTables\Tests\Http\Livewire\PetsTable;
 use SkywalkerLabs\LaravelLivewireTables\Tests\TestCase;
 
 final class PaginationVisualsTest extends TestCase

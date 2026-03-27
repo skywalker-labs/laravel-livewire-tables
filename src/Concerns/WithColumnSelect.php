@@ -2,10 +2,11 @@
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 
+use Illuminate\View\View;
 use Livewire\Attributes\Locked;
-use SkywalkerLabs\LaravelLivewireTables\Events\ColumnsSelected;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration\ColumnSelectConfiguration;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers\ColumnSelectHelpers;
+use SkywalkerLabs\LaravelLivewireTables\Events\ColumnsSelected;
 use SkywalkerLabs\LaravelLivewireTables\View\Column;
 
 trait WithColumnSelect
@@ -63,7 +64,7 @@ trait WithColumnSelect
         }
     }
 
-    public function renderingWithColumnSelect(\Illuminate\View\View $view, array $data = []): void
+    public function renderingWithColumnSelect(View $view, array $data = []): void
     {
         if (! $this->getComputedPropertiesStatus()) {
             $view->with([

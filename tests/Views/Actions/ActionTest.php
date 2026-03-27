@@ -3,6 +3,7 @@
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Views\Actions;
 
 use Illuminate\View\ComponentAttributeBag;
+use SkywalkerLabs\LaravelLivewireTables\Concerns\WithActions;
 use SkywalkerLabs\LaravelLivewireTables\Exceptions\DataTableConfigurationException;
 use SkywalkerLabs\LaravelLivewireTables\Tests\Http\Livewire\{PetsTable,PetsTableAttributes};
 use SkywalkerLabs\LaravelLivewireTables\Tests\Models\Pet;
@@ -54,7 +55,7 @@ final class ActionTest extends TestCase
         $this->assertFalse($action->hasIcon());
 
         $action->setIconAttributes(['class' => 'font-sm text-sm']);
-        $bag = new \Illuminate\View\ComponentAttributeBag(['default-styling' => true, 'class' => 'font-sm text-sm']);
+        $bag = new ComponentAttributeBag(['default-styling' => true, 'class' => 'font-sm text-sm']);
 
         $this->assertSame($bag->getAttributes(), $action->getIconAttributes()->getAttributes());
         $this->assertSame(['default-styling' => true, 'class' => 'font-sm text-sm'], $action->iconAttributes);
@@ -199,7 +200,7 @@ final class ActionTest extends TestCase
     {
         $petsTable = (new class extends PetsTable
         {
-            use \SkywalkerLabs\LaravelLivewireTables\Concerns\WithActions;
+            use WithActions;
 
             public function configure(): void
             {
@@ -265,12 +266,12 @@ final class ActionTest extends TestCase
     {
         $petsTable = (new class extends PetsTable
         {
-            use \SkywalkerLabs\LaravelLivewireTables\Concerns\WithActions;
+            use WithActions;
 
             public function actions(): array
             {
                 return [
-                    \SkywalkerLabs\LaravelLivewireTables\View\Actions\Action::make('Test Edit 1')
+                    Action::make('Test Edit 1')
                         ->setRoute('dashboard24'),
                 ];
             }

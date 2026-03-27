@@ -10,8 +10,8 @@ final class WithSearchTest extends TestCase
     {
         $this->basicTable->setSearch('Cartman');
         $this->basicTable->applySearch();
-        
-        $rows = $this->basicTable->rows;
+
+        $rows = $this->basicTable->getRows();
         $this->assertGreaterThan(0, $rows->count());
         $this->assertTrue($rows->first()->name === 'Cartman');
     }
@@ -20,8 +20,8 @@ final class WithSearchTest extends TestCase
     {
         $this->basicTable->setSearch('Norwegian');
         $this->basicTable->applySearch();
-        
-        $rows = $this->basicTable->rows;
+
+        $rows = $this->basicTable->getRows();
         // Search callback should be applied - check that query was modified
         $sql = $this->basicTable->getBuilder()->toSql();
         $this->assertStringContainsStringIgnoringCase('breed.name', $sql);
@@ -32,9 +32,9 @@ final class WithSearchTest extends TestCase
         $this->basicTable->setBulkActions(['activate' => 'Activate']);
         $this->basicTable->setSelected([1, 2, 3]);
         $this->assertSame([1, 2, 3], $this->basicTable->getSelected());
-        
+
         $this->basicTable->updatedSearch('abcd');
-        
+
         $this->assertSame([], $this->basicTable->getSelected());
         $this->assertFalse($this->basicTable->getSelectAllStatus());
     }
@@ -43,7 +43,7 @@ final class WithSearchTest extends TestCase
     {
         $this->basicTable->setSearch('test');
         $this->assertSame('test', $this->basicTable->getSearch());
-        
+
         $this->basicTable->updatedSearch('');
         $this->assertSame('', $this->basicTable->getSearch());
     }
@@ -52,7 +52,7 @@ final class WithSearchTest extends TestCase
     {
         $this->basicTable->setSearch('test');
         $this->assertSame('test', $this->basicTable->getSearch());
-        
+
         $this->basicTable->updatedSearch(null);
         $this->assertSame('', $this->basicTable->getSearch());
     }
@@ -61,7 +61,7 @@ final class WithSearchTest extends TestCase
     {
         $this->basicTable->setSearch("test' OR '1'='1");
         $this->basicTable->applySearch();
-        
+
         // Should not throw exception and handle safely
         $this->assertIsArray($this->basicTable->rows->toArray());
     }
@@ -70,7 +70,7 @@ final class WithSearchTest extends TestCase
     {
         $this->basicTable->setTrimSearchStringEnabled();
         $this->basicTable->updatedSearch('  Cartman  ');
-        
+
         $this->assertSame('Cartman', $this->basicTable->getSearch());
     }
 
@@ -79,7 +79,7 @@ final class WithSearchTest extends TestCase
         $this->basicTable->setTrimSearchStringDisabled();
         // Set search directly since updatedSearch always trims if enabled
         $this->basicTable->search = '  Cartman  ';
-        
+
         $this->assertSame('  Cartman  ', $this->basicTable->getSearch());
     }
 
@@ -88,7 +88,7 @@ final class WithSearchTest extends TestCase
         $this->basicTable->setSearchDisabled();
         $this->basicTable->setSearch('Cartman');
         $this->basicTable->applySearch();
-        
+
         // Should return all rows, not filtered
         $rows = $this->basicTable->rows;
         $this->assertGreaterThan(1, $rows->count());
@@ -98,7 +98,7 @@ final class WithSearchTest extends TestCase
     {
         $this->basicTable->setEventStatus('searchApplied', false);
         $this->basicTable->setSearch('test');
-        
+
         // Should not throw exception
         $this->basicTable->applySearch();
         $this->assertTrue(true);

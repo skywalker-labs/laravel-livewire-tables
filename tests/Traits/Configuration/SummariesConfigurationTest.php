@@ -44,5 +44,3 @@ final class SummariesConfigurationTest extends TestCase
         $this->assertFalse($this->basicTable->getSummariesStatus());
     }
 }
-
-

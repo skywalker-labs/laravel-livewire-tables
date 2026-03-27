@@ -2,8 +2,8 @@
 
 namespace SkywalkerLabs\LaravelLivewireTables\View\Traits\Filters;
 
-use SkywalkerLabs\LaravelLivewireTables\View\Traits\Core\HasVisibility as HasCoreVisibility;
 use SkywalkerLabs\LaravelLivewireTables\View\{Column,Filter};
+use SkywalkerLabs\LaravelLivewireTables\View\Traits\Core\HasVisibility as HasCoreVisibility;
 
 trait HasVisibility
 {

@@ -28,4 +28,3 @@ enum FilterLayout: string
         return $this === self::Slidedown;
     }
 }
-
