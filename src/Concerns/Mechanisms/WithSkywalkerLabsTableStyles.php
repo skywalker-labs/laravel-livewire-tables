@@ -1,6 +1,8 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Mechanisms;
+
+use Symfony\Component\HttpFoundation\Response;
 
 trait WithSkywalkerLabsTableStyles
 {
@@ -21,7 +23,7 @@ trait WithSkywalkerLabsTableStyles
         $this->SkywalkerLabsTableStylesRoute = $route;
     }
 
-    public function returnSkywalkerLabsTableStylesAsFile(): \Symfony\Component\HttpFoundation\Response
+    public function returnSkywalkerLabsTableStylesAsFile(): Response
     {
         return $this->pretendResponseIsCSS(__DIR__.'/../../../resources/css/laravel-livewire-tables.min.css');
     }

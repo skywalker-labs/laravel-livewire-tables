@@ -1,7 +1,8 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Views;
 
+use Illuminate\Support\HtmlString;
 use SkywalkerLabs\LaravelLivewireTables\Exceptions\DataTableConfigurationException;
 use SkywalkerLabs\LaravelLivewireTables\Tests\TestCase;
 use SkywalkerLabs\LaravelLivewireTables\View\Column;
@@ -48,15 +49,15 @@ final class ColumnTest extends TestCase
     {
         $rows = $this->basicTable->getRows();
         $firstRow = $rows->first();
-        
+
         // Test direct property access
         $this->assertSame('Cartman', $firstRow->name);
         $this->assertSame('Norwegian Forest', $firstRow['breed.name']);
-        
+
         // Test getContents method on column
         $nameColumn = $this->basicTable->getColumnBySelectName('name');
         $this->assertSame('Cartman', $nameColumn->getContents($firstRow));
-        
+
         $breedColumn = $this->basicTable->getColumnBySelectName('breed.name');
         $this->assertSame('Norwegian Forest', $breedColumn->getContents($firstRow));
     }
@@ -99,7 +100,7 @@ final class ColumnTest extends TestCase
     {
         $column = Column::make('Name', 'name')->label(fn () => '<strong>My Label</strong>')->html();
         $rows = $this->basicTable->getRows();
-        $htmlString = new \Illuminate\Support\HtmlString('<strong>My Label</strong>');
+        $htmlString = new HtmlString('<strong>My Label</strong>');
         $this->assertSame($htmlString->toHtml(), $column->getContents($rows->first())->toHtml());
     }
 
@@ -110,7 +111,7 @@ final class ColumnTest extends TestCase
 
         $column->format(fn ($value) => strtoupper($value))->html();
 
-        $htmlString = new \Illuminate\Support\HtmlString(strtoupper($rows->first()->name));
+        $htmlString = new HtmlString(strtoupper($rows->first()->name));
 
         $this->assertSame($htmlString->toHtml(), $column->getContents($rows->first())->toHtml());
     }

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration;
 
@@ -25,6 +25,3 @@ trait SummariesConfiguration
         return $this;
     }
 }
-
-
-

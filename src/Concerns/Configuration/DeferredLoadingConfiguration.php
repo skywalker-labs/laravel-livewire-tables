@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration;
 
@@ -24,6 +24,3 @@ trait DeferredLoadingConfiguration
         return $this;
     }
 }
-
-
-

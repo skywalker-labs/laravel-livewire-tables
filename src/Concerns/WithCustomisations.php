@@ -1,7 +1,8 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 
+use Illuminate\View\View;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration\CustomisationsConfiguration;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers\CustomisationsHelpers;
 
@@ -18,7 +19,7 @@ trait WithCustomisations
 
     protected ?string $section = null;
 
-    public function renderingWithCustomisations(\Illuminate\View\View $view, array $data = []): void
+    public function renderingWithCustomisations(View $view, array $data = []): void
     {
         if ($this->hasLayout()) {
             $view->layout($this->getLayout());

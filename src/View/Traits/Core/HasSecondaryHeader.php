@@ -1,8 +1,11 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\View\Traits\Core;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\HtmlString;
+use Illuminate\View\Factory;
+use Illuminate\View\View;
 use SkywalkerLabs\LaravelLivewireTables\Exceptions\DataTableConfigurationException;
 use SkywalkerLabs\LaravelLivewireTables\View\{Column,Filter};
 
@@ -109,7 +112,7 @@ trait HasSecondaryHeader
         }
     }
 
-    public function getSecondaryHeaderFilter(?Filter $filter, array $filterGenericData): \Illuminate\Contracts\Foundation\Application|\Illuminate\View\Factory|\Illuminate\View\View|string
+    public function getSecondaryHeaderFilter(?Filter $filter, array $filterGenericData): Application|Factory|View|string
     {
         if ($filter !== null && $filter instanceof Filter) {
             return $filter->setFilterPosition('header')->setGenericDisplayData($filterGenericData)->render();

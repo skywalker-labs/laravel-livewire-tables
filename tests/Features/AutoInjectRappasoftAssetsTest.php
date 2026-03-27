@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Features;
 
@@ -7,7 +7,7 @@ use SkywalkerLabs\LaravelLivewireTables\Tests\TestCase;
 
 final class AutoInjectSkywalkerLabsAssetsTest extends TestCase
 {
-    public function test_shouldInjectSkywalkerLabsAndThirdParty()
+    public function test_should_inject_skywalker_labs_and_third_party()
     {
         config()->set('livewire-tables.inject_core_assets_enabled', true);
         config()->set('livewire-tables.inject_third_party_assets_enabled', true);
@@ -20,7 +20,7 @@ final class AutoInjectSkywalkerLabsAssetsTest extends TestCase
         $this->assertStringContainsStringIgnoringCase('<script src="/SkywalkerLabs/laravel-livewire-tables/thirdparty.min.js"  ></script>', $injectionReturn);
     }
 
-    public function test_shouldNotInjectSkywalkerLabsOrThirdParty()
+    public function test_should_not_inject_skywalker_labs_or_third_party()
     {
         config()->set('livewire-tables.inject_core_assets_enabled', false);
         config()->set('livewire-tables.inject_third_party_assets_enabled', false);
@@ -30,7 +30,7 @@ final class AutoInjectSkywalkerLabsAssetsTest extends TestCase
         $this->assertEquals('<html><head>  </head><body></body></html>', AutoInjectSkywalkerLabsAssets::injectAssets('<html><head></head><body></body></html>'));
     }
 
-    public function test_shouldOnlyInjectThirdParty()
+    public function test_should_only_inject_third_party()
     {
         config()->set('livewire-tables.inject_core_assets_enabled', false);
         config()->set('livewire-tables.inject_third_party_assets_enabled', true);
@@ -41,7 +41,7 @@ final class AutoInjectSkywalkerLabsAssetsTest extends TestCase
         $this->assertStringContainsStringIgnoringCase('<script src="/SkywalkerLabs/laravel-livewire-tables/thirdparty.min.js"  ></script>', $injectionReturn);
     }
 
-    public function test_shouldOnlyInjectSkywalkerLabs()
+    public function test_should_only_inject_skywalker_labs()
     {
         config()->set('livewire-tables.inject_core_assets_enabled', true);
         config()->set('livewire-tables.inject_third_party_assets_enabled', false);

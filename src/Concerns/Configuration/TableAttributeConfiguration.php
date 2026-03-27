@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration;
 
@@ -98,8 +98,6 @@ trait TableAttributeConfiguration
     /**
      * Set CSS classes for table rows based on the record data
      * Accepts a string or array of classes, or a closure that returns classes
-     *
-     * @param string|array|callable $classes
      */
     public function recordClasses(string|array|callable $classes): self
     {

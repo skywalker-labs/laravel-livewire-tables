@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 declare(strict_types=1);
 
@@ -20,6 +20,7 @@ trait WithSorting
 
     /**
      * Active sorts (column => direction)
+     *
      * @var array<string, string>
      */
     public array $sorts = [];

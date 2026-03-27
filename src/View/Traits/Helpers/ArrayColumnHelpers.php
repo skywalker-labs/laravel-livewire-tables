@@ -1,7 +1,10 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\View\Traits\Helpers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use SkywalkerLabs\LaravelLivewireTables\Exceptions\DataTableConfigurationException;
@@ -43,7 +46,7 @@ trait ArrayColumnHelpers
         return $this->outputFormat;
     }
 
-    public function getContents(Model $row): null|string|\BackedEnum|HtmlString|DataTableConfigurationException|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function getContents(Model $row): null|string|\BackedEnum|HtmlString|DataTableConfigurationException|Application|Factory|View
     {
         $outputValues = [];
         $value = $this->getValue($row);

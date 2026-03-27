@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 declare(strict_types=1);
 
@@ -6,9 +6,9 @@ namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
-use SkywalkerLabs\LaravelLivewireTables\Exceptions\DataTableConfigurationException;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration\ComponentConfiguration;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers\ComponentHelpers;
+use SkywalkerLabs\LaravelLivewireTables\Exceptions\DataTableConfigurationException;
 
 /**
  * Core component utilities and properties
@@ -20,6 +20,7 @@ trait ComponentUtilities
 
     /**
      * Table configuration array
+     *
      * @var array<string, mixed>
      */
     public array $table = [];
@@ -36,6 +37,7 @@ trait ComponentUtilities
 
     /**
      * Model class for the table
+     *
      * @var class-string|null
      */
     protected $model;
@@ -47,6 +49,7 @@ trait ComponentUtilities
 
     /**
      * Eager load relationships
+     *
      * @var array<int, string>
      */
     protected array $relationships = [];
@@ -83,6 +86,7 @@ trait ComponentUtilities
 
     /**
      * Data for custom empty state view
+     *
      * @var array<string, mixed>
      */
     protected array $customEmptyStateData = [];
@@ -99,30 +103,35 @@ trait ComponentUtilities
 
     /**
      * Additional select columns
+     *
      * @var array<int, string>
      */
     protected array $additionalSelects = [];
 
     /**
      * Extra relationships to eager load
+     *
      * @var array<int, string>
      */
     protected array $extraWiths = [];
 
     /**
      * Extra withCount relationships
+     *
      * @var array<int, string>
      */
     protected array $extraWithCounts = [];
 
     /**
      * Extra withSum relationships
+     *
      * @var array<string, array<int, string>>
      */
     protected array $extraWithSums = [];
 
     /**
      * Extra withAvg relationships
+     *
      * @var array<string, array<int, string>>
      */
     protected array $extraWithAvgs = [];
@@ -149,6 +158,7 @@ trait ComponentUtilities
 
     /**
      * Data for custom header view
+     *
      * @var array<string, mixed>
      */
     protected array $customHeaderData = [];

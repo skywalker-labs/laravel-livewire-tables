@@ -1,9 +1,10 @@
-﻿<?php
+<?php
 
 declare(strict_types=1);
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 
+use Illuminate\View\View;
 use Livewire\Attributes\Locked;
 use Livewire\WithPagination as LivewirePagination;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration\PaginationConfiguration;
@@ -30,6 +31,7 @@ trait WithPagination
 
     /**
      * Accepted per page values (locked from frontend)
+     *
      * @var array<int, int>
      */
     #[Locked]
@@ -61,6 +63,7 @@ trait WithPagination
 
     /**
      * Current page items (entangled with JS)
+     *
      * @var array<int, mixed>
      */
     public array $paginationCurrentItems = [];
@@ -77,6 +80,7 @@ trait WithPagination
 
     /**
      * Track number of paginators rendered
+     *
      * @var array<string, int>
      */
     public array $numberOfPaginatorsRendered = [];
@@ -93,6 +97,7 @@ trait WithPagination
 
     /**
      * Per-page field attributes
+     *
      * @var array<string, mixed>
      */
     protected array $perPageFieldAttributes = ['default-styling' => true, 'default-colors' => true, 'class' => ''];
@@ -138,7 +143,7 @@ trait WithPagination
         return [];
     }
 
-    public function renderingWithPagination(?\Illuminate\View\View $view = null, array $data = []): void
+    public function renderingWithPagination(?View $view = null, array $data = []): void
     {
         $this->setupPagination();
     }

@@ -1,7 +1,8 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 
+use Illuminate\View\View;
 use Livewire\Attributes\Locked;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration\ReorderingConfiguration;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers\ReorderingHelpers;
@@ -52,7 +53,7 @@ trait WithReordering
 
     public function enableReordering(): void
     {
-        //$this->enablePaginatedReordering();
+        // $this->enablePaginatedReordering();
 
         $this->setReorderingSession();
         $this->setReorderingBackup();
@@ -175,7 +176,7 @@ trait WithReordering
         $this->getReorderingBackup();
     }
 
-    public function renderingWithReordering(?\Illuminate\View\View $view = null, array $data = []): void
+    public function renderingWithReordering(?View $view = null, array $data = []): void
     {
         $this->setupReordering();
     }

@@ -1,15 +1,15 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Views\Columns;
 
-//use Illuminate\Support\Facades\Exceptions;
+// use Illuminate\Support\Facades\Exceptions;
 use SkywalkerLabs\LaravelLivewireTables\Tests\Models\Pet;
 use SkywalkerLabs\LaravelLivewireTables\Tests\TestCase;
 use SkywalkerLabs\LaravelLivewireTables\View\Columns\DateColumn;
 
 final class DateColumnTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         parent::setupPetOwnerTable();

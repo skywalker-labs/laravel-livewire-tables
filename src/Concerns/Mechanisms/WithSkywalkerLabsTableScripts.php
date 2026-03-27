@@ -1,8 +1,9 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Mechanisms;
 
 use Livewire\Drawer\Utils;
+use Symfony\Component\HttpFoundation\Response;
 
 trait WithSkywalkerLabsTableScripts
 {
@@ -28,7 +29,7 @@ trait WithSkywalkerLabsTableScripts
         $this->SkywalkerLabsTableScriptRoute = $route;
     }
 
-    public function returnSkywalkerLabsTableJavaScriptAsFile(): \Symfony\Component\HttpFoundation\Response
+    public function returnSkywalkerLabsTableJavaScriptAsFile(): Response
     {
         return $this->pretendResponseIsJs(__DIR__.'/../../../resources/js/laravel-livewire-tables.min.js');
     }

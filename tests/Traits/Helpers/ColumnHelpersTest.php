@@ -1,7 +1,8 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Traits\Helpers;
 
+use Illuminate\Support\Str;
 use SkywalkerLabs\LaravelLivewireTables\Tests\Models\Pet;
 use SkywalkerLabs\LaravelLivewireTables\Tests\TestCase;
 use SkywalkerLabs\LaravelLivewireTables\View\Column;
@@ -203,7 +204,7 @@ final class ColumnHelpersTest extends TestCase
         $this->assertSame(7, $this->basicTable->getVisibleTabletColumnsCount());
     }
 
-    /// *** ** //
+    // / *** ** //
 
     public function test_can_tell_if_columns_should_collapse_always(): void
     {
@@ -297,7 +298,7 @@ final class ColumnHelpersTest extends TestCase
         $this->assertTrue($column->hasSecondaryHeaderCallback());
 
         $contents = $column->getSecondaryHeaderFilter($this->basicTable->getFilterByKey($column->getSecondaryHeaderCallback()), $this->basicTable->getFilterGenericData());
-        //$contents = $column->getSecondaryHeaderFilter($this->basicTable->getFilterByKey('breed'));
+        // $contents = $column->getSecondaryHeaderFilter($this->basicTable->getFilterByKey('breed'));
         $this->assertStringContainsString('id="table-filter-breed-8-header"', $contents);
     }
 
@@ -316,11 +317,11 @@ final class ColumnHelpersTest extends TestCase
     {
         $column = Column::make('Name');
 
-        $this->assertSame(\Illuminate\Support\Str::slug($column->getTitle()), $column->getSlug());
+        $this->assertSame(Str::slug($column->getTitle()), $column->getSlug());
 
         $column->setCustomSlug('test123');
 
-        $this->assertSame(\Illuminate\Support\Str::slug('test123'), $column->getSlug());
+        $this->assertSame(Str::slug('test123'), $column->getSlug());
     }
 
     public function test_can_check_if_column_label_should_be_shown(): void

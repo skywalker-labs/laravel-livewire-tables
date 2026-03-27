@@ -1,7 +1,8 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Computed;
 
@@ -108,7 +109,7 @@ trait ComponentHelpers
         return $this->customEmptyStateView !== null;
     }
 
-    public function getCustomEmptyStateView(): string|\Illuminate\Contracts\View\View|null
+    public function getCustomEmptyStateView(): string|View|null
     {
         return $this->customEmptyStateView;
     }
@@ -268,7 +269,7 @@ trait ComponentHelpers
         return $this->customHeaderView !== null;
     }
 
-    public function getCustomHeaderView(): string|\Illuminate\Contracts\View\View|null
+    public function getCustomHeaderView(): string|View|null
     {
         return $this->customHeaderView;
     }

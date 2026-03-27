@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers;
 
@@ -19,6 +19,3 @@ trait DeferredLoadingHelpers
         return ! $this->isDeferredLoading();
     }
 }
-
-
-

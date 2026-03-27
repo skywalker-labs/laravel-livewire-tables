@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Views\Columns;
 
@@ -58,7 +58,7 @@ final class ViewComponentColumnTest extends TestCase
             ]);
 
         $this->assertFalse($column->hasCustomComponent());
-        $column->customComponent(\SkywalkerLabs\LaravelLivewireTables\Tests\Http\TestComponent::class);
+        $column->customComponent(TestComponent::class);
         $contents = $column->getContents(Pet::find(1));
         $this->assertSame('<div>2420</div>', $contents);
         $this->assertTrue($column->hasCustomComponent());

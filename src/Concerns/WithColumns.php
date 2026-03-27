@@ -1,14 +1,15 @@
-﻿<?php
+<?php
 
 declare(strict_types=1);
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 
 use Illuminate\Support\Collection;
+use Illuminate\View\View;
 use Livewire\Attributes\Locked;
-use SkywalkerLabs\LaravelLivewireTables\Exceptions\NoColumnsException;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration\ColumnConfiguration;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers\ColumnHelpers;
+use SkywalkerLabs\LaravelLivewireTables\Exceptions\NoColumnsException;
 
 /**
  * Column management for DataTableComponent
@@ -97,7 +98,7 @@ trait WithColumns
     /**
      * Add Columns to View
      */
-    public function renderingWithColumns(\Illuminate\View\View $view, array $data = []): void
+    public function renderingWithColumns(View $view, array $data = []): void
     {
         if (! $this->getComputedPropertiesStatus()) {
             $view->with([

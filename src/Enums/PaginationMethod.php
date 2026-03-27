@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 declare(strict_types=1);
 
@@ -37,4 +37,3 @@ enum PaginationMethod: string
         return $this === self::Cursor;
     }
 }
-

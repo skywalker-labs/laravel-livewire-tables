@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 
@@ -12,6 +12,3 @@ trait WithDeferredLoading
 
     protected bool $deferLoading = false;
 }
-
-
-

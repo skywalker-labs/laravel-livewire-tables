@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Traits\Configuration;
 
@@ -44,5 +44,3 @@ final class SummariesConfigurationTest extends TestCase
         $this->assertFalse($this->basicTable->getSummariesStatus());
     }
 }
-
-

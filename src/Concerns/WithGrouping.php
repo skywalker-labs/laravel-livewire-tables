@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 
@@ -18,4 +18,3 @@ trait WithGrouping
 
     protected array $expandedGroups = [];
 }
-

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration;
 
@@ -42,9 +42,8 @@ trait GroupingConfiguration
      */
     public function groupsExpanded(bool $expanded = true): self
     {
-        $this->groupsCollapsed = !$expanded;
+        $this->groupsCollapsed = ! $expanded;
 
         return $this;
     }
 }
-

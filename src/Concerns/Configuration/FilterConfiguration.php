@@ -1,9 +1,9 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration;
 
-use SkywalkerLabs\LaravelLivewireTables\Support\DataTransferObjects\FilterGenericData;
 use SkywalkerLabs\LaravelLivewireTables\Exceptions\DataTableConfigurationException;
+use SkywalkerLabs\LaravelLivewireTables\Support\DataTransferObjects\FilterGenericData;
 
 trait FilterConfiguration
 {

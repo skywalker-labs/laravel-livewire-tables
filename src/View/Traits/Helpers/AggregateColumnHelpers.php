@@ -1,7 +1,10 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\View\Traits\Helpers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use Illuminate\View\ComponentAttributeBag;
@@ -35,7 +38,7 @@ trait AggregateColumnHelpers
         return $this->foreignColumn;
     }
 
-    public function getContents(Model $row): null|string|\BackedEnum|HtmlString|DataTableConfigurationException|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function getContents(Model $row): null|string|\BackedEnum|HtmlString|DataTableConfigurationException|Application|Factory|View
     {
         if (! isset($this->dataSource)) {
             throw new DataTableConfigurationException('You must specify a data source');

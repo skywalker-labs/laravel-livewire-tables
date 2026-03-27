@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 declare(strict_types=1);
 
@@ -7,9 +7,9 @@ namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Locked;
-use SkywalkerLabs\LaravelLivewireTables\Events\FilterApplied;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration\FilterConfiguration;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers\FilterHelpers;
+use SkywalkerLabs\LaravelLivewireTables\Events\FilterApplied;
 
 /**
  * Filter functionality for DataTableComponent
@@ -56,18 +56,21 @@ trait WithFilters
 
     /**
      * Filter component values (set in JS)
+     *
      * @var array<string, mixed>
      */
     public array $filterComponents = [];
 
     /**
      * Currently applied filter values (set in frontend)
+     *
      * @var array<string, mixed>
      */
     public array $appliedFilters = [];
 
     /**
      * Generic filter data
+     *
      * @var array<string, mixed>
      */
     public array $filterGenericData = [];

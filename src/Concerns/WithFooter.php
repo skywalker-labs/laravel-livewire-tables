@@ -1,7 +1,8 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 
+use Illuminate\View\View;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration\FooterConfiguration;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers\FooterHelpers;
 
@@ -29,7 +30,7 @@ trait WithFooter
         }
     }
 
-    public function renderingWithFooter(?\Illuminate\View\View $view = null, array $data = []): void
+    public function renderingWithFooter(?View $view = null, array $data = []): void
     {
         $this->setupFooter();
     }

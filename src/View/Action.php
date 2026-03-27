@@ -1,7 +1,11 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\View;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\HtmlString;
 use Illuminate\View\Component;
 use Illuminate\View\ComponentAttributeBag;
 use SkywalkerLabs\LaravelLivewireTables\View\Traits\Actions\{HasActionAttributes, HasRoute};
@@ -31,7 +35,7 @@ class Action extends Component
         return new static($label);
     }
 
-    public function render(): null|string|\Illuminate\Support\HtmlString|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function render(): null|string|HtmlString|Application|Factory|View
     {
         $view = view($this->getView())
             ->withAction($this)

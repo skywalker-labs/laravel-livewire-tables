@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Traits\Configuration;
 
@@ -33,5 +33,3 @@ final class DeferredLoadingConfigurationTest extends TestCase
         $this->assertTrue($this->basicTable->deferredLoadingIsDisabled());
     }
 }
-
-

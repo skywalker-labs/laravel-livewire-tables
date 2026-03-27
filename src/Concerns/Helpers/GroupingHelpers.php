@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers;
 
@@ -71,4 +71,3 @@ trait GroupingHelpers
         });
     }
 }
-

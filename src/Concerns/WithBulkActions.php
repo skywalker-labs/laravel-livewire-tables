@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 declare(strict_types=1);
 
@@ -27,18 +27,21 @@ trait WithBulkActions
 
     /**
      * Available bulk actions
+     *
      * @var array<string, string>
      */
     public array $bulkActions = [];
 
     /**
      * Bulk actions that require confirmation
+     *
      * @var array<string, string>
      */
     public array $bulkActionConfirms = [];
 
     /**
      * Currently selected item IDs (entangled with JS)
+     *
      * @var array<int, string>
      */
     public array $selected = [];
@@ -55,30 +58,35 @@ trait WithBulkActions
 
     /**
      * Checkbox attributes
+     *
      * @var array<string, mixed>
      */
     protected array $bulkActionsCheckboxAttributes = [];
 
     /**
      * TH element attributes
+     *
      * @var array<string, mixed>
      */
     protected array $bulkActionsThAttributes = ['default' => true];
 
     /**
      * TH checkbox attributes
+     *
      * @var array<string, mixed>
      */
     protected array $bulkActionsThCheckboxAttributes = ['default' => true];
 
     /**
      * TD element attributes
+     *
      * @var array<string, mixed>
      */
     protected array $bulkActionsTdAttributes = ['default' => true];
 
     /**
      * TD checkbox attributes
+     *
      * @var array<string, mixed>
      */
     protected array $bulkActionsTdCheckboxAttributes = ['default' => true];
@@ -100,18 +108,21 @@ trait WithBulkActions
 
     /**
      * Button attributes for bulk actions
+     *
      * @var array<string, mixed>
      */
     protected array $bulkActionsButtonAttributes = ['default-colors' => true, 'default-styling' => true];
 
     /**
      * Menu attributes for bulk actions
+     *
      * @var array<string, mixed>
      */
     protected array $bulkActionsMenuAttributes = ['default-colors' => true, 'default-styling' => true];
 
     /**
      * Menu item attributes for bulk actions
+     *
      * @var array<string, mixed>
      */
     protected array $bulkActionsMenuItemAttributes = ['default-colors' => true, 'default-styling' => true];

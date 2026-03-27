@@ -1,8 +1,9 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Mechanisms;
 
 use Livewire\Drawer\Utils;
+use Symfony\Component\HttpFoundation\Response;
 
 trait WithSkywalkerLabsTableThirdPartyScripts
 {
@@ -26,7 +27,7 @@ trait WithSkywalkerLabsTableThirdPartyScripts
         $this->SkywalkerLabsTableScriptThirdPartyRoute = $route;
     }
 
-    public function returnSkywalkerLabsTableThirdPartyJavaScriptAsFile(): \Symfony\Component\HttpFoundation\Response
+    public function returnSkywalkerLabsTableThirdPartyJavaScriptAsFile(): Response
     {
         return $this->pretendResponseIsJs(__DIR__.'/../../../resources/js/laravel-livewire-tables-thirdparty.min.js');
     }

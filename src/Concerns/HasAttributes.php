@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 declare(strict_types=1);
 
@@ -12,8 +12,8 @@ trait HasAttributes
     /**
      * Merge attributes with defaults, handling 'default' key specially
      *
-     * @param array<string, mixed> $defaults
-     * @param array<string, mixed> $attributes
+     * @param  array<string, mixed>  $defaults
+     * @param  array<string, mixed>  $attributes
      * @return array<string, mixed>
      */
     protected function mergeAttributes(array $defaults, array $attributes): array
@@ -21,6 +21,7 @@ trait HasAttributes
         // If default key exists and is false, only use provided attributes
         if (isset($attributes['default']) && $attributes['default'] === false) {
             unset($attributes['default']);
+
             return $attributes;
         }
 
@@ -34,8 +35,7 @@ trait HasAttributes
     /**
      * Build a CSS class string from an array of classes
      *
-     * @param array<int|string, string|bool> $classes
-     * @return string
+     * @param  array<int|string, string|bool>  $classes
      */
     protected function buildClassString(array $classes): string
     {
@@ -54,4 +54,3 @@ trait HasAttributes
         return implode(' ', array_filter($result));
     }
 }
-

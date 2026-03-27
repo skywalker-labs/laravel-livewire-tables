@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\View\Traits\Core;
 
@@ -14,8 +14,8 @@ trait HasSummary
 
     /**
      * Add a summary to this column
-     * 
-     * @param string|callable|null $type Type of summary: 'sum', 'avg', 'count', 'min', 'max', or a custom callback
+     *
+     * @param  string|callable|null  $type  Type of summary: 'sum', 'avg', 'count', 'min', 'max', or a custom callback
      */
     public function summary(string|callable|null $type = 'sum'): self
     {
@@ -77,6 +77,7 @@ trait HasSummary
             }
             // Convert to array to ensure PHP's min() receives correct type
             $valuesArray = $values->toArray();
+
             return min($valuesArray);
         }
 
@@ -87,6 +88,7 @@ trait HasSummary
             }
             // Convert to array to ensure PHP's max() receives correct type
             $valuesArray = $values->toArray();
+
             return max($valuesArray);
         }
 
@@ -98,7 +100,3 @@ trait HasSummary
         };
     }
 }
-
-
-
-
