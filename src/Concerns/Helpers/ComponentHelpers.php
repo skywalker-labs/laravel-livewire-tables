@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers;
 
@@ -7,7 +7,8 @@ use Livewire\Attributes\Computed;
 
 trait ComponentHelpers
 {
-    public function getDataTableFingerprint(): string
+    #[Computed]
+    public function dataTableFingerprint(): string
     {
         return $this->dataTableFingerprint ?? $this->generateDataTableFingerprint();
     }
@@ -30,16 +31,13 @@ trait ComponentHelpers
     /**
      * @return mixed
      */
-    #[Computed]
-    public function getPrimaryKey()
+    public function primaryKey()
     {
         return $this->primaryKey;
     }
 
-    /**
-     * @return array<mixed>
-     */
-    public function getRelationships(): array
+    #[Computed]
+    public function relationships(): array
     {
         return $this->relationships;
     }
@@ -159,13 +157,13 @@ trait ComponentHelpers
     }
 
     #[Computed]
-    public function getTableName(): string
+    public function tableName(): string
     {
         return $this->tableName;
     }
 
     #[Computed]
-    public function getTableId(): string
+    public function tableId(): string
     {
         return $this->getTableAttributes()['id'];
     }

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 declare(strict_types=1);
 
@@ -96,8 +96,8 @@ trait WithFilters
     public function applyFilters(): Builder
     {
         if ($this->filtersAreEnabled() && $this->hasFilters() && $this->hasAppliedFiltersWithValues()) {
-            foreach ($this->getFilters() as $filter) {
-                foreach ($this->getAppliedFiltersWithValues() as $key => $value) {
+            foreach ($this->filterCollection as $filter) {
+                foreach ($this->appliedFiltersWithValues as $key => $value) {
                     if ($filter->getKey() === $key && $filter->hasFilterCallback()) {
                         // Let the filter class validate the value
                         $value = $filter->validate($value);
@@ -140,9 +140,9 @@ trait WithFilters
             $this->callHook('filterUpdated', ['filter' => $filter->getKey(), 'value' => $value]);
             $this->callTraitHook('filterUpdated', ['filter' => $filter->getKey(), 'value' => $value]);
             if ($this->getEventStatusFilterApplied() && $filter->getKey() != null && $value != null) {
-                event(new FilterApplied($this->getTableName(), $filter->getKey(), $value));
+                event(new FilterApplied($this->tableName(), $filter->getKey(), $value));
             }
-            $this->dispatch('filter-was-set', tableName: $this->getTableName(), filterKey: $filter->getKey(), value: $value);
+            $this->dispatch('filter-was-set', tableName: $this->tableName(), filterKey: $filter->getKey(), value: $value);
 
         }
     }

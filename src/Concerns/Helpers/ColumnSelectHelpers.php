@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers;
 
@@ -51,7 +51,7 @@ trait ColumnSelectHelpers
 
     protected function getColumnSelectSessionKey(): string
     {
-        return $this->getDataTableFingerprint().'-columnSelectEnabled';
+        return $this->dataTableFingerprint.'-columnSelectEnabled';
     }
 
     public function getColumnSelectIsHiddenOnTablet(): bool
@@ -167,7 +167,7 @@ trait ColumnSelectHelpers
         }
         $this->forgetColumnSelectSession();
         if ($this->getEventStatusColumnSelect()) {
-            event(new ColumnsSelected($this->getTableName(), $this->getColumnSelectSessionKey(), $this->selectedColumns));
+            event(new ColumnsSelected($this->tableName(), $this->getColumnSelectSessionKey(), $this->selectedColumns));
         }
     }
 
@@ -176,7 +176,7 @@ trait ColumnSelectHelpers
         $this->selectedColumns = [];
         session([$this->getColumnSelectSessionKey() => []]);
         if ($this->getEventStatusColumnSelect()) {
-            event(new ColumnsSelected($this->getTableName(), $this->getColumnSelectSessionKey(), $this->selectedColumns));
+            event(new ColumnsSelected($this->tableName(), $this->getColumnSelectSessionKey(), $this->selectedColumns));
         }
     }
 

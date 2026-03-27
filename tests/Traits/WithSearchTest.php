@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Traits;
 
@@ -11,7 +11,7 @@ final class WithSearchTest extends TestCase
         $this->basicTable->setSearch('Cartman');
         $this->basicTable->applySearch();
         
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         $this->assertGreaterThan(0, $rows->count());
         $this->assertTrue($rows->first()->name === 'Cartman');
     }
@@ -21,7 +21,7 @@ final class WithSearchTest extends TestCase
         $this->basicTable->setSearch('Norwegian');
         $this->basicTable->applySearch();
         
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         // Search callback should be applied - check that query was modified
         $sql = $this->basicTable->getBuilder()->toSql();
         $this->assertStringContainsStringIgnoringCase('breed.name', $sql);
@@ -63,7 +63,7 @@ final class WithSearchTest extends TestCase
         $this->basicTable->applySearch();
         
         // Should not throw exception and handle safely
-        $this->assertIsArray($this->basicTable->getRows()->toArray());
+        $this->assertIsArray($this->basicTable->rows->toArray());
     }
 
     public function test_search_trimming_when_enabled(): void
@@ -90,7 +90,7 @@ final class WithSearchTest extends TestCase
         $this->basicTable->applySearch();
         
         // Should return all rows, not filtered
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         $this->assertGreaterThan(1, $rows->count());
     }
 

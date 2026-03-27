@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Views\Columns;
 
@@ -99,7 +99,7 @@ final class ColorColumnTest extends TestCase
                 'default' => true,
             ];
         });
-        $rows = $this->basicTable->setAdditionalSelects(['pets.favorite_color as favorite_color'])->getRows();
+        $rows = $this->basicTable->setAdditionalSelects(['pets.favorite_color as favorite_color'])->rows;
         $this->assertSame(['class' => '!rounded-lg self-center', 'default' => true], $column->getAttributeBag($rows->first())->getAttributes());
     }
 
@@ -107,7 +107,7 @@ final class ColorColumnTest extends TestCase
     {
         $column = ColorColumn::make('Favorite Color', 'favorite_color');
 
-        $rows = $this->basicTable->setAdditionalSelects(['pets.favorite_color as favorite_color'])->getRows();
+        $rows = $this->basicTable->setAdditionalSelects(['pets.favorite_color as favorite_color'])->rows;
 
         $this->assertSame($rows->first()->favorite_color, $column->getValue($rows->first()));
         $this->assertSame($rows->first()->favorite_color, $column->getColor($rows->first()));
@@ -138,7 +138,7 @@ final class ColorColumnTest extends TestCase
         $this->assertTrue($column->hasColorCallback());
         $this->assertFalse($column->hasAttributesCallback());
 
-        $rows = $this->basicTable->setAdditionalSelects(['pets.species_id as species_id'])->getRows();
+        $rows = $this->basicTable->setAdditionalSelects(['pets.species_id as species_id'])->rows;
 
         $this->assertSame('#ff0000', app()->call($column->getColorCallback(), ['row' => $rows->first()]));
         $this->assertSame('#ffa500', app()->call($column->getColorCallback(), ['row' => $rows->last()]));
@@ -159,7 +159,7 @@ final class ColorColumnTest extends TestCase
 
             }
         );
-        $rows = $this->basicTable->setAdditionalSelects(['pets.species_id as species_id'])->getRows();
+        $rows = $this->basicTable->setAdditionalSelects(['pets.species_id as species_id'])->rows;
 
         $this->assertSame('#ff0000', $column->getColor($rows->first()));
         $this->assertSame('#ffa500', $column->getColor($rows->last()));

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests;
 
@@ -49,8 +49,8 @@ final class DataTableComponentGlobalSettingsTest extends TestCase
         $table2->bootedComponentUtilities();
 
         // Both tables should have the poll interval set
-        $this->assertSame('30000', $table1->getRefreshStatus());
-        $this->assertSame('30000', $table2->getRefreshStatus());
+        $this->assertSame('30000', $table1->refreshStatus());
+        $this->assertSame('30000', $table2->refreshStatus());
     }
 
     public function test_global_configuration_can_be_overridden(): void
@@ -64,11 +64,11 @@ final class DataTableComponentGlobalSettingsTest extends TestCase
         $table->bootedComponentUtilities();
 
         // Global config sets 30s
-        $this->assertSame('30000', $table->getRefreshStatus());
+        $this->assertSame('30000', $table->refreshStatus());
 
         // Can override in configure method
         $table->poll('10s');
-        $this->assertSame('10000', $table->getRefreshStatus());
+        $this->assertSame('10000', $table->refreshStatus());
     }
 
     public function test_global_configuration_applies_before_configure_method(): void
@@ -93,7 +93,7 @@ final class DataTableComponentGlobalSettingsTest extends TestCase
         $table->bootedComponentUtilities();
 
         // Global config is applied first, then configure() overrides it
-        $this->assertSame('10000', $table->getRefreshStatus());
+        $this->assertSame('10000', $table->refreshStatus());
     }
 }
 

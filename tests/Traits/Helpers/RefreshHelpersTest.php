@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Traits\Helpers;
 
@@ -17,22 +17,22 @@ final class RefreshHelpersTest extends TestCase
 
     public function test_can_get_refresh_options(): void
     {
-        $this->assertNull($this->basicTable->getRefreshOptions());
+        $this->assertNull($this->basicTable->refreshOptions());
 
         $this->basicTable->setRefreshTime(1000);
 
-        $this->assertSame('.1000ms', $this->basicTable->getRefreshOptions());
+        $this->assertSame('.1000ms', $this->basicTable->refreshOptions());
 
         $this->basicTable->setRefreshKeepAlive();
 
-        $this->assertSame('.keep-alive', $this->basicTable->getRefreshOptions());
+        $this->assertSame('.keep-alive', $this->basicTable->refreshOptions());
 
         $this->basicTable->setRefreshVisible();
 
-        $this->assertSame('.visible', $this->basicTable->getRefreshOptions());
+        $this->assertSame('.visible', $this->basicTable->refreshOptions());
 
         $this->basicTable->setRefreshMethod('myMethod');
 
-        $this->assertSame('=myMethod', $this->basicTable->getRefreshOptions());
+        $this->assertSame('=myMethod', $this->basicTable->refreshOptions());
     }
 }

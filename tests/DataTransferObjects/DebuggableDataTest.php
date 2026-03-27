@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\DataTransferObjects;
 
@@ -19,7 +19,7 @@ final class DebuggableDataTest extends TestCase
 
     public function test_check_all_default_dto_elements()
     {
-        $this->basicTable->getRows();
+        $this->basicTable->rows;
         $debuggableDTO = new DebuggableData($this->basicTable);
         $debuggableArray = $debuggableDTO->toArray();
 

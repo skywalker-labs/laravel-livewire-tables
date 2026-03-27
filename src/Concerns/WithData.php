@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 
@@ -29,7 +29,7 @@ trait WithData
      * Retrieves the rows for the executed query
      */
     #[Computed]
-    public function getRows(): Collection|CursorPaginator|Paginator|LengthAwarePaginator
+    public function rows(): Collection|CursorPaginator|Paginator|LengthAwarePaginator
     {
         // Setup the Base Query
         $this->baseQuery();
@@ -38,7 +38,7 @@ trait WithData
         $executedQuery = $this->executeQuery();
 
         // Get All Currently Paginated Items Primary Keys
-        $this->paginationCurrentItems = $executedQuery->pluck($this->getPrimaryKey())->toArray();
+        $this->paginationCurrentItems = $executedQuery->pluck($this->primaryKey)->toArray();
 
         // Get Count of Items in Current Page
         $this->paginationCurrentCount = $executedQuery->count();
@@ -103,7 +103,7 @@ trait WithData
 
         if ($this->paginationIsEnabled()) {
             if ($this->isPaginationMethod('standard')) {
-                $paginatedResults = $this->getBuilder()->paginate($this->getPerPage() === -1 ? $this->getBuilder()->count() : $this->getPerPage(), ['*'], $this->getComputedPageName());
+                $paginatedResults = $this->getBuilder()->paginate($this->getPerPage() === -1 ? $this->getBuilder()->count() : $this->getPerPage(), ['*'], $this->computedPageName);
 
                 // Get the total number of items available
                 $this->paginationTotalItemCount = $paginatedResults->total() ?? 0;
@@ -111,21 +111,21 @@ trait WithData
                 return $paginatedResults;
             } elseif ($this->isPaginationMethod('simple')) {
 
-                if ($this->getShouldRetrieveTotalItemCount()) {
+                if ($this->shouldRetrieveTotalItemCount) {
                     $this->paginationTotalItemCount = $this->getBuilder()->count();
 
-                    return $this->getBuilder()->simplePaginate($this->getPerPage() === -1 ? $this->paginationTotalItemCount : $this->getPerPage(), ['*'], $this->getComputedPageName());
+                    return $this->getBuilder()->simplePaginate($this->getPerPage() === -1 ? $this->paginationTotalItemCount : $this->getPerPage(), ['*'], $this->computedPageName);
                 } else {
                     $this->paginationTotalItemCount = -1;
 
-                    return $this->getBuilder()->simplePaginate($this->getPerPage() === -1 ? 10 : $this->getPerPage(), ['*'], $this->getComputedPageName());
+                    return $this->getBuilder()->simplePaginate($this->getPerPage() === -1 ? 10 : $this->getPerPage(), ['*'], $this->computedPageName);
                 }
 
             } elseif ($this->isPaginationMethod('cursor')) {
 
                 $this->paginationTotalItemCount = $this->getBuilder()->count();
 
-                return $this->getBuilder()->cursorPaginate($this->getPerPage() === -1 ? $this->paginationTotalItemCount : $this->getPerPage(), ['*'], $this->getComputedPageName());
+                return $this->getBuilder()->cursorPaginate($this->getPerPage() === -1 ? $this->paginationTotalItemCount : $this->getPerPage(), ['*'], $this->computedPageName);
             } else {
                 throw new DataTableConfigurationException('Pagination method must be either simple, standard or cursor');
             }
@@ -279,7 +279,7 @@ trait WithData
     {
         if ($this->hasModel()) {
             return $this->getModel()::query()
-                ->with($this->getRelationships());
+                ->with($this->relationships);
         }
 
         // If model does not exist
@@ -293,8 +293,8 @@ trait WithData
     {
         if (! $this->getComputedPropertiesStatus()) {
             $view->with([
-                'filterGenericData' => $this->getFilterGenericData(),
-                'rows' => $this->getRows(),
+                'filterGenericData' => $this->filterGenericData,
+                'rows' => $this->rows,
             ]);
         }
     }

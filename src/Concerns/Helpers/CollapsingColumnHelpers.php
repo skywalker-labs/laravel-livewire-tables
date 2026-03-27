@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers;
 
@@ -32,7 +32,7 @@ trait CollapsingColumnHelpers
      * @return array<mixed>
      */
     #[Computed]
-    public function getCollapsingColumnButtonCollapseAttributes(): array
+    public function collapsingColumnButtonCollapseAttributes(): array
     {
         return [...['default-styling' => true, 'default-colors' => true], ...$this->collapsingColumnButtonCollapseAttributes];
     }
@@ -43,7 +43,7 @@ trait CollapsingColumnHelpers
      * @return array<mixed>
      */
     #[Computed]
-    public function getCollapsingColumnButtonExpandAttributes(): array
+    public function collapsingColumnButtonExpandAttributes(): array
     {
         return [...['default-styling' => true, 'default-colors' => true], ...$this->collapsingColumnButtonExpandAttributes];
     }

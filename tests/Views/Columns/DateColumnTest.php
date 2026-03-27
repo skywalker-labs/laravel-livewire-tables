@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Views\Columns;
 
@@ -47,7 +47,7 @@ final class DateColumnTest extends TestCase
     {
         $column = DateColumn::make('Name', 'last_visit')->inputFormat('Y-m-d')->outputFormat('Y-m-d');
 
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
 
         $this->assertSame($rows->last()->last_visit->format('Y-m-d'), $column->getContents($rows->last()));
         $this->assertSame($rows->last()->last_visit->format('Y-m-d'), '2023-05-04');
@@ -57,7 +57,7 @@ final class DateColumnTest extends TestCase
     {
         $column = DateColumn::make('Name', 'last_visit')->inputFormat('Y-m-d')->outputFormat('d-m-Y');
 
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
 
         $this->assertSame('04-05-2023', $column->getContents($rows->last()));
     }
@@ -67,7 +67,7 @@ final class DateColumnTest extends TestCase
         $column = DateColumn::make('Name', 'last_visit')->inputFormat('d-m-Y')->outputFormat('d-m-Y');
         $column->emptyValue('Not Found');
 
-        $firstRow = $this->basicTable->getRows()->first();
+        $firstRow = $this->basicTable->rows->first();
 
         $firstRow->last_visit = '44-12-2023';
 
@@ -111,7 +111,7 @@ final class DateColumnTest extends TestCase
         $column1 = DateColumn::make('Owner DoB', 'owner.date_of_birth')->inputFormat('Y-m-d')->outputFormat('d-m-Y');
         $column2 = DateColumn::make('Owner DoB', 'owner.date_of_birth')->inputFormat('Y-m-d')->outputFormat('d-M-Y');
 
-        $rows = $this->petOwnerTable->getRows();
+        $rows = $this->petOwnerTable->rows;
         $lastRow = $rows->last();
 
         $this->assertSame('22-08-1985', $column1->getContents($lastRow));

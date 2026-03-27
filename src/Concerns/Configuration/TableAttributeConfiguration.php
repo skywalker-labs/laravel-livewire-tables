@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration;
 
@@ -36,7 +36,7 @@ trait TableAttributeConfiguration
      */
     public function setTableAttributes(array $attributes = []): self
     {
-        $this->tableAttributes = [...['id' => 'table-'.$this->getTableName()], ...$attributes];
+        $this->tableAttributes = [...['id' => 'table-'.$this->tableName()], ...$attributes];
 
         return $this;
     }

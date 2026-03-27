@@ -1,4 +1,4 @@
-﻿<div>
+<div>
     @if ($this->debugIsEnabled())
         <p><strong>@lang('Debugging Values'):</strong></p>
 

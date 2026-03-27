@@ -1,6 +1,8 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers;
+
+use Livewire\Attributes\Computed;
 
 trait RefreshHelpers
 {
@@ -12,25 +14,25 @@ trait RefreshHelpers
     /**
      * @return bool|string
      */
-    public function getRefreshStatus()
+    public function refreshStatus(): bool|string
     {
         return $this->refresh;
     }
 
-    public function getRefreshOptions(): ?string
+    public function refreshOptions(): ?string
     {
         if ($this->hasRefresh()) {
-            if (is_numeric($this->getRefreshStatus())) {
-                return '.'.$this->getRefreshStatus().'ms';
+            if (is_numeric($this->refreshStatus())) {
+                return '.'.$this->refreshStatus().'ms';
             }
 
-            switch ($this->getRefreshStatus()) {
+            switch ($this->refreshStatus()) {
                 case 'keep-alive':
                     return '.keep-alive';
                 case 'visible':
                     return '.visible';
                 default:
-                    return '='.$this->getRefreshStatus();
+                    return '='.$this->refreshStatus();
             }
         }
 

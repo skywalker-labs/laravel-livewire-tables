@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Support\DataTransferObjects;
 
@@ -16,7 +16,7 @@ class DebuggableData
     public function toArray(): array
     {
         return [
-            'query' => (clone $this->component->getBuilder())->toSql(),
+            'query' => (clone $this->component->builder)->toSql(),
             'filters' => $this->component->getAppliedFilters(),
             'sorts' => $this->component->getSorts(),
             'search' => $this->component->getSearch(),

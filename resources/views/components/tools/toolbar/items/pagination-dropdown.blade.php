@@ -6,17 +6,17 @@
 >
     <select wire:model.live="perPage" id="{{ $tableName }}-perPage"
         {{ 
-            $attributes->merge($component->getPerPageFieldAttributes())
+            $attributes->merge($component->perPageFieldAttributes)
             ->class([
-                'form-control' => $this->isBootstrap4 && $component->getPerPageFieldAttributes()['default-styling'],
-                'form-select' => $this->isBootstrap5 && $component->getPerPageFieldAttributes()['default-styling'],
-                'block w-full rounded-md shadow-sm transition duration-150 ease-in-out sm:text-sm sm:leading-5 focus:ring focus:ring-opacity-50' => $this->isTailwind && $component->getPerPageFieldAttributes()['default-styling'],
-                'border-gray-300 focus:border-indigo-300 focus:ring-indigo-200 dark:bg-gray-700 dark:text-white dark:border-gray-600' => $this->isTailwind && $component->getPerPageFieldAttributes()['default-colors'],
+                'form-control' => $this->isBootstrap4 && $component->perPageFieldAttributes['default-styling'],
+                'form-select' => $this->isBootstrap5 && $component->perPageFieldAttributes['default-styling'],
+                'block w-full rounded-md shadow-sm transition duration-150 ease-in-out sm:text-sm sm:leading-5 focus:ring focus:ring-opacity-50' => $this->isTailwind && $component->perPageFieldAttributes['default-styling'],
+                'border-gray-300 focus:border-indigo-300 focus:ring-indigo-200 dark:bg-gray-700 dark:text-white dark:border-gray-600' => $this->isTailwind && $component->perPageFieldAttributes['default-colors'],
             ])
             ->except(['default','default-styling','default-colors']) 
         }}
     >
-        @foreach ($component->getPerPageAccepted() as $item)
+        @foreach ($component->perPageAccepted as $item)
             <option
                 value="{{ $item }}"
                 wire:key="{{ $tableName }}-per-page-{{ $item }}"

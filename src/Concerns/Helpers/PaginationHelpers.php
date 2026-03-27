@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers;
 
@@ -51,7 +51,8 @@ trait PaginationHelpers
         return $this->getPaginationVisibilityStatus() === false;
     }
 
-    public function getComputedPageName(): string
+    #[Computed]
+    public function computedPageName(): string
     {
         $pageName = 'page';
 
@@ -60,7 +61,7 @@ trait PaginationHelpers
             $pageName = $this->getPageName();
         } elseif (! $this->isTableNamed('table')) {
             // If the component has a custom table name but no custom page name
-            $pageName = $this->getTableName().'Page';
+            $pageName = $this->tableName().'Page';
         }
 
         return $pageName;
@@ -136,7 +137,7 @@ trait PaginationHelpers
      */
     public function resetComputedPage(): void
     {
-        $this->resetPage($this->getComputedPageName());
+        $this->resetPage($this->computedPageName());
     }
 
     private function getPerPagePaginationSessionKey(): string
@@ -145,13 +146,13 @@ trait PaginationHelpers
     }
 
     #[Computed]
-    public function getPerPageFieldAttributes(): array
+    public function perPageFieldAttributes(): array
     {
         return $this->perPageFieldAttributes;
     }
 
     #[Computed]
-    public function getShouldRetrieveTotalItemCount(): bool
+    public function shouldRetrieveTotalItemCount(): bool
     {
         return $this->shouldRetrieveTotalItemCount;
     }

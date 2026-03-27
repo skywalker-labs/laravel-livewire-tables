@@ -13,7 +13,7 @@
                 @lang('Applied Filters'):
             </small>
 
-            @foreach($this->getAppliedFiltersWithValues() as $filterSelectName => $value)
+            @foreach($this->appliedFiltersWithValues as $filterSelectName => $value)
                 @php($filter = $this->getFilterByKey($filterSelectName))
 
                 @continue(is_null($filter))

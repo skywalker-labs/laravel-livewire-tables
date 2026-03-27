@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Views\Columns;
 
@@ -44,7 +44,7 @@ final class CountColumnTest extends TestCase
 
     public function test_renders_correctly(): void
     {
-        $rows = $this->speciesTable->getRows();
+        $rows = $this->speciesTable->rows;
         $row1 = $rows->first();
         $column = CountColumn::make('Pets')
             ->setDataSource('pets');

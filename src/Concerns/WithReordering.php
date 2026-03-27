@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 
@@ -83,7 +83,7 @@ trait WithReordering
 
     private function resetReorderFields(): void
     {
-        $this->{$this->getTableName()} = [];
+        $this->{$this->tableName()} = [];
         $this->setSortingPillsDisabled();
         $this->setSortingDisabled();
         $this->setPaginationDisabled();
@@ -111,7 +111,7 @@ trait WithReordering
     protected function getTableStateToArray(): array
     {
         return [
-            $this->getTableName() => $this->{$this->getTableName()},
+            $this->tableName() => $this->{$this->tableName()},
             'sorts' => $this->sorts,
             'search' => $this->search,
             'selectedColumns' => $this->selectedColumns,
@@ -121,7 +121,7 @@ trait WithReordering
             'perPageVisibilityStatus' => $this->getPerPageVisibilityStatus(),
             'perPageAccepted' => $this->getPerPageAccepted(),
             'perPage' => $this->getPerPage(),
-            'page' => $this->paginators[$this->getComputedPageName()] ?? 1,
+            'page' => $this->paginators[$this->computedPageName] ?? 1,
             'searchStatus' => $this->getSearchStatus(),
             'bulkActionsStatus' => $this->getBulkActionsStatus(),
             'selected' => $this->getSelected(),
@@ -135,7 +135,7 @@ trait WithReordering
 
     protected function restoreStateFromArray(array $tableState): void
     {
-        $this->{$this->getTableName()} = $tableState[$this->getTableName()];
+        $this->{$this->tableName()} = $tableState[$this->tableName()];
         $this->sorts = $tableState['sorts'];
         $this->search = $tableState['search'];
         $this->selectedColumns = $tableState['selectedColumns'];
@@ -145,7 +145,7 @@ trait WithReordering
         $this->setPerPageVisibilityStatus($tableState['perPageVisibilityStatus']);
         $this->setPerPageAccepted($tableState['perPageAccepted']);
         $this->setPerPage($tableState['perPage']);
-        $this->setPage($tableState['page'], $this->getComputedPageName());
+        $this->setPage($tableState['page'], $this->computedPageName);
         $this->setSearchStatus($tableState['searchStatus']);
         $this->setBulkActionsStatus($tableState['bulkActionsStatus']);
         $this->setSelected($tableState['selected']);

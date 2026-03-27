@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests;
 
@@ -11,11 +11,11 @@ class DataTableComponentTest extends TestCase
 {
     public function test_primary_key_can_be_set(): void
     {
-        $this->assertSame('id', $this->basicTable->getPrimaryKey());
+        $this->assertSame('id', $this->basicTable->primaryKey());
 
         $this->basicTable->setPrimaryKey('name');
 
-        $this->assertSame('name', $this->basicTable->getPrimaryKey());
+        $this->assertSame('name', $this->basicTable->primaryKey());
     }
 
     public function test_primary_key_can_be_checked_for_existence(): void
@@ -38,18 +38,18 @@ class DataTableComponentTest extends TestCase
     {
         $this->assertSame(
             [
-                $this->basicTable->getDataTableFingerprint(),
-                $this->basicTable->getDataTableFingerprint(),
-                $this->basicTable->getDataTableFingerprint(),
+                $this->basicTable->dataTableFingerprint,
+                $this->basicTable->dataTableFingerprint,
+                $this->basicTable->dataTableFingerprint,
             ],
             [
-                $this->basicTable->getDataTableFingerprint(),
-                $this->basicTable->getDataTableFingerprint(),
-                $this->basicTable->getDataTableFingerprint(),
+                $this->basicTable->dataTableFingerprint,
+                $this->basicTable->dataTableFingerprint,
+                $this->basicTable->dataTableFingerprint,
             ]
         );
         // Changed due to PHP 7.4
-        $this->assertSame($this->basicTable->getDataTableFingerprint(), $this->defaultFingerprintingAlgo(PetsTable::class));
+        $this->assertSame($this->basicTable->dataTableFingerprint, $this->defaultFingerprintingAlgo(PetsTable::class));
 
     }
 
@@ -57,7 +57,7 @@ class DataTableComponentTest extends TestCase
     {
         $mockTable = new class extends PetsTable {};
 
-        $this->assertNotSame($this->basicTable->getDataTableFingerprint(), $mockTable->getDataTableFingerprint());
+        $this->assertNotSame($this->basicTable->dataTableFingerprint, $mockTable->dataTableFingerprint);
     }
 
     public function test_default_fingerprint_will_be_url_friendy(): void
@@ -65,7 +65,7 @@ class DataTableComponentTest extends TestCase
         $mocks = [];
         for ($i = 0; $i < 9; $i++) {
             $mocks[$i] = new class extends PetsTable {};
-            $this->assertFalse(filter_var('http://'.$mocks[$i]->getDataTableFingerprint().'.dev', FILTER_VALIDATE_URL) === false);
+            $this->assertFalse(filter_var('http://'.$mocks[$i]->dataTableFingerprint.'.dev', FILTER_VALIDATE_URL) === false);
         }
         // control
         $this->assertTrue(filter_var('http://[9/$].dev', FILTER_VALIDATE_URL) === false);

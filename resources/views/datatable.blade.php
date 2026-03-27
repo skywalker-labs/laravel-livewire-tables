@@ -1,6 +1,6 @@
-@php($tableName = $this->getTableName)
-@php($tableId = $this->getTableId)
-@php($primaryKey = $this->getPrimaryKey)
+@php($tableName = $this->tableName)
+@php($tableId = $this->tableId)
+@php($primaryKey = $this->primaryKey)
 @php($isTailwind = $this->isTailwind)
 @php($isBootstrap = $this->isBootstrap)
 @php($isBootstrap4 = $this->isBootstrap4)
@@ -30,7 +30,7 @@
         <x-livewire-tables::table>
             
             <x-slot name="thead">
-                @if($this->getCurrentlyReorderingStatus)
+                @if($this->currentlyReorderingStatus)
                     <x-livewire-tables::table.th.reorder x-cloak x-show="currentlyReorderingStatus" />
                 @endif
                 @if($this->showBulkActionsSections)
@@ -57,10 +57,10 @@
                 <x-livewire-tables::table.tr.bulk-actions  :displayMinimisedOnReorder="true" />
             @endif
 
-            @forelse ($this->getRows as $rowIndex => $row)
+            @forelse ($this->rows as $rowIndex => $row)
                 <x-livewire-tables::table.tr wire:key="{{ $tableName }}-row-wrap-{{ $row->{$primaryKey} }}" :row="$row" :rowIndex="$rowIndex">
-                    @if($this->getCurrentlyReorderingStatus)
-                        <x-livewire-tables::table.td.reorder x-cloak x-show="currentlyReorderingStatus" wire:key="{{ $tableName }}-row-reorder-{{ $row->{$primaryKey} }}" :rowID="$tableName.'-'.$row->{$this->getPrimaryKey()}" :rowIndex="$rowIndex" />
+                    @if($this->currentlyReorderingStatus)
+                        <x-livewire-tables::table.td.reorder x-cloak x-show="currentlyReorderingStatus" wire:key="{{ $tableName }}-row-reorder-{{ $row->{$primaryKey} }}" :rowID="$tableName.'-'.$row->{$this->primaryKey()}" :rowIndex="$rowIndex" />
                     @endif
                     @if($this->showBulkActionsSections)
                         <x-livewire-tables::table.td.bulk-actions wire:key="{{ $tableName }}-row-bulk-act-{{ $row->{$primaryKey} }}" :row="$row" :rowIndex="$rowIndex"/>

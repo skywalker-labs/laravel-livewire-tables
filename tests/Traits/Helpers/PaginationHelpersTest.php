@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Traits\Helpers;
 
@@ -34,15 +34,15 @@ final class PaginationHelpersTest extends TestCase
 
     public function test_can_get_computed_page_name(): void
     {
-        $this->assertSame('page', $this->basicTable->getComputedPageName());
+        $this->assertSame('page', $this->basicTable->computedPageName());
 
         $this->basicTable->setTableName('users');
 
-        $this->assertSame('usersPage', $this->basicTable->getComputedPageName());
+        $this->assertSame('usersPage', $this->basicTable->computedPageName());
 
         $this->basicTable->setPageName('newPage');
 
-        $this->assertSame('newPage', $this->basicTable->getComputedPageName());
+        $this->assertSame('newPage', $this->basicTable->computedPageName());
     }
 
     public function test_can_get_per_page_selection(): void
@@ -83,14 +83,14 @@ final class PaginationHelpersTest extends TestCase
 
     public function test_can_check_per_page_displayed_item_count(): void
     {
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         $this->assertSame(5, $this->basicTable->getPerPageDisplayedItemCount());
 
     }
 
     public function test_can_check_per_page_displayed_items(): void
     {
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         $this->assertSame([1, 2, 3, 4, 5], $this->basicTable->getPerPageDisplayedItemIds());
 
     }
@@ -123,7 +123,7 @@ final class PaginationHelpersTest extends TestCase
     public function test_can_get_pagination_field_attributes(): void
     {
 
-        $this->assertSame(['default-styling' => true, 'default-colors' => true, 'class' => ''], $this->basicTable->getPerPageFieldAttributes());
+        $this->assertSame(['default-styling' => true, 'default-colors' => true, 'class' => ''], $this->basicTable->perPageFieldAttributes());
 
         $this->basicTable->setPerPageFieldAttributes(
             [
@@ -132,7 +132,7 @@ final class PaginationHelpersTest extends TestCase
             ]
         );
 
-        $this->assertSame(['default-styling' => true, 'default-colors' => true, 'class' => 'bg-blue-500 dark:bg-red-500'], $this->basicTable->getPerPageFieldAttributes());
+        $this->assertSame(['default-styling' => true, 'default-colors' => true, 'class' => 'bg-blue-500 dark:bg-red-500'], $this->basicTable->perPageFieldAttributes());
 
         $this->basicTable->setPerPageFieldAttributes(
             [
@@ -140,37 +140,37 @@ final class PaginationHelpersTest extends TestCase
             ]
         );
 
-        $this->assertSame(['default-styling' => false, 'default-colors' => true, 'class' => 'bg-blue-500 dark:bg-red-500'], $this->basicTable->getPerPageFieldAttributes());
+        $this->assertSame(['default-styling' => false, 'default-colors' => true, 'class' => 'bg-blue-500 dark:bg-red-500'], $this->basicTable->perPageFieldAttributes());
 
     }
 
     public function test_can_toggle_total_item_count_retrieval(): void
     {
 
-        $this->assertTrue($this->basicTable->getShouldRetrieveTotalItemCount());
+        $this->assertTrue($this->basicTable->shouldRetrieveTotalItemCount());
 
         $this->basicTable->setShouldRetrieveTotalItemCountDisabled();
 
-        $this->assertFalse($this->basicTable->getShouldRetrieveTotalItemCount());
+        $this->assertFalse($this->basicTable->shouldRetrieveTotalItemCount());
 
         $this->basicTable->setShouldRetrieveTotalItemCountEnabled();
 
-        $this->assertTrue($this->basicTable->getShouldRetrieveTotalItemCount());
+        $this->assertTrue($this->basicTable->shouldRetrieveTotalItemCount());
 
     }
 
     public function test_can_toggle_total_item_count_retrieval_via_status(): void
     {
 
-        $this->assertTrue($this->basicTable->getShouldRetrieveTotalItemCount());
+        $this->assertTrue($this->basicTable->shouldRetrieveTotalItemCount());
 
         $this->basicTable->setShouldRetrieveTotalItemCountStatus(false);
 
-        $this->assertFalse($this->basicTable->getShouldRetrieveTotalItemCount());
+        $this->assertFalse($this->basicTable->shouldRetrieveTotalItemCount());
 
         $this->basicTable->setShouldRetrieveTotalItemCountStatus(true);
 
-        $this->assertTrue($this->basicTable->getShouldRetrieveTotalItemCount());
+        $this->assertTrue($this->basicTable->shouldRetrieveTotalItemCount());
 
     }
 }

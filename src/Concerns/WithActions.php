@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 
@@ -23,7 +23,7 @@ trait WithActions
     }
 
     #[Computed]
-    public function getActionWrapperAttributes(): array
+    public function actionWrapperAttributes(): array
     {
         return [...['default-styling' => true, 'default-colors' => true], ...$this->actionWrapperAttributes];
     }
@@ -36,7 +36,7 @@ trait WithActions
     }
 
     #[Computed]
-    public function getActions(): Collection
+    public function actionList(): Collection
     {
         return (new Collection($this->actions()))
             ->filter(fn ($action) => $action instanceof Action)

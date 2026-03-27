@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers;
 
@@ -142,7 +142,7 @@ trait BulkActionsHelpers
      */
     /*public function updatedSelectAll(): void
     {
-        if (count($this->getSelected()) === (clone $this->baseQuery())->pluck($this->getPrimaryKey())->count()) {
+        if (count($this->getSelected()) === (clone $this->baseQuery())->pluck($this->primaryKey)->count()) {
             $this->clearSelected();
         } else {
             $this->setAllSelected();
@@ -155,7 +155,7 @@ trait BulkActionsHelpers
     public function setAllSelected(): void
     {
         $this->setSelectAllEnabled();
-        $this->setSelected((clone $this->baseQuery())->pluck($this->getBuilder()->getModel()->getTable().'.'.$this->getPrimaryKey())->map(fn ($item) => (string) $item)->toArray());
+        $this->setSelected((clone $this->baseQuery())->pluck($this->getBuilder()->getModel()->getTable().'.'.$this->primaryKey)->map(fn ($item) => (string) $item)->toArray());
     }
 
     public function showBulkActionsDropdownAlpine(): bool
@@ -240,20 +240,20 @@ trait BulkActionsHelpers
     }
 
     #[Computed]
-    public function getBulkActionsButtonAttributes(): array
+    public function bulkActionsButtonAttributes(): array
     {
         return array_merge(['default-colors' => true, 'default-styling' => true], $this->bulkActionsButtonAttributes);
 
     }
 
     #[Computed]
-    public function getBulkActionsMenuAttributes(): array
+    public function bulkActionsMenuAttributes(): array
     {
         return array_merge(['default-colors' => true, 'default-styling' => true], $this->bulkActionsMenuAttributes);
     }
 
     #[Computed]
-    public function getBulkActionsMenuItemAttributes(): array
+    public function bulkActionsMenuItemAttributes(): array
     {
         return array_merge(['default-colors' => true, 'default-styling' => true], $this->bulkActionsMenuItemAttributes);
     }
@@ -261,7 +261,7 @@ trait BulkActionsHelpers
     public function getSelectedRows(): array
     {
         if ($this->getDelaySelectAllStatus() && $this->selectAllIsEnabled()) {
-            return (clone $this->baseQuery())->select($this->getBuilder()->getModel()->getTable().'.'.$this->getPrimaryKey())->pluck($this->getBuilder()->getModel()->getTable().'.'.$this->getPrimaryKey())->map(fn ($item) => $item)->toArray();
+            return (clone $this->baseQuery())->select($this->getBuilder()->getModel()->getTable().'.'.$this->primaryKey)->pluck($this->getBuilder()->getModel()->getTable().'.'.$this->primaryKey)->map(fn ($item) => $item)->toArray();
         } else {
             return $this->selected;
         }

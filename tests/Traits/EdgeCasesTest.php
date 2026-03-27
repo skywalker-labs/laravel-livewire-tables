@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Traits;
 
@@ -13,7 +13,7 @@ final class EdgeCasesTest extends TestCase
         $this->basicTable->setSearch('nonexistent_pet_name_xyz');
         $this->basicTable->applySearch();
         
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         $this->assertSame(0, $rows->count());
         $this->assertSame([], $this->basicTable->paginationCurrentItems);
         $this->assertSame(0, $this->basicTable->paginationCurrentCount);
@@ -24,7 +24,7 @@ final class EdgeCasesTest extends TestCase
         // Test with -1 (all items) - need to accept it first
         $this->basicTable->setPerPageAccepted([-1, 10, 25, 50]);
         $this->basicTable->setPerPage(-1);
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         $this->assertGreaterThan(0, $rows->count());
         
         // Test with invalid per page value
@@ -81,7 +81,7 @@ final class EdgeCasesTest extends TestCase
         $this->basicTable->applyFilters();
         
         // Should handle gracefully
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         $this->assertIsIterable($rows);
     }
 
@@ -100,7 +100,7 @@ final class EdgeCasesTest extends TestCase
         $this->basicTable->setSearch('nonexistent_pet_name_xyz');
         $this->basicTable->applySearch();
         
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         // Should not throw exception when plucking from empty collection
         $this->assertSame([], $this->basicTable->paginationCurrentItems);
     }
@@ -142,7 +142,7 @@ final class EdgeCasesTest extends TestCase
         $method->setAccessible(true);
         $method->invoke($this->basicTable, 'invalid_method');
         
-        $this->basicTable->getRows();
+        $this->basicTable->rows;
     }
 
     public function test_simple_pagination_without_total_count(): void
@@ -150,7 +150,7 @@ final class EdgeCasesTest extends TestCase
         $this->basicTable->setPaginationMethod('simple');
         $this->basicTable->setShouldRetrieveTotalItemCountDisabled();
         
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         $this->assertInstanceOf(\Illuminate\Pagination\Paginator::class, $rows);
         $this->assertSame(-1, $this->basicTable->paginationTotalItemCount);
     }
@@ -159,7 +159,7 @@ final class EdgeCasesTest extends TestCase
     {
         $this->basicTable->setPaginationMethod('cursor');
         
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         $this->assertInstanceOf(\Illuminate\Pagination\CursorPaginator::class, $rows);
     }
 
@@ -214,7 +214,7 @@ final class EdgeCasesTest extends TestCase
         $table->applySearch();
         
         // Should not throw exception
-        $rows = $table->getRows();
+        $rows = $table->rows;
         $this->assertIsIterable($rows);
     }
 
@@ -239,14 +239,14 @@ final class EdgeCasesTest extends TestCase
         $table->applySorting();
         
         // Should not throw exception
-        $rows = $table->getRows();
+        $rows = $table->rows;
         $this->assertIsIterable($rows);
     }
 
     public function test_pagination_current_items_with_different_primary_key_types(): void
     {
         // Test that pluck works with different primary key types
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         
         // Should have array of primary keys
         $this->assertIsArray($this->basicTable->paginationCurrentItems);
@@ -262,7 +262,7 @@ final class EdgeCasesTest extends TestCase
         
         // Should handle gracefully
         try {
-            $this->basicTable->getRows();
+            $this->basicTable->rows;
             $this->assertTrue(true);
         } catch (\Exception $e) {
             // Exception is acceptable for invalid relationships
@@ -277,7 +277,7 @@ final class EdgeCasesTest extends TestCase
         
         // Should handle special characters in search
         $this->basicTable->applySearch();
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         $this->assertIsIterable($rows);
     }
 
@@ -287,7 +287,7 @@ final class EdgeCasesTest extends TestCase
         // Use the actual selectedColumns property
         $this->basicTable->selectedColumns = ['id', 'name'];
         
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         
         // Should only select specified columns
         $this->assertIsIterable($rows);
@@ -319,7 +319,7 @@ final class EdgeCasesTest extends TestCase
         // resetFilter sets filter to default value (empty array for MultiSelectFilter)
         $this->assertSame([], $this->basicTable->filterComponents['breed']);
         // Should not be in appliedFiltersWithValues when empty
-        $this->assertArrayNotHasKey('breed', $this->basicTable->getAppliedFiltersWithValues());
+        $this->assertArrayNotHasKey('breed', $this->basicTable->appliedFiltersWithValues());
     }
 
     public function test_search_trimming_handles_whitespace_only(): void

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers;
 
@@ -18,7 +18,7 @@ trait FilterHelpers
      */
     public function mountFilterHelpers(): void
     {
-        foreach ($this->getFilters() as $filter) {
+        foreach ($this->filterCollection() as $filter) {
             if (! isset($this->appliedFilters[$filter->getKey()])) {
                 if ($filter->hasFilterDefaultValue()) {
                     $this->setFilter($filter->getKey(), $filter->getFilterDefaultValue());
@@ -98,12 +98,13 @@ trait FilterHelpers
 
     public function hasVisibleFilters(): bool
     {
-        return $this->getFilters()
+        return $this->filterCollection()
             ->reject(fn (Filter $filter) => $filter->isHiddenFromMenus())
             ->count() > 0;
     }
 
-    public function getFilters(): Collection
+    #[Computed]
+    public function filterCollection(): Collection
     {
         if (! isset($this->filterCollection)) {
             $this->filterCollection = collect($this->filters());
@@ -116,7 +117,7 @@ trait FilterHelpers
     public function getFiltersCount(): int
     {
         if (! isset($this->filterCount)) {
-            $this->filterCount = $this->getFilters()->count();
+            $this->filterCount = $this->filterCollection()->count();
         }
 
         return $this->filterCount;
@@ -128,7 +129,7 @@ trait FilterHelpers
      */
     public function getFilterByKey(string $key)
     {
-        return $this->getFilters()->first(function ($filter) use ($key) {
+        return $this->filterCollection()->first(function ($filter) use ($key) {
             return $filter->getKey() === $key;
         });
     }
@@ -142,9 +143,9 @@ trait FilterHelpers
         $this->callHook('filterSet', ['filter' => $filterKey, 'value' => $value]);
         $this->callTraitHook('filterSet', ['filter' => $filterKey, 'value' => $value]);
         if ($this->getEventStatusFilterApplied() && $filterKey != null && $value != null) {
-            event(new FilterApplied($this->getTableName(), $filterKey, $value));
+            event(new FilterApplied($this->tableName(), $filterKey, $value));
         }
-        $this->dispatch('filter-was-set', tableName: $this->getTableName(), filterKey: $filterKey, value: $value);
+        $this->dispatch('filter-was-set', tableName: $this->tableName(), filterKey: $filterKey, value: $value);
     }
 
     public function selectAllFilterOptions(string $filterKey): void
@@ -168,7 +169,7 @@ trait FilterHelpers
     #[On('clear-filters')]
     public function setFilterDefaults(): void
     {
-        foreach ($this->getFilters() as $filter) {
+        foreach ($this->filterCollection() as $filter) {
             if ($filter->isResetByClearButton()) {
                 $this->resetFilter($filter);
             }
@@ -180,7 +181,7 @@ trait FilterHelpers
      */
     public function getAppliedFilters(): array
     {
-        $validFilterKeys = $this->getFilters()
+        $validFilterKeys = $this->filterCollection()
             ->map(fn (Filter $filter) => $filter->getKey())
             ->toArray();
 
@@ -191,20 +192,21 @@ trait FilterHelpers
 
     public function hasAppliedFiltersWithValues(): bool
     {
-        return count($this->getAppliedFiltersWithValues()) > 0;
+        return count($this->appliedFiltersWithValues()) > 0;
     }
 
     public function hasAppliedVisibleFiltersWithValuesThatCanBeCleared(): bool
     {
-        return collect($this->getAppliedFiltersWithValues())
+        return collect($this->appliedFiltersWithValues())
             ->map(fn ($_item, $key) => $this->getFilterByKey($key))
             ->reject(fn (Filter $filter) => $filter->isHiddenFromMenus() && ! $filter->isResetByClearButton())
             ->count() > 0;
     }
 
-    public function getFilterBadgeCount(): int
+    #[Computed]
+    public function filterBadgeCount(): int
     {
-        return collect($this->getAppliedFiltersWithValues())
+        return collect($this->appliedFiltersWithValues())
             ->map(fn ($_item, $key) => $this->getFilterByKey($key))
             ->reject(fn (Filter $filter) => $filter->isHiddenFromFilterCount())
             ->count();
@@ -212,7 +214,7 @@ trait FilterHelpers
 
     public function hasAppliedVisibleFiltersForPills(): bool
     {
-        return collect($this->getAppliedFiltersWithValues())
+        return collect($this->appliedFiltersWithValues())
             ->map(fn ($_item, $key) => $this->getFilterByKey($key))
             ->reject(fn (Filter $filter) => $filter->isHiddenFromPills())
             ->count() > 0;
@@ -221,7 +223,8 @@ trait FilterHelpers
     /**
      * @return array<mixed>
      */
-    public function getAppliedFiltersWithValues(): array
+    #[Computed]
+    public function appliedFiltersWithValues(): array
     {
         return $this->appliedFilters = array_filter($this->getAppliedFilters(), function ($item, $key) {
             return ! $this->getFilterByKey($key)->isEmpty($item) && (is_array($item) ? count($item) : $item !== null);
@@ -233,12 +236,12 @@ trait FilterHelpers
      */
     public function getAppliedFilterWithValue(string $filterKey)
     {
-        return $this->getAppliedFiltersWithValues()[$filterKey] ?? null;
+        return $this->appliedFiltersWithValues()[$filterKey] ?? null;
     }
 
     public function getAppliedFiltersWithValuesCount(): int
     {
-        return count($this->getAppliedFiltersWithValues());
+        return count($this->appliedFiltersWithValues());
     }
 
     /**
@@ -274,7 +277,7 @@ trait FilterHelpers
      */
     public function hasFiltersWithSlidedownRows(): bool
     {
-        return $this->getFilters()
+        return $this->filterCollection()
             ->reject(fn (Filter $filter) => ! $filter->hasFilterSlidedownRow())
             ->count() > 0;
     }
@@ -282,9 +285,10 @@ trait FilterHelpers
     /**
      * Get whether filter has a configured slide down row.
      */
-    public function getVisibleFilters(): Collection
+    #[Computed]
+    public function visibleFilters(): Collection
     {
-        return $this->getFilters()->reject(fn (Filter $filter) => $filter->isHiddenFromMenus());
+        return $this->filterCollection()->reject(fn (Filter $filter) => $filter->isHiddenFromMenus());
     }
 
     /**
@@ -295,7 +299,7 @@ trait FilterHelpers
     public function getFiltersByRow(): array
     {
         $orderedFilters = [];
-        $filterList = ($this->hasFiltersWithSlidedownRows()) ? $this->getVisibleFilters()->sortBy('filterSlidedownRow') : $this->getVisibleFilters();
+        $filterList = ($this->hasFiltersWithSlidedownRows()) ? $this->visibleFilters->sortBy('filterSlidedownRow') : $this->visibleFilters;
         if ($this->hasFiltersWithSlidedownRows()) {
             foreach ($filterList as $filter) {
                 $orderedFilters[(string) $filter->getFilterSlidedownRow()][] = $filter;
@@ -325,7 +329,7 @@ trait FilterHelpers
     }
 
     #[Computed(persist: true)]
-    public function getFilterGenericData(): array
+    public function filterGenericData(): array
     {
         if (! $this->hasFilterGenericData()) {
             $this->setFilterGenericData($this->generateFilterGenericData());

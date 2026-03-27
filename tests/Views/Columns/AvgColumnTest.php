@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Views\Columns;
 
@@ -106,7 +106,7 @@ final class AvgColumnTest extends TestCase
     #[DataProviderExternal(AggregateColumnProvider::class, 'relationshipProvider')]
     public function test_renders_correctly(string $relation_name, string $foreign_field): void
     {
-        $rows = $this->speciesTable->getRows();
+        $rows = $this->speciesTable->rows;
         $column = AvgColumn::make('Average Age')
             ->setDataSource('pets', 'age');
         $contents = $column->getContents($rows->first());

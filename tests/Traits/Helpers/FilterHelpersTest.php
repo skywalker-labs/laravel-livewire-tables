@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Traits\Helpers;
 
@@ -58,12 +58,12 @@ final class FilterHelpersTest extends TestCase
 
     public function test_can_get_component_filters(): void
     {
-        $this->assertInstanceOf(MultiSelectFilter::class, $this->basicTable->getFilters()[0]);
-        $this->assertInstanceOf(NumberFilter::class, $this->basicTable->getFilters()[2]);
-        $this->assertInstanceOf(TextFilter::class, $this->basicTable->getFilters()[3]);
-        $this->assertInstanceOf(DateFilter::class, $this->basicTable->getFilters()[4]);
-        $this->assertInstanceOf(DateTimeFilter::class, $this->basicTable->getFilters()[5]);
-        $this->assertInstanceOf(SelectFilter::class, $this->basicTable->getFilters()[6]);
+        $this->assertInstanceOf(MultiSelectFilter::class, $this->basicTable->filterCollection()[0]);
+        $this->assertInstanceOf(NumberFilter::class, $this->basicTable->filterCollection()[2]);
+        $this->assertInstanceOf(TextFilter::class, $this->basicTable->filterCollection()[3]);
+        $this->assertInstanceOf(DateFilter::class, $this->basicTable->filterCollection()[4]);
+        $this->assertInstanceOf(DateTimeFilter::class, $this->basicTable->filterCollection()[5]);
+        $this->assertInstanceOf(SelectFilter::class, $this->basicTable->filterCollection()[6]);
     }
 
     public function test_can_get_component_filter_count(): void
@@ -164,7 +164,7 @@ final class FilterHelpersTest extends TestCase
     {
         $this->basicTable->setFilter('breed', ['1']);
 
-        $this->assertSame(['breed' => ['1']], $this->basicTable->getAppliedFiltersWithValues());
+        $this->assertSame(['breed' => ['1']], $this->basicTable->appliedFiltersWithValues());
     }
 
     public function test_can_get_all_applied_filters_with_values_count(): void

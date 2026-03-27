@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
 
@@ -59,7 +59,7 @@ trait WithColumnSelect
         // The query string isn't needed if it's the same as the default
         session([$this->getColumnSelectSessionKey() => $this->selectedColumns]);
         if ($this->getEventStatusColumnSelect()) {
-            event(new ColumnsSelected($this->getTableName(), $this->getColumnSelectSessionKey(), $this->selectedColumns));
+            event(new ColumnsSelected($this->tableName(), $this->getColumnSelectSessionKey(), $this->selectedColumns));
         }
     }
 

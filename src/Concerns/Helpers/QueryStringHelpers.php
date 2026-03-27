@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers;
 
@@ -33,6 +33,6 @@ trait QueryStringHelpers
 
     public function getQueryStringAlias(): string
     {
-        return $this->queryStringAlias ?? $this->getTableName();
+        return $this->queryStringAlias ?? $this->tableName();
     }
 }

@@ -2,10 +2,10 @@
 
 @php
     $customAttributes = [
-        'wrapper' => $this->getTableWrapperAttributes(),
-        'table' => $this->getTableAttributes(),
-        'thead' => $this->getTheadAttributes(),
-        'tbody' => $this->getTbodyAttributes(),
+        'wrapper' => $this->tableWrapperAttributes(),
+        'table' => $this->tableAttributes(),
+        'thead' => $this->theadAttributes(),
+        'tbody' => $this->tbodyAttributes(),
     ];
 @endphp
 

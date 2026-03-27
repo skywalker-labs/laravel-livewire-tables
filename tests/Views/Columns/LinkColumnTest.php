@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Views\Columns;
 
@@ -61,7 +61,7 @@ final class LinkColumnTest extends TestCase
             ->location(fn ($row) => "#$row->id")
             ->html();
 
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows;
         $location = '#'.$rows->first()->id;
         $htmlString = new \Illuminate\Support\HtmlString('<a href="'.$location.'"><strong>My Label</strong></a>');
 

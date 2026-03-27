@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers;
 
@@ -9,49 +9,49 @@ use SkywalkerLabs\LaravelLivewireTables\View\Column;
 trait TableAttributeHelpers
 {
     #[Computed]
-    public function getComponentWrapperAttributes(): array
+    public function componentWrapperAttributes(): array
     {
         return count($this->componentWrapperAttributes) ? $this->componentWrapperAttributes : ['id' => 'datatable-'.$this->getId()];
     }
 
     #[Computed]
-    public function getTableWrapperAttributes(): array
+    public function tableWrapperAttributes(): array
     {
         return count($this->tableWrapperAttributes) ? $this->tableWrapperAttributes : ['default' => true];
     }
 
     #[Computed]
-    public function getTableAttributes(): array
+    public function tableAttributes(): array
     {
-        return count($this->tableAttributes) ? $this->tableAttributes : ['id' => 'table-'.$this->getTableName(), 'default' => true];
+        return count($this->tableAttributes) ? $this->tableAttributes : ['id' => 'table-'.$this->tableName(), 'default' => true];
     }
 
     #[Computed]
-    public function getTheadAttributes(): array
+    public function theadAttributes(): array
     {
         return count($this->theadAttributes) ? $this->theadAttributes : ['default' => true];
     }
 
     #[Computed]
-    public function getTbodyAttributes(): array
+    public function tbodyAttributes(): array
     {
         return count($this->tbodyAttributes) ? $this->tbodyAttributes : ['default' => true];
     }
 
     #[Computed]
-    public function getThAttributes(Column $column): array
+    public function thAttributes(Column $column): array
     {
         return isset($this->thAttributesCallback) ? call_user_func($this->thAttributesCallback, $column) : ['default' => true];
     }
 
     #[Computed]
-    public function getThSortButtonAttributes(Column $column): array
+    public function thSortButtonAttributes(Column $column): array
     {
         return isset($this->thSortButtonAttributesCallback) ? call_user_func($this->thSortButtonAttributesCallback, $column) : ['default' => true];
     }
 
     #[Computed]
-    public function getTrAttributes(Model $row, int $index): array
+    public function trAttributes(Model $row, int $index): array
     {
         $attributes = isset($this->trAttributesCallback) ? call_user_func($this->trAttributesCallback, $row, $index) : ['default' => true];
 
@@ -75,7 +75,7 @@ trait TableAttributeHelpers
     }
 
     #[Computed]
-    public function getTdAttributes(Column $column, Model $row, int $colIndex, int $rowIndex): array
+    public function tdAttributes(Column $column, Model $row, int $colIndex, int $rowIndex): array
     {
         return isset($this->tdAttributesCallback) ? call_user_func($this->tdAttributesCallback, $column, $row, $colIndex, $rowIndex) : ['default' => true];
     }

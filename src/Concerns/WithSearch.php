@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 declare(strict_types=1);
 
@@ -86,7 +86,7 @@ trait WithSearch
             $this->callHook('searchUpdated', ['value' => $search]);
             $this->callTraitHook('searchUpdated', ['value' => $search]);
             if ($this->getEventStatusSearchApplied() && $search !== null && $search !== '') {
-                event(new SearchApplied($this->getTableName(), $search));
+                event(new SearchApplied($this->tableName(), $search));
             }
 
             if ($searchableColumns->count()) {

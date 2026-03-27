@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Tests\Traits;
 
@@ -22,7 +22,7 @@ final class WithMountTest extends TestCase
         $table->booted();
         $table->renderingWithPagination($view, []);
         $table->render();
-        $rows = $table->getRows();
+        $rows = $table->rows;
 
         $this->assertSame(strtoupper($rows->first()->name), 'MAY');
         $this->assertNotSame(strtoupper($rows->first()->name), 'CHICO');
@@ -39,7 +39,7 @@ final class WithMountTest extends TestCase
         $table2->booted();
         $table2->renderingWithPagination($view, []);
         $table2->render();
-        $rows2 = $table2->getRows();
+        $rows2 = $table2->rows;
         $this->assertSame(strtoupper($rows2->first()->name), 'CHICO');
         $this->assertNotSame(strtoupper($rows2->first()->name), 'CARTMAN');
         $this->assertNotSame(strtoupper($rows2->first()->name), 'MAY');
@@ -55,7 +55,7 @@ final class WithMountTest extends TestCase
         $table3->booted();
         $table3->renderingWithPagination($view, []);
         $table3->render();
-        $rows3 = $table3->getRows();
+        $rows3 = $table3->rows;
 
         $this->assertSame(strtoupper($rows3->first()->name), 'CARTMAN');
         $this->assertNotSame(strtoupper($rows3->first()->name), 'CHICO');

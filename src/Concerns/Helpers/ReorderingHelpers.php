@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers;
 
@@ -27,19 +27,19 @@ trait ReorderingHelpers
     }
 
     #[Computed]
-    public function getCurrentlyReorderingStatus(): bool
+    public function currentlyReorderingStatus(): bool
     {
         return $this->currentlyReorderingStatus;
     }
 
     public function currentlyReorderingIsEnabled(): bool
     {
-        return $this->getCurrentlyReorderingStatus() === true;
+        return $this->currentlyReorderingStatus() === true;
     }
 
     public function currentlyReorderingIsDisabled(): bool
     {
-        return $this->getCurrentlyReorderingStatus() === false;
+        return $this->currentlyReorderingStatus() === false;
     }
 
     public function getHideReorderColumnUnlessReorderingStatus(): bool
@@ -84,12 +84,12 @@ trait ReorderingHelpers
 
     public function getReorderingSessionKey(): string
     {
-        return $this->getTableName().'-reordering';
+        return $this->tableName().'-reordering';
     }
 
     public function getReorderingBackupSessionKey(): string
     {
-        return $this->getTableName().'-reordering-backup';
+        return $this->tableName().'-reordering-backup';
     }
 
     /**
@@ -98,7 +98,7 @@ trait ReorderingHelpers
      * @return array<mixed>
      */
     #[Computed]
-    public function getReorderThAttributes(): array
+    public function reorderThAttributes(): array
     {
         return $this->reorderThAttributes ?? ['default' => true];
     }
