@@ -11,9 +11,6 @@ trait RefreshHelpers
         return $this->refresh !== false;
     }
 
-    /**
-     * @return bool|string
-     */
     public function refreshStatus(): bool|string
     {
         return $this->refresh;

@@ -6,6 +6,7 @@ use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use SkywalkerLabs\LaravelLivewireTables\LaravelLivewireTablesServiceProvider;
@@ -36,7 +37,7 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        if (! \Illuminate\Support\Facades\Schema::hasTable('breeds')) {
+        if (! Schema::hasTable('breeds')) {
             include_once __DIR__.'/../database/migrations/create_test_tables.php.stub';
             (new \CreateTestTables)->up();
 
