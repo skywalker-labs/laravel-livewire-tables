@@ -1,0 +1,22 @@
+﻿<?php
+
+namespace [namespace];
+
+use SkywalkerLabs\LaravelLivewireTables\DataTableComponent;
+use SkywalkerLabs\LaravelLivewireTables\View\Column;
+use [model_import];
+
+class [class] extends DataTableComponent
+{
+    protected $model = [model]::class;
+
+    public function configure(): void
+    {
+        $this->setPrimaryKey('id');
+    }
+
+    public function columns(): array
+    {
+        return [columns];
+    }
+}

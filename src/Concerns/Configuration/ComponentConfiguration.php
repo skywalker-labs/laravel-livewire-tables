@@ -1,0 +1,231 @@
+﻿<?php
+
+namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration;
+
+trait ComponentConfiguration
+{
+    public function setPrimaryKey(?string $key): self
+    {
+        $this->primaryKey = $key;
+
+        return $this;
+    }
+
+    /**
+     * Set the empty message
+     */
+    public function setEmptyMessage(string $message): self
+    {
+        $this->emptyMessage = $message;
+
+        return $this;
+    }
+
+    /**
+     * Set a custom empty state view
+     */
+    public function emptyState(string|\Illuminate\Contracts\View\View $view, array $data = []): self
+    {
+        $this->customEmptyStateView = $view;
+        $this->customEmptyStateData = $data;
+
+        return $this;
+    }
+
+    /**
+     * Set empty state heading
+     */
+    public function emptyStateHeading(string $heading): self
+    {
+        $this->emptyStateHeading = $heading;
+
+        return $this;
+    }
+
+    /**
+     * Set empty state description
+     */
+    public function emptyStateDescription(string $description): self
+    {
+        $this->emptyStateDescription = $description;
+
+        return $this;
+    }
+
+    public function setOfflineIndicatorStatus(bool $status): self
+    {
+        $this->offlineIndicatorStatus = $status;
+
+        return $this;
+    }
+
+    public function setOfflineIndicatorEnabled(): self
+    {
+        $this->setOfflineIndicatorStatus(true);
+
+        return $this;
+    }
+
+    public function setOfflineIndicatorDisabled(): self
+    {
+        $this->setOfflineIndicatorStatus(false);
+
+        return $this;
+    }
+
+    public function setEagerLoadAllRelationsStatus(bool $status): self
+    {
+        $this->eagerLoadAllRelationsStatus = $status;
+
+        return $this;
+    }
+
+    public function setEagerLoadAllRelationsEnabled(): self
+    {
+        $this->setEagerLoadAllRelationsStatus(true);
+
+        return $this;
+    }
+
+    public function setEagerLoadAllRelationsDisabled(): self
+    {
+        $this->setEagerLoadAllRelationsStatus(false);
+
+        return $this;
+    }
+
+    /**
+     * Allows adding a single set of additional selects to the query
+     */
+    public function setAdditionalSelects(string|array $selects): self
+    {
+        if (! is_array($selects)) {
+            $selects = [$selects];
+        }
+
+        $this->additionalSelects = $selects;
+
+        return $this;
+    }
+
+    /**
+     * Allows appending more additional selects
+     */
+    public function addAdditionalSelects(string|array $selects): self
+    {
+        if (! is_array($selects)) {
+            $selects = [$selects];
+        }
+        $this->additionalSelects = [...$this->additionalSelects, ...$selects];
+
+        return $this;
+    }
+
+    public function setDataTableFingerprint(string $dataTableFingerprint): self
+    {
+        $this->dataTableFingerprint = $dataTableFingerprint;
+
+        return $this;
+    }
+
+    public function setExtraWiths(array $extraWiths): self
+    {
+        $this->extraWiths = $extraWiths;
+
+        return $this;
+    }
+
+    public function addExtraWith(string $extraWith): self
+    {
+        $this->extraWiths[] = $extraWith;
+
+        return $this;
+    }
+
+    public function addExtraWiths(array $extraWiths): self
+    {
+        $this->extraWiths = [...$this->extraWiths, ...$extraWiths];
+
+        return $this;
+    }
+
+    public function setExtraWithCounts(array $extraWithCounts): self
+    {
+        $this->extraWithCounts = $extraWithCounts;
+
+        return $this;
+    }
+
+    public function addExtraWithCount(string $extraWithCount): self
+    {
+        $this->extraWithCounts[] = $extraWithCount;
+
+        return $this;
+    }
+
+    public function addExtraWithCounts(array $extraWithCounts): self
+    {
+        $this->extraWithCounts = [...$this->extraWithCounts, ...$extraWithCounts];
+
+        return $this;
+    }
+
+    public function addExtraWithSum(string $relationship, string $column): self
+    {
+        $this->extraWithSums[] = ['table' => $relationship, 'field' => $column];
+
+        return $this;
+    }
+
+    public function addExtraWithAvg(string $relationship, string $column): self
+    {
+        $this->extraWithAvgs[] = ['table' => $relationship, 'field' => $column];
+
+        return $this;
+    }
+
+    public function useComputedPropertiesEnabled(): self
+    {
+        $this->useComputedProperties = true;
+
+        return $this;
+    }
+
+    public function useComputedPropertiesDisabled(): self
+    {
+        $this->useComputedProperties = false;
+
+        return $this;
+    }
+
+    /**
+     * Set the table heading
+     */
+    public function heading(string $heading): self
+    {
+        $this->tableHeading = $heading;
+
+        return $this;
+    }
+
+    /**
+     * Set the table description
+     */
+    public function description(string $description): self
+    {
+        $this->tableDescription = $description;
+
+        return $this;
+    }
+
+    /**
+     * Set a custom header view
+     */
+    public function header(string|\Illuminate\Contracts\View\View $view, array $data = []): self
+    {
+        $this->customHeaderView = $view;
+        $this->customHeaderData = $data;
+
+        return $this;
+    }
+}

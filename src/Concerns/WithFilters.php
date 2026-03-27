@@ -1,0 +1,149 @@
+﻿<?php
+
+declare(strict_types=1);
+
+namespace SkywalkerLabs\LaravelLivewireTables\Concerns;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
+use Livewire\Attributes\Locked;
+use SkywalkerLabs\LaravelLivewireTables\Events\FilterApplied;
+use SkywalkerLabs\LaravelLivewireTables\Concerns\Configuration\FilterConfiguration;
+use SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers\FilterHelpers;
+
+/**
+ * Filter functionality for DataTableComponent
+ */
+trait WithFilters
+{
+    use FilterConfiguration,
+        FilterHelpers;
+
+    /**
+     * Whether filters are enabled (locked from frontend)
+     */
+    #[Locked]
+    public bool $filtersStatus = true;
+
+    /**
+     * Whether filters are visible (locked from frontend)
+     */
+    #[Locked]
+    public bool $filtersVisibilityStatus = true;
+
+    /**
+     * Whether filter pills are shown (locked from frontend)
+     */
+    #[Locked]
+    public bool $filterPillsStatus = true;
+
+    /**
+     * Whether slidedown filters are visible by default (entangled with JS)
+     */
+    public bool $filterSlideDownDefaultVisible = false;
+
+    /**
+     * Filter layout: popover or slide-down (locked from frontend)
+     */
+    #[Locked]
+    public string $filterLayout = 'popover';
+
+    /**
+     * Number of filters (locked from frontend)
+     */
+    #[Locked]
+    public int $filterCount;
+
+    /**
+     * Filter component values (set in JS)
+     * @var array<string, mixed>
+     */
+    public array $filterComponents = [];
+
+    /**
+     * Currently applied filter values (set in frontend)
+     * @var array<string, mixed>
+     */
+    public array $appliedFilters = [];
+
+    /**
+     * Generic filter data
+     * @var array<string, mixed>
+     */
+    public array $filterGenericData = [];
+
+    /**
+     * Filter collection cache
+     */
+    protected ?Collection $filterCollection = null;
+
+    public function filters(): array
+    {
+        return [];
+    }
+
+    protected function queryStringWithFilters(): array
+    {
+        if ($this->queryStringIsEnabled() && $this->filtersAreEnabled()) {
+            return [
+                'appliedFilters' => ['except' => null, 'history' => false, 'keep' => false, 'as' => $this->getQueryStringAlias().'-filters'],
+            ];
+        }
+
+        return [];
+    }
+
+    public function applyFilters(): Builder
+    {
+        if ($this->filtersAreEnabled() && $this->hasFilters() && $this->hasAppliedFiltersWithValues()) {
+            foreach ($this->getFilters() as $filter) {
+                foreach ($this->getAppliedFiltersWithValues() as $key => $value) {
+                    if ($filter->getKey() === $key && $filter->hasFilterCallback()) {
+                        // Let the filter class validate the value
+                        $value = $filter->validate($value);
+
+                        if ($value === false) {
+                            continue;
+                        }
+
+                        $this->callHook('filterApplying', ['filter' => $filter->getKey(), 'value' => $value]);
+                        $this->callTraitHook('filterApplying', ['filter' => $filter->getKey(), 'value' => $value]);
+
+                        ($filter->getFilterCallback())($this->getBuilder(), $value);
+                    }
+                }
+            }
+        }
+
+        return $this->getBuilder();
+    }
+
+    public function updatedFilterComponents(string|array|null $value, string $filterName): void
+    {
+        $this->resetComputedPage();
+
+        // Clear bulk actions on filter - if enabled
+        if ($this->getClearSelectedOnFilter()) {
+            $this->clearSelected();
+            $this->setSelectAllDisabled();
+        }
+
+        // Clear filters on empty value
+        $filter = $this->getFilterByKey($filterName);
+
+        if ($filter && $filter->isEmpty($value)) {
+            $this->callHook('filterRemoved', ['filter' => $filter->getKey()]);
+            $this->callTraitHook('filterRemoved', ['filter' => $filter->getKey()]);
+
+            $this->resetFilter($filterName);
+        } elseif ($filter) {
+            $this->callHook('filterUpdated', ['filter' => $filter->getKey(), 'value' => $value]);
+            $this->callTraitHook('filterUpdated', ['filter' => $filter->getKey(), 'value' => $value]);
+            if ($this->getEventStatusFilterApplied() && $filter->getKey() != null && $value != null) {
+                event(new FilterApplied($this->getTableName(), $filter->getKey(), $value));
+            }
+            $this->dispatch('filter-was-set', tableName: $this->getTableName(), filterKey: $filter->getKey(), value: $value);
+
+        }
+    }
+}
