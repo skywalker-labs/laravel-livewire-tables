@@ -169,7 +169,7 @@ trait WithData
         $lastQuery = clone $this->getBuilder();
 
         foreach ($column->getRelations() as $i => $relationPart) {
-            $model = $lastQuery->getRelation($relationPart);
+            $model = $lastQuery->getModel()->{$relationPart}();
             $tableAlias = $this->getTableAlias($tableAlias, $relationPart);
 
             switch (true) {
@@ -249,7 +249,7 @@ trait WithData
         $lastQuery = clone $this->getBuilder();
 
         foreach ($column->getRelations() as $relationPart) {
-            $model = $lastQuery->getRelation($relationPart);
+            $model = $lastQuery->getModel()->{$relationPart}();
 
             if ($model instanceof HasOne || $model instanceof BelongsTo || $model instanceof MorphOne) {
                 $table = $this->getTableAlias($table, $relationPart);

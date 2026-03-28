@@ -11,7 +11,6 @@ use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use SkywalkerLabs\LaravelLivewireTables\LaravelLivewireTablesServiceProvider;
 use SkywalkerLabs\LaravelLivewireTables\Tests\Http\Livewire\{BreedsTable,PetsTable,PetsTableUnpaginated,PetsTableWithOwner,SpeciesTable};
-use SkywalkerLabs\LaravelLivewireTables\Tests\Http\TestComponent;
 use SkywalkerLabs\LaravelLivewireTables\Tests\Models\Breed;
 use SkywalkerLabs\LaravelLivewireTables\Tests\Models\Owner;
 use SkywalkerLabs\LaravelLivewireTables\Tests\Models\Pet;
@@ -89,6 +88,7 @@ class TestCase extends Orchestra
                 ['id' => 4, 'pet_id' => 2, 'veterinary_id' => 3],
             ]);
         }
+
         $this->setupBasicTable();
     }
 
@@ -104,7 +104,6 @@ class TestCase extends Orchestra
         $this->basicTable->bootedWithSecondaryHeader();
         $this->basicTable->booted();
         $this->basicTable->renderingWithPagination($view, []);
-        $this->basicTable->render();
     }
 
     protected function setupBreedsTable()
@@ -119,7 +118,6 @@ class TestCase extends Orchestra
         $this->breedsTable->bootedWithSecondaryHeader();
         $this->breedsTable->booted();
         $this->breedsTable->renderingWithPagination($view, []);
-        $this->breedsTable->render();
     }
 
     protected function setupPetOwnerTable()
@@ -134,7 +132,6 @@ class TestCase extends Orchestra
         $this->petOwnerTable->bootedWithSecondaryHeader();
         $this->petOwnerTable->booted();
         $this->petOwnerTable->renderingWithPagination($view, []);
-        $this->petOwnerTable->render();
     }
 
     protected function setupSpeciesTable()
@@ -149,12 +146,10 @@ class TestCase extends Orchestra
         $this->speciesTable->bootedWithSecondaryHeader();
         $this->speciesTable->booted();
         $this->speciesTable->renderingWithPagination($view, []);
-        $this->speciesTable->render();
     }
 
     protected function setupUnpaginatedTable()
     {
-
         $view = view('livewire-tables::datatable');
         $this->unpaginatedTable = new PetsTableUnpaginated;
         $this->unpaginatedTable->boot();
@@ -165,8 +160,6 @@ class TestCase extends Orchestra
         $this->unpaginatedTable->bootedWithSecondaryHeader();
         $this->unpaginatedTable->booted();
         $this->unpaginatedTable->renderingWithPagination($view, []);
-        $this->unpaginatedTable->render();
-
     }
 
     protected function getPackageProviders($app): array
