@@ -37,7 +37,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         if (! Schema::hasTable('breeds')) {
-            include_once __DIR__.'/../database/migrations/create_test_tables.php.stub';
+            include_once __DIR__.'/../database/migrations/create_test_tables.php';
             (new \CreateTestTables)->up();
 
             Owner::insert([
