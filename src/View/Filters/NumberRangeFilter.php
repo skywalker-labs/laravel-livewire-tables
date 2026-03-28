@@ -15,30 +15,30 @@ class NumberRangeFilter extends Filter
 
     protected string $view = 'livewire-tables::components.tools.filters.number-range';
 
-    protected string $configPath = 'livewire-tables.numberRange.defaultConfig';
+    protected string $configPath = 'livewire-tables.number_range.default_config';
 
     public function options(array $options = []): NumberRangeFilter
     {
-        $this->options = [...config('livewire-tables.numberRange.defaultOptions'), ...$options];
+        $this->options = [...config('livewire-tables.number_range.default_options'), ...$options];
 
         return $this;
     }
 
     public function getOptions(): array
     {
-        return ! empty($this->options) ? $this->options : $this->options = config('livewire-tables.numberRange.defaultOptions');
+        return ! empty($this->options) ? $this->options : $this->options = config('livewire-tables.number_range.default_options');
     }
 
     public function config(array $config = []): NumberRangeFilter
     {
-        $this->config = [...config('livewire-tables.numberRange.defaultConfig'), ...$config];
+        $this->config = [...config('livewire-tables.number_range.default_config'), ...$config];
 
         return $this;
     }
 
     public function getConfigs(): array
     {
-        return ! empty($this->config) ? $this->config : $this->config = config('livewire-tables.numberRange.defaultConfig');
+        return ! empty($this->config) ? $this->config : $this->config = config('livewire-tables.number_range.default_config');
     }
 
     public function validate(array $values): array|bool
@@ -54,10 +54,10 @@ class NumberRangeFilter extends Filter
             $values['max'] = $tmpMin;
         }
 
-        if (! isset($values['min']) || ! is_numeric($values['min']) || $values['min'] < intval($this->getConfig('minRange')) || $values['min'] > intval($this->getConfig('maxRange'))) {
+        if (! isset($values['min']) || ! is_numeric($values['min']) || $values['min'] < intval($this->getConfig('min_range')) || $values['min'] > intval($this->getConfig('max_range'))) {
             return false;
         }
-        if (! isset($values['max']) || ! is_numeric($values['max']) || $values['max'] > intval($this->getConfig('maxRange')) || $values['max'] < intval($this->getConfig('minRange'))) {
+        if (! isset($values['max']) || ! is_numeric($values['max']) || $values['max'] > intval($this->getConfig('max_range')) || $values['max'] < intval($this->getConfig('min_range'))) {
             return false;
         }
 
@@ -73,7 +73,7 @@ class NumberRangeFilter extends Filter
                 return true;
             }
 
-            if (intval($value['min']) == intval($this->getConfig('minRange')) && intval($value['max']) == intval($this->getConfig('maxRange'))) {
+            if (intval($value['min']) == intval($this->getConfig('min_range')) && intval($value['max']) == intval($this->getConfig('max_range'))) {
                 return true;
             }
         }

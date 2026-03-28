@@ -17,11 +17,11 @@ class DateFilter extends Filter
 
     protected string $view = 'livewire-tables::components.tools.filters.date';
 
-    protected string $configPath = 'livewire-tables.dateFilter.defaultConfig';
+    protected string $configPath = 'livewire-tables.date_filter.default_config';
 
     public function validate(string $value): string|bool
     {
-        $this->setInputDateFormat('Y-m-d')->setOutputDateFormat($this->getConfig('pillFormat') ?? 'Y-m-d');
+        $this->setInputDateFormat('Y-m-d')->setOutputDateFormat($this->getConfig('pill_format') ?? 'Y-m-d');
         $carbonDate = $this->createCarbonDate($value);
 
         return ($carbonDate === false) ? false : $carbonDate->format('Y-m-d');

@@ -10,8 +10,8 @@ export function nrf() {
         currentMax: 100,
         hasUpdate: false,
         wireValues: wire.entangle('filterComponents.' + filterKey, false),
-        defaultMin: filterConfig['minRange'],
-        defaultMax: filterConfig['maxRange'],
+        defaultMin: filterConfig['min_range'],
+        defaultMax: filterConfig['max_range'],
         restrictUpdates: false,
         initialiseStyles()
         {

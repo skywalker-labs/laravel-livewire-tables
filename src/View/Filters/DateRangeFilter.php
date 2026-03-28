@@ -19,9 +19,9 @@ class DateRangeFilter extends Filter
 
     protected string $view = 'livewire-tables::components.tools.filters.date-range';
 
-    protected string $configPath = 'livewire-tables.dateRange.defaultConfig';
+    protected string $configPath = 'livewire-tables.date_range.default_config';
 
-    protected string $optionsPath = 'livewire-tables.dateRange.defaultOptions';
+    protected string $optionsPath = 'livewire-tables.date_range.default_options';
 
     public function getKeys(): array
     {
@@ -32,8 +32,8 @@ class DateRangeFilter extends Filter
     {
         $this->getOptions();
         $this->getConfigs();
-        $this->setInputDateFormat($this->getConfig('dateFormat'))->setOutputDateFormat($this->getConfig('ariaDateFormat'));
-        $dateFormat = $this->getConfigs()['dateFormat'];
+        $this->setInputDateFormat($this->getConfig('date_format'))->setOutputDateFormat($this->getConfig('aria_date_format'));
+        $dateFormat = $this->getConfigs()['date_format'];
 
         $returnedValues = $this->populateReturnedValues($values);
 
@@ -72,8 +72,8 @@ class DateRangeFilter extends Filter
 
     protected function setupEarlyLateDates(string $dateFormat): array
     {
-        $earliestDateString = ($this->getConfig('earliestDate') != '') ? $this->getConfig('earliestDate') : null;
-        $latestDateString = ($this->getConfig('latestDate') != '') ? $this->getConfig('latestDate') : null;
+        $earliestDateString = ($this->getConfig('earliest_date') != '') ? $this->getConfig('earliest_date') : null;
+        $latestDateString = ($this->getConfig('latest_date') != '') ? $this->getConfig('latest_date') : null;
         if ($earliestDateString && $latestDateString) {
             $dateLimits = ['earliest' => $earliestDateString, 'latest' => $latestDateString];
             $earlyLateValidator = Validator::make($dateLimits, [

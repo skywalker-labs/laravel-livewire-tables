@@ -1,7 +1,7 @@
 @php
     $filterKey = $filter->getKey();
-    $currentMin = $minRange = $filter->getConfig('minRange');
-    $currentMax = $maxRange = $filter->getConfig('maxRange');
+    $currentMin = $minRange = $filter->getConfig('min_range');
+    $currentMax = $maxRange = $filter->getConfig('max_range');
     $suffix = $filter->hasConfig('suffix') ? '--suffix:"'. $filter->getConfig('suffix') .'";' : '';
     $prefix = $filter->hasConfig('prefix') ? '--prefix:"'.$filter->getConfig('prefix').'";' : '';
 @endphp

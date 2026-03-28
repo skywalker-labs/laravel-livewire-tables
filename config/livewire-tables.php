@@ -43,35 +43,35 @@ return [
     /**
      * Configuration options for DateFilter
      */
-    'dateFilter' => [
-        'defaultConfig' => [
+    'date_filter' => [
+        'default_config' => [
             'format' => 'Y-m-d',
-            'pillFormat' => 'd M Y', // Used to display in the Filter Pills
+            'pill_format' => 'd M Y', // Used to display in the Filter Pills
         ],
     ],
 
     /**
      * Configuration options for DateTimeFilter
      */
-    'dateTimeFilter' => [
-        'defaultConfig' => [
+    'date_time_filter' => [
+        'default_config' => [
             'format' => 'Y-m-d\TH:i',
-            'pillFormat' => 'd M Y - H:i', // Used to display in the Filter Pills
+            'pill_format' => 'd M Y - H:i', // Used to display in the Filter Pills
         ],
     ],
 
     /**
      * Configuration options for DateRangeFilter
      */
-    'dateRange' => [
-        'defaultOptions' => [],
-        'defaultConfig' => [
-            'allowInput' => true,   // Allow manual input of dates
-            'altFormat' => 'F j, Y', // Date format that will be displayed once selected
-            'ariaDateFormat' => 'F j, Y', // An aria-friendly date format
-            'dateFormat' => 'Y-m-d', // Date format that will be received by the filter
-            'earliestDate' => null, // The earliest acceptable date
-            'latestDate' => null, // The latest acceptable date
+    'date_range' => [
+        'default_options' => [],
+        'default_config' => [
+            'allow_input' => true,   // Allow manual input of dates
+            'alt_format' => 'F j, Y', // Date format that will be displayed once selected
+            'aria_date_format' => 'F j, Y', // An aria-friendly date format
+            'date_format' => 'Y-m-d', // Date format that will be received by the filter
+            'earliest_date' => null, // The earliest acceptable date
+            'latest_date' => null, // The latest acceptable date
             'locale' => 'en', // The default locale
         ],
     ],
@@ -79,14 +79,14 @@ return [
     /**
      * Configuration options for NumberRangeFilter
      */
-    'numberRange' => [
-        'defaultOptions' => [
+    'number_range' => [
+        'default_options' => [
             'min' => 0, // The default start value
             'max' => 100, // The default end value
         ],
-        'defaultConfig' => [
-            'minRange' => 0, // The minimum possible value
-            'maxRange' => 100, // The maximum possible value
+        'default_config' => [
+            'min_range' => 0, // The minimum possible value
+            'max_range' => 100, // The maximum possible value
             'suffix' => '', // A suffix to append to the values when displayed
             'prefix' => '', // A prefix to prepend to the values when displayed
         ],
@@ -94,24 +94,24 @@ return [
     /**
      * Configuration options for SelectFilter
      */
-    'selectFilter' => [
-        'defaultOptions' => [],
-        'defaultConfig' => [],
+    'select_filter' => [
+        'default_options' => [],
+        'default_config' => [],
     ],
     /**
      * Configuration options for MultiSelectFilter
      */
-    'multiSelectFilter' => [
-        'defaultOptions' => [],
-        'defaultConfig' => [],
+    'multi_select_filter' => [
+        'default_options' => [],
+        'default_config' => [],
     ],
 
     /**
      * Configuration options for MultiSelectDropdownFilter
      */
-    'multiSelectDropdownFilter' => [
-        'defaultOptions' => [],
-        'defaultConfig' => [],
+    'multi_select_dropdown_filter' => [
+        'default_options' => [],
+        'default_config' => [],
     ],
 
 ];

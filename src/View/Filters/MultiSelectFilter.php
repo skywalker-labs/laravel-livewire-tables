@@ -16,9 +16,9 @@ class MultiSelectFilter extends Filter
 
     protected string $view = 'livewire-tables::components.tools.filters.multi-select';
 
-    protected string $configPath = 'livewire-tables.multiSelectFilter.defaultConfig';
+    protected string $configPath = 'livewire-tables.multi_select_filter.default_config';
 
-    protected string $optionsPath = 'livewire-tables.multiSelectFilter.defaultOptions';
+    protected string $optionsPath = 'livewire-tables.multi_select_filter.default_options';
 
     public function validate(int|string|array $value): array|int|string|bool
     {
