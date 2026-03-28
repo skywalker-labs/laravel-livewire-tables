@@ -58,7 +58,7 @@
                     ])
                     id="{{ $tableName }}-filter-{{ $filter->getKey() }}-wrapper"
                 >
-                    {{ $filter->setGenericDisplayData($this->getFilterGenericData)->render() }}
+                    {{ $filter->setGenericDisplayData($this->getFilterGenericData())->render() }}
                 </div>
             @endforeach
         </div>

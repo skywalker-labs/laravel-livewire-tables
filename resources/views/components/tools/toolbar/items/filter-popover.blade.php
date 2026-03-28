@@ -9,7 +9,7 @@
         x-bind:class="{ 'show': filterPopoverOpen }"
         role="menu"
     >
-        @foreach ($this->getVisibleFilters() as $filter)
+        @foreach ($this->visibleFilters() as $filter)
             <div
                 wire:key="{{ $tableName }}-filter-{{ $filter->getKey() }}-toolbar"
                 @class([
@@ -17,7 +17,7 @@
                 ])
                 id="{{ $tableName }}-filter-{{ $filter->getKey() }}-wrapper"
             >
-                {{ $filter->setGenericDisplayData($this->getFilterGenericData)->render() }}
+                {{ $filter->setGenericDisplayData($this->getFilterGenericData())->render() }}
             </div>
         @endforeach
 
@@ -54,14 +54,14 @@
         aria-orientation="vertical"
         aria-labelledby="filters-menu"
     >
-        @foreach ($this->getVisibleFilters() as $filter)
+        @foreach ($this->visibleFilters() as $filter)
             <div class="py-1" role="none">
                 <div
                     class="block px-4 py-2 text-sm text-gray-700 space-y-1"
                     role="menuitem"
                     id="{{ $tableName }}-filter-{{ $filter->getKey() }}-wrapper"
                 >
-                    {{ $filter->setGenericDisplayData($this->getFilterGenericData)->render() }}
+                    {{ $filter->setGenericDisplayData($this->getFilterGenericData())->render() }}
                 </div>
             </div>
         @endforeach

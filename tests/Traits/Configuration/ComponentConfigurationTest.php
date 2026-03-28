@@ -11,56 +11,56 @@ final class ComponentConfigurationTest extends TestCase
 {
     public function test_initial_wrapper_attributes_get_set(): void
     {
-        $this->assertSame(['id' => 'datatable-'.$this->basicTable->getId()], $this->basicTable->getComponentWrapperAttributes());
+        $this->assertSame(['id' => 'datatable-'.$this->basicTable->getId()], $this->basicTable->componentWrapperAttributes());
 
         $this->basicTable->setComponentWrapperAttributes(['this' => 'that']);
 
-        $this->assertSame($this->basicTable->getComponentWrapperAttributes(), ['this' => 'that']);
+        $this->assertSame($this->basicTable->componentWrapperAttributes(), ['this' => 'that']);
     }
 
     public function test_can_set_table_wrapper_attributes(): void
     {
-        $this->assertSame($this->basicTable->getTableWrapperAttributes(), ['default' => true]);
+        $this->assertSame($this->basicTable->tableWrapperAttributes(), ['default' => true]);
 
         $this->basicTable->setTableWrapperAttributes(['this' => 'that']);
 
-        $this->assertSame($this->basicTable->getTableWrapperAttributes(), ['this' => 'that']);
+        $this->assertSame($this->basicTable->tableWrapperAttributes(), ['this' => 'that']);
     }
 
     public function test_can_set_table_attributes(): void
     {
-        $this->assertSame($this->basicTable->getTableAttributes(), ['id' => 'table-'.$this->basicTable->getTableName(), 'default' => true]);
+        $this->assertSame($this->basicTable->tableAttributes(), ['id' => 'table-'.$this->basicTable->tableName(), 'default' => true]);
 
         $this->basicTable->setTableAttributes(['this' => 'that']);
 
-        $this->assertSame($this->basicTable->getTableAttributes(), ['id' => 'table-'.$this->basicTable->getTableName(), 'this' => 'that']);
+        $this->assertSame($this->basicTable->tableAttributes(), ['id' => 'table-'.$this->basicTable->tableName(), 'this' => 'that']);
     }
 
     public function test_can_override_table_default_id(): void
     {
-        $this->assertSame($this->basicTable->getTableAttributes(), ['id' => 'table-'.$this->basicTable->getTableName(), 'default' => true]);
+        $this->assertSame($this->basicTable->tableAttributes(), ['id' => 'table-'.$this->basicTable->tableName(), 'default' => true]);
 
         $this->basicTable->setTableAttributes(['id' => 'newTableID', 'this' => 'that']);
 
-        $this->assertSame($this->basicTable->getTableAttributes(), ['id' => 'newTableID', 'this' => 'that']);
+        $this->assertSame($this->basicTable->tableAttributes(), ['id' => 'newTableID', 'this' => 'that']);
     }
 
     public function test_can_set_thead_attributes(): void
     {
-        $this->assertSame($this->basicTable->getTheadAttributes(), ['default' => true]);
+        $this->assertSame($this->basicTable->theadAttributes(), ['default' => true]);
 
         $this->basicTable->setTheadAttributes(['this' => 'that']);
 
-        $this->assertSame($this->basicTable->getTheadAttributes(), ['this' => 'that']);
+        $this->assertSame($this->basicTable->theadAttributes(), ['this' => 'that']);
     }
 
     public function test_can_set_tbody_attributes(): void
     {
-        $this->assertSame($this->basicTable->getTbodyAttributes(), ['default' => true]);
+        $this->assertSame($this->basicTable->tbodyAttributes(), ['default' => true]);
 
         $this->basicTable->setTbodyAttributes(['this' => 'that']);
 
-        $this->assertSame($this->basicTable->getTbodyAttributes(), ['this' => 'that']);
+        $this->assertSame($this->basicTable->tbodyAttributes(), ['this' => 'that']);
     }
 
     public function test_can_set_th_attributes(): void
@@ -73,8 +73,8 @@ final class ComponentConfigurationTest extends TestCase
             return ['default' => true, 'here' => 'there'];
         });
 
-        $this->assertSame($this->basicTable->getThAttributes($this->basicTable->columns()[0]), ['default' => false, 'this' => 'that']);
-        $this->assertSame($this->basicTable->getThAttributes($this->basicTable->columns()[1]), ['default' => true, 'here' => 'there']);
+        $this->assertSame($this->basicTable->thAttributes($this->basicTable->columns()[0]), ['default' => false, 'this' => 'that']);
+        $this->assertSame($this->basicTable->thAttributes($this->basicTable->columns()[1]), ['default' => true, 'here' => 'there']);
     }
 
     public function test_can_set_th_sort_button_attributes(): void
@@ -87,8 +87,8 @@ final class ComponentConfigurationTest extends TestCase
             return ['default' => true, 'here' => 'there'];
         });
 
-        $this->assertSame($this->basicTable->getThSortButtonAttributes($this->basicTable->columns()[0]), ['default' => false, 'this' => 'that']);
-        $this->assertSame($this->basicTable->getThSortButtonAttributes($this->basicTable->columns()[1]), ['default' => true, 'here' => 'there']);
+        $this->assertSame($this->basicTable->thSortButtonAttributes($this->basicTable->columns()[0]), ['default' => false, 'this' => 'that']);
+        $this->assertSame($this->basicTable->thSortButtonAttributes($this->basicTable->columns()[1]), ['default' => true, 'here' => 'there']);
     }
 
     public function test_can_set_tr_attributes(): void
@@ -101,8 +101,8 @@ final class ComponentConfigurationTest extends TestCase
             return ['default' => true, 'here' => 'there'];
         });
 
-        $this->assertSame($this->basicTable->getTrAttributes(Pet::find(1), 0), ['default' => false, 'this' => 'that']);
-        $this->assertSame($this->basicTable->getTrAttributes(Pet::find(2), 1), ['default' => true, 'here' => 'there']);
+        $this->assertSame($this->basicTable->trAttributes(Pet::find(1), 0), ['default' => false, 'this' => 'that']);
+        $this->assertSame($this->basicTable->trAttributes(Pet::find(2), 1), ['default' => true, 'here' => 'there']);
     }
 
     public function test_can_set_td_attributes(): void
@@ -115,8 +115,8 @@ final class ComponentConfigurationTest extends TestCase
             return ['default' => true, 'here' => 'there'];
         });
 
-        $this->assertSame($this->basicTable->getTdAttributes($this->basicTable->columns()[1], Pet::find(1), 0, 1), ['default' => true, 'here' => 'there']);
-        $this->assertSame($this->basicTable->getTdAttributes($this->basicTable->columns()[0], Pet::find(2), 1, 1), ['default' => false, 'this' => 'that']);
+        $this->assertSame($this->basicTable->tdAttributes($this->basicTable->columns()[1], Pet::find(1), 0, 1), ['default' => true, 'here' => 'there']);
+        $this->assertSame($this->basicTable->tdAttributes($this->basicTable->columns()[0], Pet::find(2), 1, 1), ['default' => false, 'this' => 'that']);
     }
 
     public function test_can_set_empty_message(): void
@@ -521,7 +521,7 @@ final class ComponentConfigurationTest extends TestCase
         $this->assertTrue($this->basicTable->hasRecordClasses());
 
         $pet = Pet::find(1);
-        $attributes = $this->basicTable->getTrAttributes($pet, 0);
+        $attributes = $this->basicTable->trAttributes($pet, 0);
         $this->assertStringContainsString('bg-blue-100', $attributes['class'] ?? '');
     }
 
@@ -532,7 +532,7 @@ final class ComponentConfigurationTest extends TestCase
         $this->assertTrue($this->basicTable->hasRecordClasses());
 
         $pet = Pet::find(1);
-        $attributes = $this->basicTable->getTrAttributes($pet, 0);
+        $attributes = $this->basicTable->trAttributes($pet, 0);
         $classes = explode(' ', $attributes['class'] ?? '');
         $this->assertContains('bg-blue-100', $classes);
         $this->assertContains('hover:bg-blue-200', $classes);
@@ -547,11 +547,11 @@ final class ComponentConfigurationTest extends TestCase
         $this->assertTrue($this->basicTable->hasRecordClasses());
 
         $pet1 = Pet::find(1);
-        $attributes1 = $this->basicTable->getTrAttributes($pet1, 0);
+        $attributes1 = $this->basicTable->trAttributes($pet1, 0);
         $this->assertStringContainsString('bg-green-100', $attributes1['class'] ?? '');
 
         $pet2 = Pet::find(2);
-        $attributes2 = $this->basicTable->getTrAttributes($pet2, 1);
+        $attributes2 = $this->basicTable->trAttributes($pet2, 1);
         $this->assertStringContainsString('bg-red-100', $attributes2['class'] ?? '');
     }
 
@@ -564,7 +564,7 @@ final class ComponentConfigurationTest extends TestCase
         $this->basicTable->recordClasses('new-class');
 
         $pet = Pet::find(1);
-        $attributes = $this->basicTable->getTrAttributes($pet, 0);
+        $attributes = $this->basicTable->trAttributes($pet, 0);
         $this->assertStringContainsString('existing-class', $attributes['class']);
         $this->assertStringContainsString('new-class', $attributes['class']);
         $this->assertSame(1, $attributes['data-id']);

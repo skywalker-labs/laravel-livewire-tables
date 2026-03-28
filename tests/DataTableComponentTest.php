@@ -84,8 +84,8 @@ class DataTableComponentTest extends TestCase
         $table->bootedWithColumnSelect();
         $table->bootedWithSecondaryHeader();
         $table->booted();
+        $view = view('livewire-tables::datatable');
         $table->renderingWithPagination($view, []);
         $table->render();
-
     }
 }

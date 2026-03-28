@@ -135,7 +135,6 @@ trait FilterHelpers
     }
 
     #[On('setFilter')]
-    #[On('set-filter')]
     public function setFilter(string $filterKey, string|array|null $value): void
     {
         $this->appliedFilters[$filterKey] = $this->filterComponents[$filterKey] = $value;
@@ -146,6 +145,12 @@ trait FilterHelpers
             event(new FilterApplied($this->tableName(), $filterKey, $value));
         }
         $this->dispatch('filter-was-set', tableName: $this->tableName(), filterKey: $filterKey, value: $value);
+    }
+
+    #[On('set-filter')]
+    public function setFilterHyphen(string $filterKey, string|array|null $value): void
+    {
+        $this->setFilter($filterKey, $value);
     }
 
     public function selectAllFilterOptions(string $filterKey): void
@@ -166,7 +171,17 @@ trait FilterHelpers
     }
 
     #[On('clearFilters')]
+    public function clearFilters(): void
+    {
+        $this->setFilterDefaults();
+    }
+
     #[On('clear-filters')]
+    public function clearFiltersHyphen(): void
+    {
+        $this->setFilterDefaults();
+    }
+
     public function setFilterDefaults(): void
     {
         foreach ($this->filterCollection() as $filter) {
@@ -328,8 +343,7 @@ trait FilterHelpers
         return ! empty($this->filterGenericData);
     }
 
-    #[Computed(persist: true)]
-    public function filterGenericData(): array
+    public function getFilterGenericData(): array
     {
         if (! $this->hasFilterGenericData()) {
             $this->setFilterGenericData($this->generateFilterGenericData());

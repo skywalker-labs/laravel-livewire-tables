@@ -21,9 +21,9 @@
 
             @if($column->hasFooter() && $column->hasFooterCallback())
                 @if($column->footerCallbackIsFilter())
-                    {{ $column->getFooterFilter($column->getFooterCallback(), $this->getFilterGenericData) }}
+                    {{ $column->getFooterFilter($column->getFooterCallback(), $this->getFilterGenericData()) }}
                 @elseif($column->footerCallbackIsString())
-                    {{ $column->getFooterFilter($this->getFilterByKey($column->getFooterCallback()), $this->getFilterGenericData) }}
+                    {{ $column->getFooterFilter($this->getFilterByKey($column->getFooterCallback()), $this->getFilterGenericData()) }}
                 @else
                     {{ $column->getNewFooterContents($this->getRows) }}
                 @endif

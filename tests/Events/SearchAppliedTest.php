@@ -52,7 +52,7 @@ final class SearchAppliedTest extends TestCase
         $this->basicTable->enableSearchAppliedEvent()->setSearch('test search value')->applySearch();
 
         Event::assertDispatched(SearchApplied::class, function ($event) {
-            return $event->value == 'test search value' && $event->tableName == $this->basicTable->getTableName();
+            return $event->value == 'test search value' && $event->tableName == $this->basicTable->tableName();
         });
     }
 
@@ -69,7 +69,7 @@ final class SearchAppliedTest extends TestCase
         $this->basicTable->enableSearchAppliedEvent()->setSearch('test search value')->applySearch();
 
         Event::assertDispatched(SearchApplied::class, function ($event) {
-            return $event->value == 'test search value' && $event->user->id == '1234' && $event->tableName == $this->basicTable->getTableName();
+            return $event->value == 'test search value' && $event->user->id == '1234' && $event->tableName == $this->basicTable->tableName();
         });
     }
 }

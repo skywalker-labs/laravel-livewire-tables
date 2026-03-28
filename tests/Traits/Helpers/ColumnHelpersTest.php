@@ -297,7 +297,7 @@ final class ColumnHelpersTest extends TestCase
         $this->assertTrue($column->hasSecondaryHeader());
         $this->assertTrue($column->hasSecondaryHeaderCallback());
 
-        $contents = $column->getSecondaryHeaderFilter($this->basicTable->getFilterByKey($column->getSecondaryHeaderCallback()), $this->basicTable->getFilterGenericData());
+        $contents = $column->getSecondaryHeaderFilter($this->basicTable->getFilterByKey($column->getSecondaryHeaderCallback()), $this->basicTable->getgetFilterGenericData());
         // $contents = $column->getSecondaryHeaderFilter($this->basicTable->getFilterByKey('breed'));
         $this->assertStringContainsString('id="table-filter-breed-8-header"', $contents);
     }

@@ -166,7 +166,7 @@ trait ComponentHelpers
     #[Computed]
     public function tableId(): string
     {
-        return $this->getTableAttributes()['id'];
+        return $this->tableAttributes()['id'];
     }
 
     public function isTableNamed(string $name): bool

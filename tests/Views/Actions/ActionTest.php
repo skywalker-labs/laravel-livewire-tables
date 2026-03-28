@@ -217,20 +217,20 @@ final class ActionTest extends TestCase
                 return $items;
             }
         });
-        $this->assertSame(['default-styling' => true, 'default-colors' => true], $petsTable->getActionWrapperAttributes());
+        $this->assertSame(['default-styling' => true, 'default-colors' => true], $petsTable->actionWrapperAttributes());
         $petsTable->setActionWrapperAttributes(['default-styling' => false, 'class' => 'bg-blue-500']);
         $this->assertSame([
             'default-styling' => false,
             'default-colors' => true,
             'class' => 'bg-blue-500',
-        ], $petsTable->getActionWrapperAttributes());
+        ], $petsTable->actionWrapperAttributes());
 
         $petsTable->setActionWrapperAttributes(['default-colors' => false, 'class' => 'bg-red-500']);
         $this->assertSame([
             'default-styling' => true,
             'default-colors' => false,
             'class' => 'bg-red-500',
-        ], $petsTable->getActionWrapperAttributes());
+        ], $petsTable->actionWrapperAttributes());
 
     }
 
@@ -293,7 +293,7 @@ final class ActionTest extends TestCase
         });
         $this->assertTrue($petsTable->hasActions());
 
-        $this->assertSame(1, $petsTable->getActions()->count());
+        $this->assertSame(1, $petsTable->actionList()->count());
 
     }
 

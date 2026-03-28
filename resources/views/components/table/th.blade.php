@@ -3,8 +3,8 @@
 
 @php
     $attributes = $attributes->merge(['wire:key' => $tableName . '-header-col-'.$column->getSlug()]);
-    $customAttributes = $this->getThAttributes($column);
-    $customSortButtonAttributes = $this->getThSortButtonAttributes($column);
+    $customAttributes = $this->thAttributes($column);
+    $customSortButtonAttributes = $this->thSortButtonAttributes($column);
     $direction = $column->hasField() ? $this->getSort($column->getColumnSelectName()) : $this->getSort($column->getSlug()) ?? null ;
 @endphp
 

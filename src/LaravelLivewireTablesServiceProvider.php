@@ -16,9 +16,13 @@ class LaravelLivewireTablesServiceProvider extends ServiceProvider
     {
 
         if (class_exists(AboutCommand::class) && class_exists(InstalledVersions::class)) {
-            AboutCommand::add('SkywalkerLabs Laravel Livewire Tables', [
-                'Version' => InstalledVersions::getPrettyVersion('SkywalkerLabs/laravel-livewire-tables'),
-            ]);
+            try {
+                AboutCommand::add('SkywalkerLabs Laravel Livewire Tables', [
+                    'Version' => InstalledVersions::getPrettyVersion('skywalker-labs/laravel-livewire-tables'),
+                ]);
+            } catch (\OutOfBoundsException $e) {
+                //
+            }
         }
 
         $this->mergeConfigFrom(

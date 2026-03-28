@@ -49,7 +49,7 @@ final class ColumnsSelectedTest extends TestCase
         $this->basicTable->selectAllColumns();
 
         Event::assertDispatched(ColumnsSelected::class, function ($event) {
-            return $event->columns == $this->basicTable->getSelectedColumns() && $event->tableName == $this->basicTable->getTableName();
+            return $event->columns == $this->basicTable->getSelectedColumns() && $event->tableName == $this->basicTable->tableName();
         });
 
     }
@@ -61,7 +61,7 @@ final class ColumnsSelectedTest extends TestCase
         $this->basicTable->deselectAllColumns();
 
         Event::assertDispatched(ColumnsSelected::class, function ($event) {
-            return $event->columns == [] && $event->tableName == $this->basicTable->getTableName();
+            return $event->columns == [] && $event->tableName == $this->basicTable->tableName();
         });
     }
 
@@ -78,7 +78,7 @@ final class ColumnsSelectedTest extends TestCase
         $this->basicTable->deselectAllColumns();
 
         Event::assertDispatched(ColumnsSelected::class, function ($event) {
-            return $event->columns == [] && $event->user->id == '1234' && $event->tableName == $this->basicTable->getTableName();
+            return $event->columns == [] && $event->user->id == '1234' && $event->tableName == $this->basicTable->tableName();
         });
     }
 }

@@ -2,7 +2,7 @@
 @props(['column', 'colIndex'])
 
 @php
-    $customAttributes = $this->getTdAttributes($column, $row, $colIndex, $rowIndex)
+    $customAttributes = $this->tdAttributes($column, $row, $colIndex, $rowIndex)
 @endphp
 
 <td wire:key="{{ $tableName . '-table-td-'.$row->{$primaryKey}.'-'.$column->getSlug() }}"

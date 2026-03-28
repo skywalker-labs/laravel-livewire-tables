@@ -23,7 +23,7 @@ trait HasCustomPosition
     /**
      * Returns the custom position of the footer (header or footer)
      */
-    public function getCustomPosition(): string
+    public function getCustomPosition(): ?string
     {
         return $this->filterPosition;
     }

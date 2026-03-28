@@ -26,20 +26,19 @@ trait ReorderingHelpers
         return $this->getReorderStatus() === false;
     }
 
-    #[Computed]
-    public function currentlyReorderingStatus(): bool
+    public function getCurrentlyReorderingStatus(): bool
     {
         return $this->currentlyReorderingStatus;
     }
 
     public function currentlyReorderingIsEnabled(): bool
     {
-        return $this->currentlyReorderingStatus() === true;
+        return $this->getCurrentlyReorderingStatus() === true;
     }
 
     public function currentlyReorderingIsDisabled(): bool
     {
-        return $this->currentlyReorderingStatus() === false;
+        return $this->getCurrentlyReorderingStatus() === false;
     }
 
     public function getHideReorderColumnUnlessReorderingStatus(): bool

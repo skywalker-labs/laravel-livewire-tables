@@ -2,7 +2,7 @@
 @props(['row', 'rowIndex'])
 
 @php
-    $customAttributes = $this->getTrAttributes($row, $rowIndex);
+    $customAttributes = $this->trAttributes($row, $rowIndex);
 @endphp
 
 @if ($this->collapsingColumnsAreEnabled() && $this->hasCollapsedColumns())

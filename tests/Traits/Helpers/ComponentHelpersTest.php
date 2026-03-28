@@ -61,11 +61,11 @@ final class ComponentHelpersTest extends TestCase
 
     public function test_can_get_table_name(): void
     {
-        $this->assertSame('table', $this->basicTable->getTableName());
+        $this->assertSame('table', $this->basicTable->tableName());
 
         $this->basicTable->setTableName('table2');
 
-        $this->assertSame('table2', $this->basicTable->getTableName());
+        $this->assertSame('table2', $this->basicTable->tableName());
     }
 
     public function test_can_get_page_name(): void
@@ -250,6 +250,6 @@ final class ComponentHelpersTest extends TestCase
 
     public function test_can_get_query_string_alias_and_it_will_be_the_same_as_table_name_by_default(): void
     {
-        $this->assertSame($this->basicTable->getTableName(), $this->basicTable->getQueryStringAlias());
+        $this->assertSame($this->basicTable->tableName(), $this->basicTable->getQueryStringAlias());
     }
 }

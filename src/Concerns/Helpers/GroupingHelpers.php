@@ -42,7 +42,6 @@ trait GroupingHelpers
     }
 
     #[On('toggleGroup')]
-    #[On('toggle-group')]
     public function toggleGroup(string $groupKey): void
     {
         if ($this->isGroupExpanded($groupKey)) {
@@ -50,6 +49,12 @@ trait GroupingHelpers
         } else {
             $this->expandedGroups[] = $groupKey;
         }
+    }
+
+    #[On('toggle-group')]
+    public function toggleGroupHyphen(string $groupKey): void
+    {
+        $this->toggleGroup($groupKey);
     }
 
     /**

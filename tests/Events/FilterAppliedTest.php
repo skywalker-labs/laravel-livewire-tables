@@ -42,7 +42,7 @@ final class FilterAppliedTest extends TestCase
         $this->basicTable->enableFilterAppliedEvent()->setFilter('pet_name_filter', 'test value');
 
         Event::assertDispatched(FilterApplied::class, function ($event) {
-            return $event->value == 'test value' && $event->key = 'pet_name_filter' && $event->tableName == $this->basicTable->getTableName();
+            return $event->value == 'test value' && $event->key = 'pet_name_filter' && $event->tableName == $this->basicTable->tableName();
         });
     }
 
@@ -59,7 +59,7 @@ final class FilterAppliedTest extends TestCase
         $this->basicTable->enableFilterAppliedEvent()->setFilter('pet_name_filter', 'test value');
 
         Event::assertDispatched(FilterApplied::class, function ($event) {
-            return $event->value == 'test value' && $event->user->id == '1234' && $event->key = 'pet_name_filter' && $event->tableName == $this->basicTable->getTableName();
+            return $event->value == 'test value' && $event->user->id == '1234' && $event->key = 'pet_name_filter' && $event->tableName == $this->basicTable->tableName();
         });
     }
 }

@@ -50,10 +50,15 @@ trait SortingHelpers
     }
 
     #[On('setSort')]
-    #[On('set-sort')]
     public function setSort(string $field, string $direction): string
     {
         return $this->sorts[$field] = $direction;
+    }
+
+    #[On('set-sort')]
+    public function setSortHyphen(string $field, string $direction): string
+    {
+        return $this->setSort($field, $direction);
     }
 
     public function hasSorts(): bool
@@ -70,10 +75,15 @@ trait SortingHelpers
      * Clear the sorts array
      */
     #[On('clearSorts')]
-    #[On('clearsorts')]
     public function clearSorts(): void
     {
         $this->sorts = [];
+    }
+
+    #[On('clearsorts')]
+    public function clearSortsLower(): void
+    {
+        $this->clearSorts();
     }
 
     public function clearSort(string $field): void
