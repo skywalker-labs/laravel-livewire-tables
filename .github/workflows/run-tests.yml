@@ -8,6 +8,9 @@ on:
       - '**'        # matches every branch
       - '!master'
 
+permissions:
+  contents: read
+
 jobs:
   test-laravel10:
     runs-on: ${{ matrix.os }}
