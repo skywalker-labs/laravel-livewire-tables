@@ -3,6 +3,7 @@
 namespace SkywalkerLabs\LaravelLivewireTables\Concerns\Helpers;
 
 use Illuminate\Support\Collection;
+use SkywalkerLabs\LaravelLivewireTables\View\Column;
 
 trait SummariesHelpers
 {
@@ -34,7 +35,7 @@ trait SummariesHelpers
     /**
      * Calculate summary for a column
      */
-    public function calculateSummary(\SkywalkerLabs\LaravelLivewireTables\View\Column $column, Collection $rows): mixed
+    public function calculateSummary(Column $column, Collection $rows): mixed
     {
         if (! $column->hasSummary()) {
             return null;
