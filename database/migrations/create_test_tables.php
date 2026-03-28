@@ -25,12 +25,12 @@ class CreateTestTables extends Migration
             $table->foreign('species_id')->references('id')->on('species');
         });
 
-       Schema::create('owners', function (Blueprint $table) {
+        Schema::create('owners', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->date('date_of_birth')->nullable();
         });
-        
+
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
             $table->integer('sort')->default(0);
@@ -45,7 +45,6 @@ class CreateTestTables extends Migration
             $table->foreign('breed_id')->references('id')->on('breeds');
             $table->foreign('owner_id')->references('id')->on('owners');
         });
-
 
         Schema::create('veterinaries', function (Blueprint $table) {
             $table->id();
