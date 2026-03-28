@@ -73,11 +73,11 @@ final class DateTimeFilterTest extends FilterTestCase
     public function test_can_get_filter_configs(): void
     {
 
-        $this->assertSame(['format' => 'Y-m-d\TH:i', 'pillFormat' => 'd M Y - H:i'], self::$filterInstance->getConfigs());
+        $this->assertSame(['format' => 'Y-m-d\TH:i', 'pill_format' => 'd M Y - H:i'], self::$filterInstance->getConfigs());
 
         self::$filterInstance->config(['foo' => 'bar']);
 
-        $this->assertSame(['format' => 'Y-m-d\TH:i', 'pillFormat' => 'd M Y - H:i', 'foo' => 'bar'], self::$filterInstance->getConfigs());
+        $this->assertSame(['format' => 'Y-m-d\TH:i', 'pill_format' => 'd M Y - H:i', 'foo' => 'bar'], self::$filterInstance->getConfigs());
     }
 
     public function test_can_check_if_filter_has_configs(): void
@@ -95,11 +95,11 @@ final class DateTimeFilterTest extends FilterTestCase
     {
         self::$filterInstance->config([]);
 
-        $this->assertSame('d M Y - H:i', self::$filterInstance->getConfig('pillFormat'));
+        $this->assertSame('d M Y - H:i', self::$filterInstance->getConfig('pill_format'));
 
-        self::$filterInstance->config(['pillFormat' => 'd-M-Y - H:i']);
+        self::$filterInstance->config(['pill_format' => 'd-M-Y - H:i']);
 
-        $this->assertSame('d-M-Y - H:i', self::$filterInstance->getConfig('pillFormat'));
+        $this->assertSame('d-M-Y - H:i', self::$filterInstance->getConfig('pill_format'));
 
     }
 

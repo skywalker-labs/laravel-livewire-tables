@@ -68,7 +68,7 @@ final class LinkColumnTest extends TestCase
 
         // Removing every whitespace and line break for the comparison
         $expectedHtml = preg_replace('/\s+/', '', $htmlString->toHtml());
-        $actualHtml = preg_replace('/\s+/', '', $column->getContents($rows->first())->toHtml());
+        $actualHtml = preg_replace(['/\s+/', '/<!--\[if.*?endif\]-->/s'], '', $column->getContents($rows->first())->toHtml());
 
         $this->assertSame($expectedHtml, $actualHtml);
     }

@@ -26,13 +26,13 @@ final class NumberRangeFilterTest extends TestCase
     {
         $filter = NumberRangeFilter::make('Active');
 
-        $defaultConfig = config('livewire-tables.numberRange.defaultConfig');
+        $default_config = config('livewire-tables.number_range.default_config');
 
-        $this->assertSame($defaultConfig, $filter->getConfigs());
+        $this->assertSame($default_config, $filter->getConfigs());
 
         $filter->config(['foo' => 'bar']);
 
-        $this->assertSame(array_merge($defaultConfig, ['foo' => 'bar']), $filter->getConfigs());
+        $this->assertSame(array_merge($default_config, ['foo' => 'bar']), $filter->getConfigs());
     }
 
     public function test_get_a_single_filter_config(): void
@@ -87,12 +87,12 @@ final class NumberRangeFilterTest extends TestCase
         $filter = NumberRangeFilter::make('Active');
         $this->assertFalse($filter->validate(['min' => 10]));
         $this->assertFalse($filter->validate(['min' => 10]));
-        $this->assertSame(['min' => 15, 'max' => 50], $filter->validate(['min' => 15, 'max' => 50]));
+        $this->assertSame(['min' => 15, 'max' => 50], $filter->validate(['min' => '15', 'max' => '50']));
     }
 
     public function test_can_check_validation_rejects_values_over_configmax(): void
     {
-        $filter = NumberRangeFilter::make('Active')->config(['minRange' => '0', 'maxRange' => '100']);
+        $filter = NumberRangeFilter::make('Active')->config(['min_range' => '0', 'max_range' => '100']);
         $this->assertFalse($filter->validate(['min' => '15', 'max' => '5000']));
         $this->assertFalse($filter->validate(['min' => '6', 'max' => '5000']));
         $this->assertSame(['min' => 15, 'max' => 50], $filter->validate(['min' => '15', 'max' => '50']));
@@ -100,7 +100,7 @@ final class NumberRangeFilterTest extends TestCase
 
     public function test_can_check_validation_rejects_values_below_configmax(): void
     {
-        $filter = NumberRangeFilter::make('Active')->config(['minRange' => '0', 'maxRange' => '100']);
+        $filter = NumberRangeFilter::make('Active')->config(['min_range' => '0', 'max_range' => '100']);
         $this->assertFalse($filter->validate(['min' => '-46', 'max' => '50']));
         $this->assertFalse($filter->validate(['min' => '-6', 'max' => '22']));
         $this->assertSame(['min' => 15, 'max' => 50], $filter->validate(['min' => '15', 'max' => '50']));
@@ -108,7 +108,7 @@ final class NumberRangeFilterTest extends TestCase
 
     public function test_can_check_validation_flips_values_min_larger_than_max(): void
     {
-        $filter = NumberRangeFilter::make('Active')->config(['minRange' => '0', 'maxRange' => '100']);
+        $filter = NumberRangeFilter::make('Active')->config(['min_range' => '0', 'max_range' => '100']);
         $this->assertFalse($filter->validate(['min' => '-46', 'max' => '50']));
         $this->assertFalse($filter->validate(['min' => '-6', 'max' => '22']));
         $this->assertSame(['min' => 50, 'max' => 80], $filter->validate(['min' => '80', 'max' => '50']));
@@ -116,7 +116,7 @@ final class NumberRangeFilterTest extends TestCase
 
     public function test_can_check_validation_flips_values_max_smaller_than_min_orderflipped(): void
     {
-        $filter = NumberRangeFilter::make('Active')->config(['minRange' => '0', 'maxRange' => '100']);
+        $filter = NumberRangeFilter::make('Active')->config(['min_range' => '0', 'max_range' => '100']);
         $this->assertFalse($filter->validate(['min' => '146', 'max' => '50']));
         $this->assertFalse($filter->validate(['min' => '-6', 'max' => '22']));
         $this->assertFalse($filter->validate(['min' => '30', 'max' => '-5']));
@@ -127,7 +127,7 @@ final class NumberRangeFilterTest extends TestCase
 
     public function test_can_check_validation_fails_values_empty_string(): void
     {
-        $filter = NumberRangeFilter::make('Active')->config(['minRange' => '0', 'maxRange' => '100']);
+        $filter = NumberRangeFilter::make('Active')->config(['min_range' => '0', 'max_range' => '100']);
         $this->assertFalse($filter->validate(['']));
         $this->assertFalse($filter->validate(['min' => '-6', 'max' => '22']));
         $this->assertSame(['min' => 50, 'max' => 80], $filter->validate(['min' => '80', 'max' => '50']));
@@ -135,7 +135,7 @@ final class NumberRangeFilterTest extends TestCase
 
     public function test_can_check_validation_fails_values_null_values(): void
     {
-        $filter = NumberRangeFilter::make('Active')->config(['minRange' => 0, 'maxRange' => 100]);
+        $filter = NumberRangeFilter::make('Active')->config(['min_range' => 0, 'max_range' => 100]);
         $this->assertFalse($filter->validate(['min' => 22, 'max' => null]));
         $this->assertFalse($filter->validate(['min' => null, 'max' => 22]));
         $this->assertSame(['min' => 0, 'max' => 22], $filter->validate(['min' => '', 'max' => 22]));
@@ -146,7 +146,7 @@ final class NumberRangeFilterTest extends TestCase
 
     public function test_filter_pill_values_can_be_set_for_numberrange(): void
     {
-        $filter = NumberRangeFilter::make('Active')->config(['minRange' => '10', 'maxRange' => '100']);
+        $filter = NumberRangeFilter::make('Active')->config(['min_range' => '10', 'max_range' => '100']);
 
         $this->assertEquals('Min:25, Max:50', $filter->getFilterPillValue(['min' => '25', 'max' => '50']));
         $this->assertEquals('', $filter->getFilterPillValue(['min' => '30', 'max' => '166']));
@@ -156,7 +156,7 @@ final class NumberRangeFilterTest extends TestCase
 
     public function test_can_check_validation_fails_non_numeric_values(): void
     {
-        $filter = NumberRangeFilter::make('Active')->config(['minRange' => '0', 'maxRange' => '100']);
+        $filter = NumberRangeFilter::make('Active')->config(['min_range' => '0', 'max_range' => '100']);
         $this->assertSame(['min' => 0, 'max' => 48], $filter->validate(['min' => 0, 'max' => 48]));
         $this->assertSame(['min' => 0, 'max' => 38], $filter->validate(['min' => 38, 'max' => 'test']));
 
@@ -165,7 +165,7 @@ final class NumberRangeFilterTest extends TestCase
 
     public function test_can_check_validation_rejects_values_fault_configs(): void
     {
-        $filter = NumberRangeFilter::make('Active')->config(['minRange' => 0, 'maxRange' => 100]);
+        $filter = NumberRangeFilter::make('Active')->config(['min_range' => 0, 'max_range' => 100]);
         $this->assertFalse($filter->validate(['min' => -6, 'max' => 2200]));
         $this->assertSame(['min' => 15, 'max' => 50], $filter->validate(['min' => 15, 'max' => 50]));
     }
@@ -174,7 +174,7 @@ final class NumberRangeFilterTest extends TestCase
     {
         $filter = NumberRangeFilter::make('Active');
 
-        $this->assertSame(config('livewire-tables.numberRange.defaultOptions'), $filter->getOptions());
+        $this->assertSame(config('livewire-tables.number_range.default_options'), $filter->getOptions());
 
         $filter->options(['foo' => 'bar']);
         $this->assertSame(['min' => 0, 'max' => 100, 'foo' => 'bar'], $filter->getOptions());

@@ -56,11 +56,11 @@ final class DateFilterTest extends FilterTestCase
     public function test_can_check_if_can_set_pill_format(): void
     {
 
-        $this->assertSame('d M Y', self::$filterInstance->getConfig('pillFormat'));
+        $this->assertSame('d M Y', self::$filterInstance->getConfig('pill_format'));
 
-        self::$filterInstance->config(['pillFormat' => 'd-m-Y']);
+        self::$filterInstance->config(['pill_format' => 'd-m-Y']);
 
-        $this->assertSame('d-m-Y', self::$filterInstance->getConfig('pillFormat'));
+        $this->assertSame('d-m-Y', self::$filterInstance->getConfig('pill_format'));
 
     }
 
@@ -81,12 +81,12 @@ final class DateFilterTest extends FilterTestCase
         self::$filterInstance->config([]);
 
         $this->assertSame(['format' => 'Y-m-d',
-            'pillFormat' => 'd M Y'], self::$filterInstance->getConfigs());
+            'pill_format' => 'd M Y'], self::$filterInstance->getConfigs());
 
         self::$filterInstance->config(['foo' => 'bar']);
 
         $this->assertSame(['format' => 'Y-m-d',
-            'pillFormat' => 'd M Y', 'foo' => 'bar'], self::$filterInstance->getConfigs());
+            'pill_format' => 'd M Y', 'foo' => 'bar'], self::$filterInstance->getConfigs());
     }
 
     public function test_can_check_if_filter_has_configs(): void
