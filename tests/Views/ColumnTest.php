@@ -99,7 +99,7 @@ final class ColumnTest extends TestCase
     public function test_can_get_html_from_html_label_column(): void
     {
         $column = Column::make('Name', 'name')->label(fn () => '<strong>My Label</strong>')->html();
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows();
         $htmlString = new HtmlString('<strong>My Label</strong>');
         $this->assertSame($htmlString->toHtml(), $column->getContents($rows->first())->toHtml());
     }

@@ -16,7 +16,7 @@ final class EdgeCasesTest extends TestCase
         $this->basicTable->setSearch('nonexistent_pet_name_xyz');
         $this->basicTable->applySearch();
 
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows();
         $this->assertSame(0, $rows->count());
         $this->assertSame([], $this->basicTable->paginationCurrentItems);
         $this->assertSame(0, $this->basicTable->paginationCurrentCount);
@@ -103,7 +103,7 @@ final class EdgeCasesTest extends TestCase
         $this->basicTable->setSearch('nonexistent_pet_name_xyz');
         $this->basicTable->applySearch();
 
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows();
         // Should not throw exception when plucking from empty collection
         $this->assertSame([], $this->basicTable->paginationCurrentItems);
     }
@@ -146,7 +146,7 @@ final class EdgeCasesTest extends TestCase
         $method->setAccessible(true);
         $method->invoke($this->basicTable, 'invalid_method');
 
-        $this->basicTable->getRows();
+        $this->basicTable->rows();
     }
 
     public function test_simple_pagination_without_total_count(): void
@@ -154,7 +154,7 @@ final class EdgeCasesTest extends TestCase
         $this->basicTable->setPaginationMethod('simple');
         $this->basicTable->setShouldRetrieveTotalItemCountDisabled();
 
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows();
         $this->assertInstanceOf(Paginator::class, $rows);
         $this->assertSame(-1, $this->basicTable->paginationTotalItemCount);
     }
@@ -163,7 +163,7 @@ final class EdgeCasesTest extends TestCase
     {
         $this->basicTable->setPaginationMethod('cursor');
 
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows();
         $this->assertInstanceOf(CursorPaginator::class, $rows);
     }
 
@@ -252,7 +252,7 @@ final class EdgeCasesTest extends TestCase
     public function test_pagination_current_items_with_different_primary_key_types(): void
     {
         // Test that pluck works with different primary key types
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows();
 
         // Should have array of primary keys
         $this->assertIsArray($this->basicTable->paginationCurrentItems);
@@ -293,7 +293,7 @@ final class EdgeCasesTest extends TestCase
         // Use the actual selectedColumns property
         $this->basicTable->selectedColumns = ['id', 'name'];
 
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows();
 
         // Should only select specified columns
         $this->assertIsIterable($rows);

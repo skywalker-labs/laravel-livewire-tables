@@ -11,7 +11,7 @@ final class WithSearchTest extends TestCase
         $this->basicTable->setSearch('Cartman');
         $this->basicTable->applySearch();
 
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows();
         $this->assertGreaterThan(0, $rows->count());
         $this->assertTrue($rows->first()->name === 'Cartman');
     }
@@ -21,7 +21,7 @@ final class WithSearchTest extends TestCase
         $this->basicTable->setSearch('Norwegian');
         $this->basicTable->applySearch();
 
-        $rows = $this->basicTable->getRows();
+        $rows = $this->basicTable->rows();
         // Search callback should be applied - check that query was modified
         $sql = $this->basicTable->getBuilder()->toSql();
         $this->assertStringContainsStringIgnoringCase('breed.name', $sql);
