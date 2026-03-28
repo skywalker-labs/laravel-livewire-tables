@@ -72,7 +72,7 @@ trait GroupingHelpers
         }
 
         return $rows->groupBy(function ($row) use ($column) {
-            return $column->getContents($row);
+            return (string) $column->getContents($row);
         });
     }
 }

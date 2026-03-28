@@ -34,7 +34,7 @@ trait SummariesHelpers
     /**
      * Calculate summary for a column
      */
-    public function calculateSummary($column, Collection $rows)
+    public function calculateSummary(\SkywalkerLabs\LaravelLivewireTables\View\Column $column, Collection $rows): mixed
     {
         if (! $column->hasSummary()) {
             return null;

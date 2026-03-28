@@ -55,7 +55,7 @@ trait HasSummary
     /**
      * Calculate the summary value for this column
      */
-    public function calculateSummary(Collection $rows)
+    public function calculateSummary(Collection $rows): mixed
     {
         if (! $this->hasSummary()) {
             return null;

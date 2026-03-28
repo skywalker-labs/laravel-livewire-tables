@@ -28,6 +28,16 @@ use SkywalkerLabs\LaravelLivewireTables\Concerns\HasAllTraits;
  * @method void configure() Set component configuration
  * @method \Illuminate\Database\Eloquent\Builder builder() Define the query builder
  * @method array columns() Define table columns
+ *
+ * @property-read \Illuminate\Support\Collection $visibleFilters
+ * @property-read array $appliedFiltersWithValues
+ * @property-read int $filterBadgeCount
+ * @property-read \Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Pagination\Paginator|\Illuminate\Pagination\CursorPaginator|\Illuminate\Support\Collection $rows
+ * @property-read string $computedPageName
+ * @property-read array $perPageFieldAttributes
+ * @property-read bool $shouldRetrieveTotalItemCount
+ * @property-read bool $showSortPillsSection
+ * @property-read bool $showFilterPillsSection
  */
 abstract class DataTableComponent extends Component
 {

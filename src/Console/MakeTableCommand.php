@@ -8,10 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Livewire\Features\SupportConsoleCommands\Commands\ComponentParser;
-use Livewire\Features\SupportConsoleCommands\Commands\MakeCommand as LivewireMakeCommand;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 
 use function Laravel\Prompts\suggest;
@@ -22,7 +18,6 @@ use function Laravel\Prompts\text;
  */
 class MakeTableCommand extends Command implements PromptsForMissingInput
 {
-    protected ComponentParser $parser;
 
     /**
      * @var string
@@ -57,15 +52,9 @@ class MakeTableCommand extends Command implements PromptsForMissingInput
      */
     public function handle(): void
     {
-        $this->parser = new ComponentParser(
-            config('livewire.class_namespace'),
-            config('livewire.view_path'),
-            $this->argument('name')
-        );
+        $name = $this->argument('name');
 
-        $livewireMakeCommand = new LivewireMakeCommand;
-
-        if ($livewireMakeCommand->isReservedClassName($name = $this->parser->className())) {
+        if ($this->isReservedClassName($name)) {
             $this->line("<fg=red;options=bold>Class is reserved:</> {$name}");
 
             return;
@@ -76,24 +65,42 @@ class MakeTableCommand extends Command implements PromptsForMissingInput
 
         $force = $this->option('force');
 
-        $this->createClass($force);
+        $classPath = $this->createClass($force);
 
-        $this->info('Livewire Datatable Created: '.$this->parser->className());
+        if ($classPath) {
+            $this->info('Livewire Datatable Created: '.basename((string) $classPath, '.php'));
+        }
     }
 
-    protected function createClass(bool $force = false): bool
+    protected function isReservedClassName(string $name): bool
     {
-        $classPath = $this->parser->classPath();
+        return in_array(strtolower($name), ['parent', 'self', 'static', 'class', 'interface', 'trait', 'void', 'never', 'mixed', 'null', 'true', 'false']);
+    }
+
+    protected function createClass(bool $force = false): string|bool
+    {
+        $name = $this->argument('name');
+        $segments = explode('.', $name);
+        $className = Str::studly(array_pop($segments));
+        $subNamespace = implode('\\', array_map([Str::class, 'studly'], $segments));
+        $namespace = config('livewire.class_namespace', 'App\\Livewire').($subNamespace ? '\\'.$subNamespace : '');
+
+        $classPathArr = explode('\\', $namespace);
+        if ($classPathArr[0] === 'App') {
+            $classPathArr[0] = 'app';
+        }
+        $classPath = implode('/', $classPathArr).'/'.$className.'.php';
+        $classPath = base_path($classPath);
 
         if (! $force && File::exists($classPath)) {
-            $this->line("<fg=red;options=bold>Class already exists:</> {$this->parser->relativeClassPath()}");
+            $this->line("<fg=red;options=bold>Class already exists:</> {$classPath}");
 
             return false;
         }
 
         $this->ensureDirectoryExists($classPath);
 
-        File::put($classPath, $this->classContents());
+        File::put($classPath, $this->classContents($namespace, $className));
 
         return $classPath;
     }
@@ -105,11 +112,11 @@ class MakeTableCommand extends Command implements PromptsForMissingInput
         }
     }
 
-    public function classContents(): string
+    public function classContents(string $namespace, string $class): string
     {
         return str_replace(
             ['[namespace]', '[class]', '[model]', '[model_import]', '[columns]'],
-            [$this->parser->classNamespace(), $this->parser->className(), $this->model, $this->getModelImport(), $this->generateColumns($this->getModelImport())],
+            [$namespace, $class, $this->model, $this->getModelImport(), $this->generateColumns($this->getModelImport())],
             file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'table.stub')
         );
     }
@@ -224,7 +231,7 @@ class MakeTableCommand extends Command implements PromptsForMissingInput
             ->all();
     }
 
-    protected function promptForMissingArguments(InputInterface $input, OutputInterface $output): void
+    protected function promptForMissingArguments(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output): void
     {
 
         if ($this->didReceiveOptions($input)) {

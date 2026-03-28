@@ -16,7 +16,7 @@ class DebuggableData
     public function toArray(): array
     {
         return [
-            'query' => (clone $this->component->builder)->toSql(),
+            'query' => (clone $this->component->getBuilder())->toSql(),
             'filters' => $this->component->getAppliedFilters(),
             'sorts' => $this->component->getSorts(),
             'search' => $this->component->getSearch(),
