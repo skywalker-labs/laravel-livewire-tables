@@ -8,6 +8,10 @@ use Closure;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Pagination\CursorPaginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use SkywalkerLabs\LaravelLivewireTables\Concerns\HasAllTraits;
@@ -29,10 +33,10 @@ use SkywalkerLabs\LaravelLivewireTables\Concerns\HasAllTraits;
  * @method \Illuminate\Database\Eloquent\Builder builder() Define the query builder
  * @method array columns() Define table columns
  *
- * @property-read \Illuminate\Support\Collection $visibleFilters
+ * @property-read Collection $visibleFilters
  * @property-read array $appliedFiltersWithValues
  * @property-read int $filterBadgeCount
- * @property-read \Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Pagination\Paginator|\Illuminate\Pagination\CursorPaginator|\Illuminate\Support\Collection $rows
+ * @property-read LengthAwarePaginator|Paginator|CursorPaginator|Collection $rows
  * @property-read string $computedPageName
  * @property-read array $perPageFieldAttributes
  * @property-read bool $shouldRetrieveTotalItemCount

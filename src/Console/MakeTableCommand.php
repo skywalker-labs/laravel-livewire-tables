@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 
 use function Laravel\Prompts\suggest;
@@ -18,7 +20,6 @@ use function Laravel\Prompts\text;
  */
 class MakeTableCommand extends Command implements PromptsForMissingInput
 {
-
     /**
      * @var string
      */
@@ -231,7 +232,7 @@ class MakeTableCommand extends Command implements PromptsForMissingInput
             ->all();
     }
 
-    protected function promptForMissingArguments(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output): void
+    protected function promptForMissingArguments(InputInterface $input, OutputInterface $output): void
     {
 
         if ($this->didReceiveOptions($input)) {
